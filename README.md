@@ -1,54 +1,154 @@
-# TESTE DE BACK-END
-O teste de back-end da Be mobile consiste em estruturar uma API RESTful e um banco de dados ligado a esta API. Trate-se de um sistema que permite cadastrar usuários externamente e, ao realizarem login, poderão registrar clientes, produtos e vendas. O(a) candidato(a) poderá escolher desenvolver em Node.js (Adonis, Koa ou Express) ou PHP (Laravel).
+# Bemobile API backend-test
 
-# Banco de dados
-O banco de dados deve ser estruturado à escolha do(a) candidato(a), mas minimamente deverá conter o seguinte:
-- usuários: email, senha;
-- clientes: nome, cpf, endereço completo, telefones;
-- produtos: escolher um único tipo de produto (ex: carros, livros, jogos, etc.) e colocar os dados necessários para o tipo. Independentemente do tipo escolhido, o produto também deve ter nome e preço;
-- vendas: cliente, produto, quantidade, preço unitário, preço total, data e hora.
+	API RESTful ligada a um Banco de dados utilizando esta API. Trate-se de um sistema que permite cadastrar usuários externamente e, ao realizarem login, registrar clientes, produtos(carros) e vendas.
+--------------------------------------------------------------------------------
 
-# Rotas do sistema
-- cadastro de usuário do sistema (signup)
-- login com JWT de usuário cadastrado (login)
-- clientes:
-    - listar todos os clientes cadastrados (index)
-        - apenas dados principais devem vir aqui;
-        - ordenar pelo id.
-    - detalhar um(a) cliente e vendas a ele(a) (show)
-        - trazer as vendas mais recentes primeiro;
-        - possibilidade de filtrar as vendas por mês + ano.
-    - adicionar um(a) cliente (store)
-    - editar um(a) cliente (update)
-    - excluir um(a) cliente e vendas a ele(a) (delete)
-- produtos:
-    - listar todos os produtos cadastrados (index)
-        - apenas dados principais aparecem aqui;
-        - ordenar alfabeticamente.
-    - detalhar um produto (show)
-    - criar um produto (store)
-    - editar um produto (update)
-    - exclusão lógica ("soft delete") de um produto (delete)
-- vendas:
-    - registrar venda de 1 produto a 1 cliente (store)
+## Banco de dados
 
-Obs: as rotas em clientes, produtos e vendas só podem ser acessadas por usuário logado.
+Como a API está integrada a um banco de dados MYSQL deve-se verificar os parametros de integração com o banco no arquivo ".env", verificar o servidor local, porta do banco de dados usuário e senha a fim de que API tenha acesso ao banco de dados. A API espera que no banco exista uma DATABASE chamada "bemobile" caso não haja basta criar ou mudar no nome da DATABASE no arquivo ".env".
+Configurar os parametros abaixo no arquivo ".env" para permitir a integração com o banco:
 
-# Requisitos
-- estruturar o sistema observando o MVC (mas sem as views);
-- deve usar mySQL no banco de dados;
-- as respostas devem ser em JSON;
-- pode usar recursos / bibliotecas que auxiliam na administração do banco de dados (Eloquent, Lucid, Knex, Bookshelf, etc.);
-- documentar as instruções necessárias em um README para o avaliador testar o sistema;
-- fazer um pull request para este repositório ao finalizar.
+DB_CONNECTION=mysql
+DB_HOST=127.0.0.1
+DB_PORT=3306
+DB_USER=root
+DB_PASSWORD=admin
+DB_DATABASE=bemobile
 
-Obs: caso o(a) candidato(a) não consiga completar o teste até o prazo combinado com o avaliador, deve garantir que tudo que foi efetivamente feito esteja em pleno funcionamento. Relatar no README quais foram as dificuldades encontradas.
+--------------------------------------------------------------------------------
 
-# Pontos de avaliação
-- lógica;
-- organização;
-- legibilidade;
-- validação dos dados;
-- forma de utilização dos recursos;
-- seguimento dos padrões especificados;
-- documentação.
+### Start
+Após configurar o arquivo env, basta executar o comando "npm start" que será executado as migrations e irá executar o servidor na porta 3333.
+
+ npm start
+
+--------------------------------------------------------------------------------
+
+#### Consumo da API
+Na pasta do projeto existe um arquivo chamado "RotasAPI.json" que pode ser importado no insomina ou postman, caso importe o arquivo todas as rotas e o json esperado durante a criação já está configurado sendo necessário apenas passar os dados para criação.
+
+As rotas para clientes, produtos, login, vendas estão descritas abaixo juntamente com o JSON necessário.
+
+Apenas a rota de login e de signup não precisam de token todas as outras o token gerado na rota de login deve ser passado no Bearer do API Client para acessar as rotas.
+
+--------------------------------------------------------------------------------
+
+##### Rotas
+Rotas para Login:
+	Método: POST
+	URL: http://127.0.0.1:3333/signup
+	JSON esperado:
+	{
+		"username": "testeXXX",
+		"email": "teste@gmail.com",
+		"password": "123456"
+	} 
+
+	Método: POST
+	URL: http://127.0.0.1:3333/login
+	JSON esperado:
+	{
+		"email": "teste@gmail.com",
+		"password": "123456"
+	}	 
+
+--------------------------------------------------------------------------------
+Rotas Product(Car):
+	Método: GET
+	URL: http://127.0.0.1:3333/car/index
+
+	Método: GET
+	URL: http://127.0.0.1:3333/car/show/:id
+	** Necessário informar o ID do produto na rota **
+
+	Método: POST
+	URL: http://127.0.0.1:3333/car/store
+	JSON esperado:
+	{
+		"title": "Celta verde",
+		"description": "celta basicão, ano 2013", 
+		"color":"Branco",
+		"fuel_type":"Gasolina",
+		"brand": "Chevrolet",
+		"model": "celta",
+		"features":"direção hidraulica, vidro eletrico, trava eletrica, alarme",
+		"transmission": " 5 marchas",
+		"price": 12.350, 
+		"mileage": 153553
+	}
+
+	Método: PUT
+	URL: http://127.0.0.1:3333/car/update/:id
+	JSON esperado:
+	{
+		"title": "Celta Amarlo",
+		"description": "celta basicão, ano 2013", 
+		"color":"Branco",
+		"fuel_type":"Gasolina",
+		"brand": "Chevrolet",
+		"model": "celta",
+		"features":"direção hidraulica, vidro eletrico, trava eletrica, alarme",
+		"transmission": " 5 machas",
+		"price": 10350, 
+		"mileage": 333553
+	}
+	** Necessário informar o ID na rota para realizar o update **
+	** Somente o usuário que cadastrou pode realizar o update **
+
+	Método: DELETE
+	URL: http://127.0.0.1:3333/car/delete/:id
+	** Necessário informar o ID na rota para realizar o delete **
+	** Somente o usuário que cadastrou pode realizar o delete **
+
+--------------------------------------------------------------------------------
+
+Rotas para cliente(Customer):
+	Método: GET
+	URL: http://127.0.0.1:3333/customer/index
+
+	Método: GET
+	URL:http://127.0.0.1:3333/customer/show/:id
+	** Necessário informar o ID do do cliente(customer) na rota **
+
+	Método: POST
+	URL: http://127.0.0.1:3333/customer/store
+	JSON esperado:
+	{
+		"name": "teste",
+		"adress": "Quadra 47 rua 123", 
+		"cpf":"99999999",
+		"phone": 61996696,
+		"cell_phone": "619999666"
+	}
+
+	Método: PUT
+	URL: http://127.0.0.1:3333/customer/update/:id
+	JSON esperado:
+	{
+		"name": "TTT",
+		"adress": "Quadra 55 rua oliveira", 
+		"cpf":"1285883321",
+		"phone": "614488112",
+		"cell_phone": "6125553321"
+	}
+	** Necessário informar o ID na rota para realizar o update **
+	
+
+	Método: DELETE
+	URL: http://127.0.0.1:3333/customer/delete/:id
+	** Necessário informar o ID na rota para realizar o delete **
+	** Somente o usuário que cadastrou pode realizar o delete **
+--------------------------------------------------------------------------------
+
+Rota para venda:
+	Método: POST
+		URL: http://127.0.0.1:3333/sale/store
+		JSON esperado:
+		{
+			"customer_id": 3,
+			"car_id": 2
+		}
+	** Necessário passar o ID do cliente e o ID do carro no body **
+
+
+/* Desde já agradeço a oportunidade de participar desse processo seletivo, até aqui foi de grande valia todas as etapas para minha carreira e para minha vida pessoal, e foi um enorme aprendizado poder realizar esse desafio, foi desafiador e estimulante, não consegui entregar 100% pois ficou faltando a parte de pesquisa através do filtro, mas sinto que fiz o meu melhor até aqui e mais uma vez obrigado pela oportunidade...*/ 

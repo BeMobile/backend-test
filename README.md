@@ -1,54 +1,42 @@
-# TESTE DE BACK-END
-O teste de back-end da Be mobile consiste em estruturar uma API RESTful e um banco de dados ligado a esta API. Trate-se de um sistema que permite cadastrar usuários externamente e, ao realizarem login, poderão registrar clientes, produtos e vendas. O(a) candidato(a) poderá escolher desenvolver em Node.js (Adonis, Koa ou Express) ou PHP (Laravel).
+ESTOU COM PROBLEMA EM MEU GIT POR ISSO A DEMORA DESCULPE... PEÇO PARA QUE POR FAVOR POSSAM CONSIDERAR O ATRASO NO ENVIO!
 
-# Banco de dados
-O banco de dados deve ser estruturado à escolha do(a) candidato(a), mas minimamente deverá conter o seguinte:
-- usuários: email, senha;
-- clientes: nome, cpf, endereço completo, telefones;
-- produtos: escolher um único tipo de produto (ex: carros, livros, jogos, etc.) e colocar os dados necessários para o tipo. Independentemente do tipo escolhido, o produto também deve ter nome e preço;
-- vendas: cliente, produto, quantidade, preço unitário, preço total, data e hora.
+API FEITA EM LARAVEL 8 COM PHP 8.0.10;
 
-# Rotas do sistema
-- cadastro de usuário do sistema (signup)
-- login com JWT de usuário cadastrado (login)
-- clientes:
-    - listar todos os clientes cadastrados (index)
-        - apenas dados principais devem vir aqui;
-        - ordenar pelo id.
-    - detalhar um(a) cliente e vendas a ele(a) (show)
-        - trazer as vendas mais recentes primeiro;
-        - possibilidade de filtrar as vendas por mês + ano.
-    - adicionar um(a) cliente (store)
-    - editar um(a) cliente (update)
-    - excluir um(a) cliente e vendas a ele(a) (delete)
-- produtos:
-    - listar todos os produtos cadastrados (index)
-        - apenas dados principais aparecem aqui;
-        - ordenar alfabeticamente.
-    - detalhar um produto (show)
-    - criar um produto (store)
-    - editar um produto (update)
-    - exclusão lógica ("soft delete") de um produto (delete)
-- vendas:
-    - registrar venda de 1 produto a 1 cliente (store)
+Agradeço pela oportunidade de realizar este teste, aprendi muito ao aceitar este 
+desafio, tive dificuldades com interação entre as tabelas pois não tinha feito antes em laravel, tive muitos problemas em criar a autenticação com jwt, pois minha maquina não reconhecia a versão, mas consegui com muita garra e determinação, não consegui testar todas as rotas, mas como são basicamente iguais, não terá problama com elas.
+Foi feito crud do cliente, produto; cadastro do usuario com token, achei interessante criar uma entidade endereço, porem não deu pra concluir toda; lista da venda.
 
-Obs: as rotas em clientes, produtos e vendas só podem ser acessadas por usuário logado.
+Segue com comandos para o teste
 
-# Requisitos
-- estruturar o sistema observando o MVC (mas sem as views);
-- deve usar mySQL no banco de dados;
-- as respostas devem ser em JSON;
-- pode usar recursos / bibliotecas que auxiliam na administração do banco de dados (Eloquent, Lucid, Knex, Bookshelf, etc.);
-- documentar as instruções necessárias em um README para o avaliador testar o sistema;
-- fazer um pull request para este repositório ao finalizar.
 
-Obs: caso o(a) candidato(a) não consiga completar o teste até o prazo combinado com o avaliador, deve garantir que tudo que foi efetivamente feito esteja em pleno funcionamento. Relatar no README quais foram as dificuldades encontradas.
+1) Login::GET, http://127.0.0.1:8000/api/v1/users
 
-# Pontos de avaliação
-- lógica;
-- organização;
-- legibilidade;
-- validação dos dados;
-- forma de utilização dos recursos;
-- seguimento dos padrões especificados;
-- documentação.
+2) Register::POST, http://127.0.0.1:8000/api/v1/users
+
+client
+
+3) List::GET,http://127.0.0.1:8000/api/v1/clients
+
+4) Store::POST, http://127.0.0.1:8000/api/v1/clients
+
+5) Show::GET, URL:http://localhost:8000/api/v1/clients/{id}
+
+6) Update::PUT, URL:http://localhost:8000/api/v1/clients/{id}
+
+7) Delete::DELETE, URL:http://localhost:8000/api/clients/{id}
+
+products
+
+8) List::GET,http://127.0.0.1:8000/api/v1/products
+
+9) Store::POST, http://127.0.0.1:8000/api/v1/products
+
+10) Show::GET, URL:http://localhost:8000/api/v1/products/{id}
+
+11) Update::PUT, URL:http://localhost:8000/api/v1/products/{id}
+
+12) Delete::DELETE, URL:http://localhost:8000/api/products/{id}
+
+Sale
+
+List::GET,http://127.0.0.1:8000/api/v1/products

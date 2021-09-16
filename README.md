@@ -43,8 +43,8 @@ As tecnologias utilizadas para construção foram:
 ## Executando a API
 
 ```
-# Dando Pull na Branch
-$ git pull luiz-felipe-pacifico
+# Clonando o repositório
+$ git clone https://github.com/santista90/backend-test.git
 
 # Instale as dependências
 $ npm install

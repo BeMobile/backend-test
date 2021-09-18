@@ -1,6 +1,4 @@
-ESTOU COM PROBLEMA EM MEU GIT POR ISSO A DEMORA DESCULPE... PEÇO PARA QUE POR FAVOR POSSAM CONSIDERAR O ATRASO NO ENVIO!
 
-API FEITA EM LARAVEL 8 COM PHP 8.0.10;
 
 Agradeço pela oportunidade de realizar este teste, aprendi muito ao aceitar este 
 desafio, tive dificuldades com interação entre as tabelas pois não tinha feito antes em laravel, tive muitos problemas em criar a autenticação com jwt, pois minha maquina não reconhecia a versão, mas consegui com muita garra e determinação, não consegui testar todas as rotas, mas como são basicamente iguais, não terá problama com elas.

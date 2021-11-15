@@ -4,7 +4,9 @@
   "description": "O teste de back-end da Be mobile consiste em estruturar uma API RESTful e um banco de dados ligado a esta API. Trate-se de um sistema que permite cadastrar usuários externamente e, ao realizarem login, poderão registrar clientes, produtos e vendas. O(a) candidato(a) poderá escolher desenvolver em Node.js (Adonis, Koa ou Express) ou PHP (Laravel).",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "ts-node ./src/index.ts",
+    "migrations": "ts-node ./src/data/CreateTables.ts"
   },
   "repository": {
     "type": "git",
@@ -35,6 +37,7 @@
     "knex": "^0.95.14",
     "migration": "^0.3.0",
     "mysql": "^2.18.1",
+    "ts-node": "^10.4.0",
     "typescript": "^4.4.4",
     "uuid": "^8.3.2"
   }

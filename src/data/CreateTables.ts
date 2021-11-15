@@ -38,7 +38,7 @@ export class CreateTables extends BaseDatabase{
                 preco VARCHAR(255)
             );
             
-            CREATE TABLE IF NOT EXISTS doghero_wallking(
+            CREATE TABLE IF NOT EXISTS vendas_table(
                 id VARCHAR(255) PRIMARY KEY,
                 quantidade INT NOT NULL,
                 preco_unid FLOAT NOT NULL,

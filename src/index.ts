@@ -2,6 +2,7 @@ import dotenv from 'dotenv';
 import express from 'express';
 import { AddressInfo } from 'net';
 import { userRouter } from './routes/userRouter'
+import { Authenticator } from './services/Authenticator';
 
 dotenv.config();
 

@@ -22,6 +22,8 @@ export class User{
         return this.senha;
     }
 
+    
+
 
     static toUserModel(user: any): User {
         return new User(user.id, user.nome, user.email, user.senha);
@@ -30,10 +32,10 @@ export class User{
 
 }
 
-export interface UserInputDTO{
+export interface SignupInputDTO{
+    nome: string;
     email: string;
     senha: string;
-    nome: string;
 }
 
 export interface LoginInputDTO{
@@ -41,6 +43,3 @@ export interface LoginInputDTO{
     senha: string;
 }
 
-export interface AuthenticationData{
-    id: string
-}

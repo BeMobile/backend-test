@@ -1,8 +1,8 @@
 import dotenv from 'dotenv';
 import express from 'express';
 import { AddressInfo } from 'net';
-import { userRouter } from './routes/userRouter'
-import { Authenticator } from './services/Authenticator';
+import { userRouter } from './routes/userRouter';
+import { clientRouter } from './routes/clientRouter';
 
 dotenv.config();
 
@@ -12,7 +12,9 @@ app.use(express.json());
 
 app.use("/user", userRouter);
 
-const { PORT = 3003} = process.env
+app.use("/client", clientRouter);
+
+const { PORT = 3003} = process.env;
 
 const server = app.listen(PORT, () => {
     if (server) {

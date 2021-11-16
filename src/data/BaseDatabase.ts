@@ -7,7 +7,8 @@ dotenv.config();
 export abstract class BaseDatabase {
 
     protected TABLE_NAME: any = {
-        USUARIOS: "usuario_table"
+        USUARIOS: "usuario_table",
+        CLIENTES: "cliente_table"
     }
 
     private static connection: Knex | null = null;

@@ -1,5 +1,3 @@
-import { idText } from "typescript";
-
 export class User{
     constructor(
     private id: string,

@@ -19,7 +19,7 @@ export class CreateTables extends BaseDatabase{
                 telefone VARCHAR(255) UNIQUE NOT NULL,
                 email VARCHAR(255) UNIQUE NOT NULL,
                 logradouro VARCHAR(255) NOT NULL,
-                numero VARCHAR(255) NOT NULL,
+                numero INT NOT NULL,
                 complemento VARCHAR(255),
                 bairro VARCHAR(255) NOT NULL,
                 cep VARCHAR(255) NOT NULL,
@@ -35,14 +35,14 @@ export class CreateTables extends BaseDatabase{
                 ano_publicacao VARCHAR(255) UNIQUE NOT NULL,
                 autores VARCHAR(255) NOT NULL,
                 assunto VARCHAR(255) NOT NULL,
-                preco VARCHAR(255)
+                preco FLOAT NOT NULL
             );
             
             CREATE TABLE IF NOT EXISTS vendas_table(
                 id VARCHAR(255) PRIMARY KEY,
                 quantidade INT NOT NULL,
                 preco_unid FLOAT NOT NULL,
-                preco_total FLOAT,
+                preco_total FLOAT NOT NULL,
                 data DATE NOT NULL,
                 id_cliente VARCHAR(255) NOT NULL,
                 id_produto VARCHAR(255) NOT NULL,

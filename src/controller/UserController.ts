@@ -1,6 +1,8 @@
-import { SignupInputDTO } from './../model/User';
+import { SignupInputDTO, LoginInputDTO } from './../model/User';
 import { Request, Response } from "express"
 import { UserBusiness } from '../business/UserBusiness';
+
+const userBusiness = new UserBusiness();
 
 export class UserController {
 
@@ -15,7 +17,6 @@ export class UserController {
                 senha: req.body.senha
             }
 
-            const userBusiness = new UserBusiness();
             const token = await userBusiness.signup(input);
 
             res.status(201).send({ 
@@ -25,6 +26,24 @@ export class UserController {
 
         } catch (error) {
             res.status(400).send({ error: error.message })
+        }
+    }
+
+    async login (req: Request, res: Response){
+        try {
+            const { email, senha } = req.body
+
+            const input: LoginInputDTO = {
+                email: req.body.email,
+                senha: req.body.senha
+            }
+
+            const token = await userBusiness.login(input);
+
+            res.status(200).send({ message: "Login realizado com sucesso", token });
+
+        } catch (error) {
+            res.status(400).send(error.message);
         }
     }
 }

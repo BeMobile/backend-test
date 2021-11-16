@@ -3,8 +3,10 @@ import { Authenticator } from '../services/Authenticator';
 import { HashManager } from '../services/HashManager';
 import { IdGenerator } from '../services/IdGenerator';
 import { EMAIL_REGEX } from '../services/regexValidar';
-import { SignupInputDTO, User } from './../model/User';
+import { SignupInputDTO, LoginInputDTO, User } from './../model/User';
 
+const hashManager = new HashManager();
+const tokenManager = new Authenticator()
 
 export class UserBusiness {
 
@@ -27,7 +29,6 @@ export class UserBusiness {
             const idGenerator = new IdGenerator();
             const id = idGenerator.generate();
     
-            const hashManager = new HashManager();
             const hashSenha = await hashManager.hash(input.senha);
 
             const userDatabase = new UserDatabase();
@@ -38,7 +39,6 @@ export class UserBusiness {
                 hashSenha
             )
 
-            const tokenManager = new Authenticator()
             const token = tokenManager.generateToken({id})
 
             return token;
@@ -47,5 +47,36 @@ export class UserBusiness {
             throw new Error(error.message);
         }
 
+    }
+
+    async login( input: LoginInputDTO): Promise<string>{
+        try {
+            if(!input.email || !input.senha){
+                throw new Error("Email ou senha incorretos")
+            }
+
+            const userDatabase = new UserDatabase();
+            const user = await userDatabase.getUserByEmail(input.email);
+
+            if(!user){
+                throw new Error("Usuário não encontrado")
+            }
+
+            const senhaCorreta: boolean = await hashManager.compare( input.senha, user.senha)
+
+            console.log("senhaCorreta",senhaCorreta)
+            if(!senhaCorreta){
+                throw new Error("Credencial inválida");
+            }
+
+            const token = tokenManager.generateToken({
+                id: user.id
+            })
+
+            return token
+
+        } catch (error) {
+            throw new Error(error.message);
+        }
     }
 }

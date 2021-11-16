@@ -7,9 +7,8 @@ export class ClientController {
     async storeClient(req: Request, res: Response){
 
         try {
-            // const { nome, cpf, telefone, email, logradouro, numero, complemento, bairro, cep, cidade, estado } = req.body
-
-            const token: string = req.headers.authorization;
+            
+           const token: string = req.headers.authorization;
 
             const input: StoreInputDTO ={
                 nome: req.body.nome,

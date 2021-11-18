@@ -59,4 +59,24 @@ export class ProductBusiness {
             throw new Error(error.message)
         }
     }
+
+    async getAllProduct(token: string) {
+
+        try {
+
+            if (!token) {
+                throw new UnauthorizedError("Usuário não autorizado")
+            }
+
+            const tokenData = tokenManager.getData(token)
+
+            const result = await new ProductDatabase().getAllProduct();
+
+            return result
+
+        } catch (error) {
+            throw new Error(error.message)
+        }
+
+    }
 }

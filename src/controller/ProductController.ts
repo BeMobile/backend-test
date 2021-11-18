@@ -45,4 +45,20 @@ export class ProductController {
             res.status(400).send({ error: error.message })
         }
     }
+
+    async getAllProduct(req: Request, res: Response) {
+
+        try {
+
+            const token: string = req.headers.authorization;
+
+
+            const result = await new ProductBusiness().getAllProduct(token);
+
+            res.status(200).send(result);
+
+        } catch (error) {
+            res.status(400).send({ error: error.message })
+        }
+    }
 }

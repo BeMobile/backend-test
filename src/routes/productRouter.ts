@@ -7,4 +7,6 @@ const productController = new ProductController();
 
 productRouter.post("/store", productController.storeProduct);
 
+productRouter.get("/index", productController.getAllProduct);
+
 

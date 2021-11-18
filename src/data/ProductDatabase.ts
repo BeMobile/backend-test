@@ -1,3 +1,5 @@
+import { FileWatcherEventKind } from "typescript";
+import { ProductOutputDTO } from "../model/Product";
 import { BaseDatabase } from "./BaseDatabase";
 
 export class ProductDatabase extends BaseDatabase {
@@ -25,6 +27,20 @@ export class ProductDatabase extends BaseDatabase {
             })
             .into(this.TABLE_NAME.PRODUTOS)
             
+        } catch (error) {
+            throw new Error(error.sqlMessage || error.message)
+        }
+    }
+
+    async getPriceProduct(id: string): Promise<ProductOutputDTO[]>{
+        try {
+            const result = await this.getConnection()
+            .where("id",id)
+            .select("preco")
+            .into(this.TABLE_NAME.PRODUTOS)
+
+            return result[0].preco
+
         } catch (error) {
             throw new Error(error.sqlMessage || error.message)
         }

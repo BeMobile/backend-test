@@ -4,6 +4,7 @@ import { AddressInfo } from 'net';
 import { userRouter } from './routes/userRouter';
 import { clientRouter } from './routes/clientRouter';
 import { productRouter } from './routes/productRouter';
+import { salesRouter } from './routes/salesRouter';
 
 dotenv.config();
 
@@ -16,6 +17,8 @@ app.use("/user", userRouter);
 app.use("/client", clientRouter);
 
 app.use("/product", productRouter);
+
+app.use("/sales", salesRouter);
 
 const { PORT = 3003} = process.env;
 

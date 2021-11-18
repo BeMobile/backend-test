@@ -25,19 +25,19 @@ export class ClientBusiness {
                 throw new Error("Preencha todos os campos para registro do cliente");
             }
 
-            if (EMAIL_REGEX.test(input.email) === false) {
+            if (!EMAIL_REGEX.test(input.email)) {
                 throw new Error("O formato do email é inválido")
             }
 
-            if (PHONE_REGEX.test(input.telefone) === false) {
+            if (!PHONE_REGEX.test(input.telefone)) {
                 throw new Error("O formato do phone é inválido. Insira nesse formato (xx) xxxxx-xxxx")
             }
 
-            if (CPF_REGEX.test(input.cpf) === false) {
+            if (!CPF_REGEX.test(input.cpf)) {
                 throw new Error("CPF inválido")
             }
 
-            if (CEP_REGEX.test(input.cep) === false) {
+            if (!CEP_REGEX.test(input.cep)) {
                 throw new Error("Cep inválido")
             }
 

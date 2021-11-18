@@ -15,6 +15,17 @@ export interface StoreInputDTO{
     token: string
 }
 
+export interface ProductOutputDTO{
+    titulo: string,
+    editora: string,
+    edicao:  string,
+    anoPublicacao: string,
+    autores: string,
+    assunto: string,
+    preco: number,
+    token: string
+}
+
 
 
 

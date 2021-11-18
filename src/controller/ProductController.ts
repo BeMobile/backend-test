@@ -29,4 +29,21 @@ export class ProductController {
             res.status(400).send({ error: error.message })
         }
     }
+
+    async getPriceProduct(req: Request, res: Response){
+        try {
+            const token: string = req.headers.authorization;
+
+            const id = req.params.id
+
+            const productBusiness = new ProductBusiness()
+
+            const result = await productBusiness.getPriceProduct(id, token)
+
+            res.status(201).send(result)
+
+        } catch (error) {
+            res.status(400).send({ error: error.message })
+        }
+    }
 }

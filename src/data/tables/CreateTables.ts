@@ -43,7 +43,7 @@ export class CreateTables extends BaseDatabase{
                 quantidade INT NOT NULL,
                 preco_unid FLOAT NOT NULL,
                 preco_total FLOAT NOT NULL,
-                data DATE NOT NULL,
+                data TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
                 id_cliente VARCHAR(255) NOT NULL,
                 id_produto VARCHAR(255) NOT NULL,
                 FOREIGN KEY(id_cliente) REFERENCES cliente_table(id),

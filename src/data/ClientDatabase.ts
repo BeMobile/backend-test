@@ -91,5 +91,28 @@ export class ClientDatabase extends BaseDatabase {
                 throw new Error(error.sqlMessage || error.message);
             }
         }
+
+        async getShowClient(clienteId: string): Promise<ClientOutputDTO[]>{
+            try {
+                const result = await this.getConnection()
+                .raw(`
+                select v.id as id,
+                c.id as clienteId,
+                p.id as produtoId,
+                c.nome as nomeCliente,
+                p.titulo as tituloProduto
+                FROM ${this.TABLE_NAME.VENDAS} v
+                LEFT JOIN ${this.TABLE_NAME.CLIENTES} c ON c.id = v.id_cliente
+                LEFT JOIN ${this.TABLE_NAME.PRODUTOS} p ON p.id = v.id_produto
+                WHERE v.id_cliente = "${clienteId}"
+                ORDER BY data DESC
+                `)
+
+                return result
+                
+            } catch (error) {
+                throw new Error(error.sqlMessage || error.message);
+            }
+        }
     
 }

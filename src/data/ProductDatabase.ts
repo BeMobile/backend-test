@@ -23,7 +23,7 @@ export class ProductDatabase extends BaseDatabase {
                 assunto,
                 preco
             })
-            .into(this.TABLE_NAME.PRODUCTS)
+            .into(this.TABLE_NAME.PRODUTOS)
             
         } catch (error) {
             throw new Error(error.sqlMessage || error.message)

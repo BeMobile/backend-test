@@ -9,5 +9,7 @@ clientRouter.post("/store", userController.storeClient);
 
 clientRouter.get("/index", userController.getAllClient);
 
-clientRouter.put("/update/:id", userController.updateClient)
+clientRouter.put("/update/:id", userController.updateClient);
+
+clientRouter.get("/show/:id", userController.getShowClient);
 

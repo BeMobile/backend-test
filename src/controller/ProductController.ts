@@ -15,13 +15,12 @@ export class ProductController {
                 anoPublicacao: req.body.anoPublicacao,
                 autores: req.body.autores,
                 assunto: req.body.assunto,
-                preco: req.body.preco,
-                token
+                preco: req.body.preco
             }
 
             const productBusiness = new ProductBusiness()
 
-            await productBusiness.storeProduct(input)
+            await productBusiness.storeProduct(input, token)
 
             res.status(201).send("Produto cadastrado")
 

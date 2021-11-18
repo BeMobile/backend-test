@@ -9,13 +9,13 @@ const tokenManager = new Authenticator();
 const idGenerator = new IdGenerator();
 
 export class ProductBusiness {
-    async storeProduct(input: StoreInputDTO){
+    async storeProduct(input: StoreInputDTO, token: string){
         try {
-            if (!input.token) {
+            if (!token) {
                 throw new UnauthorizedError("Usuário não autorizado")
             }
 
-            const tokenData = tokenManager.getData(input.token)
+            const tokenData = tokenManager.getData(token)
 
             if (!input.titulo || !input.editora || !input.edicao || !input.anoPublicacao || !input.autores || !input.assunto || !input.preco) {
                 throw new Error("Preencha todos os campos para registro do produto");

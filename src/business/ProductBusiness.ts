@@ -79,4 +79,24 @@ export class ProductBusiness {
         }
 
     }
+
+    async getShowProductById(id: string, token: string) {
+
+        try {
+
+            if (!token) {
+                throw new UnauthorizedError("Usuário não autorizado")
+            }
+
+            tokenManager.getData(token)
+
+            const result = await new ProductDatabase().getShowProductById(id);
+
+            return result
+
+        } catch (error) {
+            throw new Error(error.message)
+        }
+
+    }
 }

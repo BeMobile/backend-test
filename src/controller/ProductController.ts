@@ -61,4 +61,22 @@ export class ProductController {
             res.status(400).send({ error: error.message })
         }
     }
+
+
+    async getShowProductById(req: Request, res: Response) {
+
+        try {
+
+            const token: string = req.headers.authorization;
+
+            const id = req.params.id || "%";
+
+            const result = await new ProductBusiness().getShowProductById(id, token);
+
+            res.status(200).send(result);
+
+        } catch (error) {
+            res.status(400).send({ error: error.message })
+        }
+    }
 }

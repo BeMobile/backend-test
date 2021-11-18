@@ -9,4 +9,6 @@ productRouter.post("/store", productController.storeProduct);
 
 productRouter.get("/index", productController.getAllProduct);
 
+productRouter.get("/show/:id", productController.getShowProductById);
+
 

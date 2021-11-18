@@ -1,7 +1,8 @@
+import { UpdateInputDTO } from './../model/Client';
 import { ClientDatabase } from './../data/ClientDatabase';
 import { UnauthorizedError } from './../error/UnauthorizedError';
 import { Authenticator } from './../services/Authenticator';
-import { StoreInputDTO } from "../model/Client";
+import { Client, ClientInputDTO } from "../model/Client";
 import { IdGenerator } from '../services/IdGenerator';
 import { CEP_REGEX, CPF_REGEX, EMAIL_REGEX, PHONE_REGEX } from '../services/regexValidar';
 
@@ -9,7 +10,8 @@ const tokenManager = new Authenticator();
 const idGenerator = new IdGenerator();
 
 export class ClientBusiness {
-    async storeClient(input: StoreInputDTO) {
+
+    async storeClient(input: ClientInputDTO) {
 
         try {
 
@@ -59,6 +61,58 @@ export class ClientBusiness {
                 input.cidade,
                 input.estado
             );
+
+        } catch (error) {
+            throw new Error(error.message)
+        }
+
+    }
+
+    async getAllClient(token: string) {
+
+        try {
+
+            if (!token) {
+                throw new UnauthorizedError("Usuário não autorizado")
+            }
+
+            const tokenData = tokenManager.getData(token)
+
+            const result = await new ClientDatabase().getAllClient();
+
+            return result
+
+        } catch (error) {
+            throw new Error(error.message)
+        }
+
+    }
+
+    async updateClient(input: UpdateInputDTO) {
+
+        try {
+
+            if (!input.token) {
+                throw new UnauthorizedError("Usuário não autorizado")
+            }
+
+            const tokenData = tokenManager.getData(input.token)
+
+            await new ClientDatabase().updateClient(
+                input.id,
+                input.nome,
+                input.cpf,
+                input.telefone,
+                input.email,
+                input.logradouro,
+                input.numero,
+                input.complemento,
+                input.bairro,
+                input.cep,
+                input.cidade,
+                input.estado
+            );
+
 
         } catch (error) {
             throw new Error(error.message)

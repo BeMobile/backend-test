@@ -7,3 +7,7 @@ const userController = new ClientController();
 
 clientRouter.post("/store", userController.storeClient);
 
+clientRouter.get("/index", userController.getAllClient);
+
+clientRouter.put("/update/:id", userController.updateClient)
+

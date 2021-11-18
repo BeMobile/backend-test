@@ -6,7 +6,7 @@ export class Client{
     private telefone:  string,
     private email: string,
     private logradouro: string,
-    private numero: string,
+    private numero: number,
     private complemento: string,
     private bairro: string,
     private cep: string,
@@ -32,20 +32,6 @@ export interface StoreInputDTO{
 }
 
 
-export type client = {
-    id: string,
-    nome: string,
-    cpf: string,
-    telefone:  string,
-    email: string,
-    logradouro: string,
-    numero: number,
-    complemento: string,
-    bairro: string,
-    cep: string,
-    cidade: string,
-    estado: string
-}
 
 
 

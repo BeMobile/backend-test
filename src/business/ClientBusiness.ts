@@ -1,5 +1,4 @@
 import { ClientDatabase } from './../data/ClientDatabase';
-import { client } from './../model/Client';
 import { UnauthorizedError } from './../error/UnauthorizedError';
 import { Authenticator } from './../services/Authenticator';
 import { StoreInputDTO } from "../model/Client";
@@ -46,22 +45,20 @@ export class ClientBusiness {
 
             const id = idGenerator.generate();
 
-            const client: client = {
+            await new ClientDatabase().createClient(
                 id,
-                nome: input.nome,
-                cpf: input.cpf,
-                telefone: input.telefone,
-                email: input.email,
-                logradouro: input.logradouro,
-                numero: input.numero,
-                complemento: input.complemento,
-                bairro: input.bairro,
-                cep: input.cep,
-                cidade: input.cidade,
-                estado: input.estado
-            }
-
-            await new ClientDatabase().createClient(client);
+                input.nome,
+                input.cpf,
+                input.telefone,
+                input.email,
+                input.logradouro,
+                input.numero,
+                input.complemento,
+                input.bairro,
+                input.cep,
+                input.cidade,
+                input.estado
+            );
 
         } catch (error) {
             throw new Error(error.message)

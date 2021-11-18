@@ -1,24 +1,36 @@
-import { client } from "../model/Client";
 import { BaseDatabase } from "./BaseDatabase";
 
 export class ClientDatabase extends BaseDatabase {
 
-        async createClient(client: client): Promise<void>{
+        async createClient(
+            id: string,
+            nome: string,
+            cpf: string,
+            telefone:  string,
+            email: string,
+            logradouro: string,
+            numero: number,
+            complemento: string,
+            bairro: string,
+            cep: string,
+            cidade: string,
+            estado: string
+        ): Promise<void>{
             try {
                 await this.getConnection()
                 .insert({
-                    id: client.id,
-                    nome: client.nome,
-                    cpf: client.cpf , 
-                    telefone: client.telefone, 
-                    email: client.email, 
-                    logradouro: client.logradouro, 
-                    numero: client.numero, 
-                    complemento: client.complemento, 
-                    bairro: client.bairro, 
-                    cep: client.cep, 
-                    cidade: client.cidade, 
-                    estado: client.estado
+                    id,
+                    nome,
+                    cpf , 
+                    telefone, 
+                    email, 
+                    logradouro, 
+                    numero, 
+                    complemento, 
+                    bairro, 
+                    cep, 
+                    cidade, 
+                    estado
                 })
                 .into(this.TABLE_NAME.CLIENTES)
                 

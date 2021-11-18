@@ -52,21 +52,20 @@ export class UserBusiness {
     async login( input: LoginInputDTO): Promise<string>{
         try {
             if(!input.email || !input.senha){
-                throw new Error("Email ou senha incorretos")
+                throw new Error("Email ou senha inválidos")
             }
 
             const userDatabase = new UserDatabase();
             const user = await userDatabase.getUserByEmail(input.email);
 
             if(!user){
-                throw new Error("Usuário não encontrado")
+                throw new Error("Email ou senha inválidos")
             }
 
             const senhaCorreta: boolean = await hashManager.compare( input.senha, user.senha)
 
-            console.log("senhaCorreta",senhaCorreta)
             if(!senhaCorreta){
-                throw new Error("Credencial inválida");
+                throw new Error("Email ou senha inválidos");
             }
 
             const token = tokenManager.generateToken({

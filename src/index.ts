@@ -3,6 +3,7 @@ import express from 'express';
 import { AddressInfo } from 'net';
 import { userRouter } from './routes/userRouter';
 import { clientRouter } from './routes/clientRouter';
+import { productRouter } from './routes/productRouter';
 
 dotenv.config();
 
@@ -14,6 +15,8 @@ app.use("/user", userRouter);
 
 app.use("/client", clientRouter);
 
+app.use("/product", productRouter);
+
 const { PORT = 3003} = process.env;
 
 const server = app.listen(PORT, () => {
@@ -24,3 +27,5 @@ const server = app.listen(PORT, () => {
       console.error(`Falha ao rodar o servidor.`);
     }
   });
+
+

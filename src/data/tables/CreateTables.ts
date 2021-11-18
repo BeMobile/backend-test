@@ -1,4 +1,4 @@
-import { BaseDatabase } from './BaseDatabase';
+import { BaseDatabase } from '../BaseDatabase';
 
 const printError = (error: any) => {console.log(error.sqlMessage || error.message)}
 
@@ -29,10 +29,10 @@ export class CreateTables extends BaseDatabase{
 
             CREATE TABLE IF NOT EXISTS produto_table(
                 id VARCHAR(255) PRIMARY KEY,
-                titulo VARCHAR(255) NOT NULL,
+                titulo VARCHAR(255) UNIQUE NOT NULL,
                 editora VARCHAR(255) NOT NULL,
-                edicao VARCHAR(255) UNIQUE NOT NULL,
-                ano_publicacao VARCHAR(255) UNIQUE NOT NULL,
+                edicao VARCHAR(255) NOT NULL,
+                ano_publicacao VARCHAR(255) NOT NULL,
                 autores VARCHAR(255) NOT NULL,
                 assunto VARCHAR(255) NOT NULL,
                 preco FLOAT NOT NULL

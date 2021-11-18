@@ -8,7 +8,8 @@ export abstract class BaseDatabase {
 
     protected TABLE_NAME: any = {
         USUARIOS: "usuario_table",
-        CLIENTES: "cliente_table"
+        CLIENTES: "cliente_table",
+        PRODUCTS: "produto_table"
     }
 
     private static connection: Knex | null = null;

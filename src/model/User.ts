@@ -38,6 +38,8 @@ export interface SignupInputDTO{
     senha: string;
 }
 
+
+
 export interface LoginInputDTO{
     email: string;
     senha: string;

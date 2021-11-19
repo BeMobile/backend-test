@@ -3,7 +3,7 @@ export class Sales{
         private id: string,
         private quantidade: number,
         private precoUnid: number,
-    private precoTotal: number,
+        private precoTotal: number,
         private data: Date,
         private idCliente: string,
         private idProduto: string

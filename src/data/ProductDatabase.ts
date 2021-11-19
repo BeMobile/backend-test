@@ -1,10 +1,8 @@
-import { ProductOutputDTO } from "../model/Product";
+import { Product, ProductOutputDTO } from "../model/Product";
 import { BaseDatabase } from "./BaseDatabase";
 
 export class ProductDatabase extends BaseDatabase {
-    getProductById(id: string) {
-        throw new Error("Method not implemented.");
-    }
+   
     async createProduct(
         id: string,
         titulo: string,
@@ -71,6 +69,26 @@ export class ProductDatabase extends BaseDatabase {
 
 
             return result
+
+        } catch (error) {
+            throw new Error(error.sqlMessage || error.message);
+        }
+    }
+
+    async updateProduct(product: Product): Promise<void> {
+        try {
+            await this.getConnection()
+                .where("id", product.getId())
+                .update({
+                    titulo: product.getTitulo(),
+                    editora: product.getEditora(),
+                    edicao: product.getEdicao(),
+                    ano_publicacao: product.getAnoPublicacao(),
+                    autores: product.getAutores(),
+                    assunto: product.getAssunto(),
+                    preco: product.getPreco()
+                })
+                .into(this.TABLE_NAME.PRODUTOS)
 
         } catch (error) {
             throw new Error(error.sqlMessage || error.message);

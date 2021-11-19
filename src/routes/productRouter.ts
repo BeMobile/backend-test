@@ -11,4 +11,6 @@ productRouter.get("/index", productController.getAllProduct);
 
 productRouter.get("/show/:id", productController.getShowProductById);
 
+productRouter.put("/update/:id", productController.updateProduct);
+
 

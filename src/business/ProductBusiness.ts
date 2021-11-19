@@ -1,7 +1,7 @@
 import { ProductDatabase } from "../data/ProductDatabase";
 import { NotFoundError } from "../error/NotFoundError";
 import { UnauthorizedError } from "../error/UnauthorizedError";
-import { StoreInputDTO } from "../model/Product";
+import { Product, ProductInputDTO } from "../model/Product";
 import { Authenticator } from "../services/Authenticator";
 import { IdGenerator } from "../services/IdGenerator";
 
@@ -9,7 +9,7 @@ const tokenManager = new Authenticator();
 const idGenerator = new IdGenerator();
 
 export class ProductBusiness {
-    async storeProduct(input: StoreInputDTO, token: string){
+    async storeProduct(input: ProductInputDTO, token: string){
         try {
             if (!token) {
                 throw new UnauthorizedError("Usuário não autorizado")
@@ -99,4 +99,29 @@ export class ProductBusiness {
         }
 
     }
+
+    async updateProduct(input: ProductInputDTO, token: string, id: string) {
+
+        try {
+
+            if (!token) {
+                throw new UnauthorizedError("Usuário não autorizado")
+            }
+
+            tokenManager.getData(token)
+
+            await new ProductDatabase().updateProduct(
+                Product.toProductModel({
+                    ...input,
+                    id
+                })
+            );
+
+
+        } catch (error) {
+            throw new Error(error.message)
+        }
+
+    }
+
 }

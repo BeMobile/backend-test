@@ -58,7 +58,7 @@ export class Product {
 
 }
 
-export interface StoreInputDTO {
+export interface ProductInputDTO {
     titulo: string,
     editora: string,
     edicao: string,

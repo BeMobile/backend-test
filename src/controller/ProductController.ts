@@ -1,6 +1,6 @@
 import { Request, Response } from "express";
 import { ProductBusiness } from "../business/ProductBusiness";
-import { StoreInputDTO } from "../model/Product";
+import { ProductInputDTO } from "../model/Product";
 
 export class ProductController {
 
@@ -8,7 +8,7 @@ export class ProductController {
         try {
             const token: string = req.headers.authorization;
 
-            const input: StoreInputDTO = {
+            const input: ProductInputDTO = {
                 titulo: req.body.titulo,
                 editora: req.body.editora,
                 edicao: req.body.edicao,
@@ -77,6 +77,32 @@ export class ProductController {
 
         } catch (error) {
             res.status(400).send({ error: error.message })
+        }
+    }
+
+    async updateProduct(req: Request, res: Response) {
+        try {
+
+            const token: string = req.headers.authorization;
+            const id = req.params.id;
+
+            const input: ProductInputDTO = {
+                titulo: req.body.titulo,
+                editora: req.body.editora,
+                edicao: req.body.edicao,
+                anoPublicacao: req.body.anoPublicacao,
+                autores: req.body.autores,
+                assunto: req.body.assunto,
+                preco: req.body.preco
+            }
+
+            await new ProductBusiness().updateProduct(input, token, id);
+
+
+            res.status(200).send("Alterado com sucesso")
+
+        } catch (error) {
+            res.status(400).send({ error: error.message });
         }
     }
 }

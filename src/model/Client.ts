@@ -18,49 +18,66 @@ export class Client{
         return this.id
     }
 
-    setNome(nome: string){
-        this.nome = nome;
+    getNome(){
+        return this.nome;
     }
 
-    setCpf(cpf: string){
-        this.cpf = cpf;
+    getCpf(){
+        return this.cpf;
     }
 
-    setTelefone(telefone: string){
-        this.telefone = telefone;
+    getTelefone(){
+        this.telefone;
     }
 
-    setEmail(email: string){
-        this.email = email;
+    getEmail(){
+        return this.email;
     }
 
-    setLogradouro(logradouro: string){
-        this.logradouro = logradouro;
+    getLogradouro(){
+        return this.logradouro;
     }
 
-    setNumero(numero: number){
-        this.numero = numero;
+    getNumero(){
+        return this.numero;
     }
 
-    setComplemento(complemento: string){
-        this.complemento = complemento;
+    getComplemento(){
+        return this.complemento;
     }
 
-    setBairro(bairro: string){
-        this.bairro = bairro;
+    getBairro(){
+        return this.bairro;
     }
 
-    setCep(cep: string){
-        this.cep = cep;
+    getCep(){
+        return this.cep;
     }
 
-    setCidade(cidade: string){
-        this.cidade = cidade;
+    getCidade(){
+        return this.cidade;
     }
 
-    setEstado(estado: string){
-        this.estado = estado;
+    getEstado(){
+        return this.estado;
     }
+
+    static toClientModel(data?: any){
+        return (data && new Client(
+            data.id,
+            data.cpf,
+            data.telefone,
+            data.email,
+            data.data,
+            data.logradouro,
+            data.numero,
+            data.complemento,
+            data.bairro,
+            data.cep,
+            data.cidade,
+            data.estado
+        ))
+    }    
 
 }
 
@@ -76,7 +93,6 @@ export interface ClientInputDTO{
     cep: string,
     cidade: string,
     estado: string,
-    token: string
 }
 
 export interface ClientOutputDTO{
@@ -93,21 +109,7 @@ export interface ClientOutputDTO{
     estado: string
 }
 
-export interface UpdateInputDTO{
-    id: string,
-    nome: string,
-    cpf: string,
-    telefone:  string,
-    email: string,
-    logradouro: string,
-    numero: number,
-    complemento: string,
-    bairro: string,
-    cep: string,
-    cidade: string,
-    estado: string,
-    token: string
-}
+
 
 
 

@@ -1,4 +1,3 @@
-import { UpdateInputDTO } from './../model/Client';
 import { ClientDatabase } from './../data/ClientDatabase';
 import { UnauthorizedError } from './../error/UnauthorizedError';
 import { Authenticator } from './../services/Authenticator';
@@ -11,15 +10,15 @@ const idGenerator = new IdGenerator();
 
 export class ClientBusiness {
 
-    async storeClient(input: ClientInputDTO) {
+    async storeClient(input: ClientInputDTO, token: string) {
 
         try {
 
-            if (!input.token) {
+            if (!token) {
                 throw new UnauthorizedError("Usuário não autorizado")
             }
 
-            const tokenData = tokenManager.getData(input.token)
+            tokenManager.getData(token)
 
             if (!input.nome || !input.cpf || !input.telefone || !input.email || !input.logradouro || !input.numero || !input.bairro || !input.cep || !input.cidade || !input.estado) {
                 throw new Error("Preencha todos os campos para registro do cliente");
@@ -47,20 +46,10 @@ export class ClientBusiness {
 
             const id = idGenerator.generate();
 
-            await new ClientDatabase().createClient(
-                id,
-                input.nome,
-                input.cpf,
-                input.telefone,
-                input.email,
-                input.logradouro,
-                input.numero,
-                input.complemento,
-                input.bairro,
-                input.cep,
-                input.cidade,
-                input.estado
-            );
+            await new ClientDatabase().createClient(Client.toClientModel({
+                ...input,
+                id
+            }));
 
         } catch (error) {
             throw new Error(error.message)
@@ -88,29 +77,21 @@ export class ClientBusiness {
 
     }
 
-    async updateClient(input: UpdateInputDTO) {
+    async updateClient(input: ClientInputDTO, token: string, id: string) {
 
         try {
 
-            if (!input.token) {
+            if (!token) {
                 throw new UnauthorizedError("Usuário não autorizado")
             }
 
-            const tokenData = tokenManager.getData(input.token)
+            tokenManager.getData(token)
 
             await new ClientDatabase().updateClient(
-                input.id,
-                input.nome,
-                input.cpf,
-                input.telefone,
-                input.email,
-                input.logradouro,
-                input.numero,
-                input.complemento,
-                input.bairro,
-                input.cep,
-                input.cidade,
-                input.estado
+                Client.toClientModel({
+                    ...input,
+                    id
+                })
             );
 
 

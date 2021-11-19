@@ -23,8 +23,6 @@ export class User{
     }
 
     
-
-
     static toUserModel(user: any): User {
         return new User(user.id, user.nome, user.email, user.senha);
       }

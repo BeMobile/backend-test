@@ -3,35 +3,22 @@ import { BaseDatabase } from "./BaseDatabase";
 
 export class ClientDatabase extends BaseDatabase {
 
-    async createClient(
-        id: string,
-        nome: string,
-        cpf: string,
-        telefone: string,
-        email: string,
-        logradouro: string,
-        numero: number,
-        complemento: string,
-        bairro: string,
-        cep: string,
-        cidade: string,
-        estado: string
-    ): Promise<void> {
+    async createClient(client: Client): Promise<void> {
         try {
             await this.getConnection()
                 .insert({
-                    id,
-                    nome,
-                    cpf,
-                    telefone,
-                    email,
-                    logradouro,
-                    numero,
-                    complemento,
-                    bairro,
-                    cep,
-                    cidade,
-                    estado
+                    id: client.getId(),
+                    nome: client.getNome(),
+                    cpf: client.getCpf(),
+                    telefone: client.getTelefone(),
+                    email: client.getEmail(),
+                    logradouro: client.getLogradouro(),
+                    numero: client.getNumero(),
+                    complemento: client.getComplemento(),
+                    bairro: client.getBairro(),
+                    cep: client.getCep(),
+                    cidade: client.getCidade(),
+                    estado: client.getEstado()
                 })
                 .into(this.TABLE_NAME.CLIENTES)
 
@@ -55,35 +42,22 @@ export class ClientDatabase extends BaseDatabase {
         }
     }
 
-    async updateClient(
-        id: string,
-        nome: string,
-        cpf: string,
-        telefone: string,
-        email: string,
-        logradouro: string,
-        numero: number,
-        complemento: string,
-        bairro: string,
-        cep: string,
-        cidade: string,
-        estado: string
-    ): Promise<void> {
+    async updateClient(client: Client): Promise<void> {
         try {
             await this.getConnection()
-                .where("id", id)
+                .where("id", client.getId())
                 .update({
-                    nome,
-                    cpf,
-                    telefone,
-                    email,
-                    logradouro,
-                    numero,
-                    complemento,
-                    bairro,
-                    cep,
-                    cidade,
-                    estado
+                    nome: client.getNome(),
+                    cpf: client.getCpf(),
+                    telefone: client.getTelefone(),
+                    email: client.getEmail(),
+                    logradouro: client.getLogradouro(),
+                    numero: client.getNumero(),
+                    complemento: client.getComplemento(),
+                    bairro: client.getBairro(),
+                    cep: client.getCep(),
+                    cidade: client.getCidade(),
+                    estado: client.getEstado()
                 })
                 .into(this.TABLE_NAME.CLIENTES)
 

@@ -1,6 +1,6 @@
 import { Request, Response } from "express";
 import { ClientBusiness } from "../business/ClientBusiness";
-import { ClientInputDTO, UpdateInputDTO } from "../model/Client";
+import { ClientInputDTO } from "../model/Client";
 
 export class ClientController {
 
@@ -22,10 +22,9 @@ export class ClientController {
                 cep: req.body.cep,
                 cidade: req.body.cidade,
                 estado: req.body.estado,
-                token
             }
 
-            await new ClientBusiness().storeClient(input);
+            await new ClientBusiness().storeClient(input, token);
 
             res.status(201).send("Cliente cadastrado");
 
@@ -54,9 +53,9 @@ export class ClientController {
         try {
 
             const token: string = req.headers.authorization;
+            const id = req.params.id;
 
-            const input: UpdateInputDTO = {
-                id: req.params.id,
+            const input: ClientInputDTO = {
                 nome: req.body.nome,
                 cpf: req.body.cpf,
                 telefone: req.body.telefone,
@@ -67,11 +66,10 @@ export class ClientController {
                 bairro: req.body.bairro,
                 cep: req.body.cep,
                 cidade: req.body.cidade,
-                estado: req.body.estado,
-                token
+                estado: req.body.estado
             }
 
-            await new ClientBusiness().updateClient(input);
+            await new ClientBusiness().updateClient(input, token, id);
 
 
             res.status(200).send("Alterado com sucesso")

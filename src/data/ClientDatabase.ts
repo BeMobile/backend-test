@@ -73,7 +73,7 @@ export class ClientDatabase extends BaseDatabase {
                 .select()
                 .into(this.TABLE_NAME.CLIENTES)
                 
-                return result
+                return result[0]
 
         } catch (error) {
             throw new Error(error.sqlMessage || error.message);

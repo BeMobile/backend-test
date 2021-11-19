@@ -117,7 +117,6 @@ export class ClientBusiness {
             const salesDatabase = new SalesDatabase();
             const vendas = await salesDatabase.getSaleById(id)
 
-            console.log(vendas)
             return {
                 Cliente: result,
                 Vendas: vendas

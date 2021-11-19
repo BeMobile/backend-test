@@ -1,7 +1,7 @@
 import dayjs from "dayjs";
 import { Request, Response } from "express";
 import { SalesBusiness } from "../business/SalesBusiness";
-import { StoreInputDTO } from "../model/Sales";
+import { SalesInputDTO } from "../model/Sales";
 
 export class SalesController {
 
@@ -9,7 +9,7 @@ export class SalesController {
         try {
             const token: string = req.headers.authorization;
 
-            const input: StoreInputDTO = {
+            const input: SalesInputDTO = {
                 quantidade: req.body.quantidade,
                 idCliente: req.body.idCliente,
                 idProduto: req.body.idProduto
@@ -20,6 +20,23 @@ export class SalesController {
             await productBusiness.storeProduct(input, token)
 
             res.status(201).send("Venda cadastrada")
+
+        } catch (error) {
+            res.status(400).send({ error: error.message })
+        }
+    }
+
+    async getSaleById(req: Request, res: Response) {
+
+        try {
+
+            const token: string = req.headers.authorization;
+
+            const id = req.params.id;
+
+            const result = await new SalesBusiness().getSaleById(id, token);
+
+            res.status(200).send(result);
 
         } catch (error) {
             res.status(400).send({ error: error.message })

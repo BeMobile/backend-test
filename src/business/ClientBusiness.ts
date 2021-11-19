@@ -1,3 +1,4 @@
+import { SalesDatabase } from './../data/SalesDatabase';
 import { ClientDatabase } from './../data/ClientDatabase';
 import { UnauthorizedError } from './../error/UnauthorizedError';
 import { Authenticator } from './../services/Authenticator';
@@ -113,7 +114,14 @@ export class ClientBusiness {
 
             const result = await new ClientDatabase().getShowClient(id);
 
-            return result
+            const salesDatabase = new SalesDatabase();
+            const vendas = await salesDatabase.getSaleById(id)
+
+            console.log(vendas)
+            return {
+                Cliente: result,
+                Vendas: vendas
+            }
 
         } catch (error) {
             throw new Error(error.message)

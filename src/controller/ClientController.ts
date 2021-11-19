@@ -88,7 +88,7 @@ export class ClientController {
             const id = req.params.id;
 
             const result = await new ClientBusiness().getShowClient(id, token);
-
+            
             res.status(200).send(result);
 
         } catch (error) {

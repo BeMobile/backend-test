@@ -6,3 +6,4 @@ export const salesRouter = express.Router();
 const salesController = new SalesController();
 
 salesRouter.post("/store", salesController.storeSales);
+

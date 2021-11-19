@@ -50,7 +50,17 @@ export class Sales{
     }
 }
 
-export interface StoreInputDTO{
+export interface SalesInputDTO{
+    quantidade: number,
+    idCliente: string,
+    idProduto: string
+}
+
+export interface SalesOutputDTO{
+    id: string,
+    precoUnid: number,
+    precoTotal: number,
+    data: Date,
     quantidade: number,
     idCliente: string,
     idProduto: string

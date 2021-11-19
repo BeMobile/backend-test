@@ -66,45 +66,14 @@ export class ClientDatabase extends BaseDatabase {
         }
     }
 
-    async getShowClient(clienteId: string): Promise<ClientOutputDTO[]> {
+    async getShowClient(id: string): Promise<ClientOutputDTO[]> {
         try {
             const result = await this.getConnection()
-                .raw(`
-                select * , venda.id as idVenda, produto.id as idProduto, cliente.id as idCliente
-                FROM ${this.TABLE_NAME.VENDAS} as venda
-                LEFT JOIN ${this.TABLE_NAME.CLIENTES} as cliente ON cliente.id = venda.id_cliente
-                LEFT JOIN ${this.TABLE_NAME.PRODUTOS} as produto ON produto.id = venda.id_produto
-                WHERE venda.id_cliente = "${clienteId}"
-                ORDER BY data DESC
-                `)
-
-            return result[0]
-                .map((data: any) => ({
-                    cliente:{
-                        id: data.idCliente,
-                        nome: data.nome,
-                        cpf: data.cpf,
-                        telefone: data.telefone,
-                        email: data.email,
-                        endereco:{
-                            logradouro: data.logradouro,
-                            numero: data.numero,
-                            complemento: data.complemento,
-                            bairro: data.bairro,
-                            cep: data.cep,
-                            cidade: data.cidade,
-                            estado: data.estado
-                        }
-                    },
-                    vendas: {
-                        id: data.idVenda,
-                        idProduto: data.idProduto,
-                        quantidade: data.quantidade,
-                        precoUnid: data.preco_unid,
-                        precoTotal: data.preco_total,
-                        data: data.data
-                    }
-                }))
+                .where("id", id)
+                .select()
+                .into(this.TABLE_NAME.CLIENTES)
+                
+                return result
 
         } catch (error) {
             throw new Error(error.sqlMessage || error.message);

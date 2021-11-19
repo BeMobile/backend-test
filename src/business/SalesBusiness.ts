@@ -2,7 +2,7 @@ import { ProductDatabase } from './../data/ProductDatabase';
 import { Sales } from './../model/Sales';
 import { SalesDatabase } from "../data/SalesDatabase";
 import { UnauthorizedError } from "../error/UnauthorizedError";
-import { StoreInputDTO } from "../model/Sales";
+import { SalesInputDTO } from "../model/Sales";
 import { Authenticator } from "../services/Authenticator";
 import { IdGenerator } from "../services/IdGenerator";
 
@@ -10,7 +10,7 @@ const tokenManager = new Authenticator();
 const idGenerator = new IdGenerator();
 
 export class SalesBusiness {
-    async storeProduct(input: StoreInputDTO, token: string){
+    async storeProduct(input: SalesInputDTO, token: string){
         try {
             if (!token) {
                 throw new UnauthorizedError("Usuário não autorizado")
@@ -38,5 +38,25 @@ export class SalesBusiness {
         } catch (error) {
             throw new Error(error.message)
         }
+    }
+
+    async getSaleById(id: string, token: string) {
+
+        try {
+
+            if (!token) {
+                throw new UnauthorizedError("Usuário não autorizado")
+            }
+
+            tokenManager.getData(token)
+
+            const result = await new SalesDatabase().getSaleById(id);
+
+            return result
+
+        } catch (error) {
+            throw new Error(error.message)
+        }
+
     }
 }

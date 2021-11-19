@@ -3,27 +3,18 @@ import { BaseDatabase } from "./BaseDatabase";
 
 export class ProductDatabase extends BaseDatabase {
    
-    async createProduct(
-        id: string,
-        titulo: string,
-        editora: string,
-        edicao: string,
-        anoPublicacao: string,
-        autores: string,
-        assunto: string,
-        preco: number
-    ): Promise<void> {
+    async createProduct(product: Product): Promise<void> {
         try {
             await this.getConnection()
                 .insert({
-                    id,
-                    titulo,
-                    editora,
-                    edicao,
-                    ano_publicacao: anoPublicacao,
-                    autores,
-                    assunto,
-                    preco
+                    id: product.getId(),
+                    titulo: product.getTitulo(),
+                    editora: product.getEditora(),
+                    edicao: product.getEdicao(),
+                    ano_publicacao: product.getAnoPublicacao(),
+                    autores: product.getAutores(),
+                    assunto: product.getAssunto(),
+                    preco: product.getPreco()
                 })
                 .into(this.TABLE_NAME.PRODUTOS)
 

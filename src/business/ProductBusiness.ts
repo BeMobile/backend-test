@@ -15,7 +15,7 @@ export class ProductBusiness {
                 throw new UnauthorizedError("Usuário não autorizado")
             }
 
-            const tokenData = tokenManager.getData(token)
+            tokenManager.getData(token)
 
             if (!input.titulo || !input.editora || !input.edicao || !input.anoPublicacao || !input.autores || !input.assunto || !input.preco) {
                 throw new Error("Preencha todos os campos para registro do produto");
@@ -24,14 +24,10 @@ export class ProductBusiness {
             const id = idGenerator.generate();
 
             await new ProductDatabase().createProduct(
-                id,
-                input.titulo,
-                input.editora,
-                input.edicao,
-                input.anoPublicacao,
-                input.autores,
-                input.assunto,
-                input.preco
+              Product.toProductModel({
+                  ...input,
+                  id
+              })
             )
             
         } catch (error) {

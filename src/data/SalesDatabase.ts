@@ -1,3 +1,4 @@
+import dayjs from 'dayjs';
 import { Sales, SalesOutputDTO } from "../model/Sales";
 import { BaseDatabase } from "./BaseDatabase";
 
@@ -44,7 +45,7 @@ export class SalesDatabase extends BaseDatabase {
                         quantidade: data.quantidade,
                         precoUnid: data.preco_unid,
                         precoTotal: data.preco_total,
-                        data: data.data
+                        data: dayjs(data.data, 'YYYY-MM-DD').format('DD/MM/YYYY')
                     }
                 }))
 

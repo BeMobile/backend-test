@@ -24,8 +24,6 @@ export class SalesDatabase extends BaseDatabase {
 
     async getSaleById(clienteId: string): Promise<SalesOutputDTO[]> {
         try {
-    
-
                 const result = await this.getConnection()
                 .raw(`
                 select * , venda.id as idVenda, produto.id as idProduto, cliente.id as idCliente
@@ -53,4 +51,18 @@ export class SalesDatabase extends BaseDatabase {
             throw new Error(error.sqlMessage || error.message);
         }
     }
+
+    async deleteSaleById(clienteId: string): Promise<void> {
+        try {
+                await this.getConnection()
+                .where("id_cliente", clienteId)
+                .into(this.TABLE_NAME.VENDAS)
+                .del()
+
+        } catch (error) {
+            throw new Error(error.sqlMessage || error.message);
+        }
+    }
+
+    
 }

@@ -5,6 +5,7 @@ import { UnauthorizedError } from "../error/UnauthorizedError";
 import { SalesInputDTO } from "../model/Sales";
 import { Authenticator } from "../services/Authenticator";
 import { IdGenerator } from "../services/IdGenerator";
+import { NotFoundError } from '../error/NotFoundError';
 
 const tokenManager = new Authenticator();
 const idGenerator = new IdGenerator();
@@ -52,7 +53,29 @@ export class SalesBusiness {
 
             const result = await new SalesDatabase().getSaleById(id);
 
+            if(!result){
+                throw new NotFoundError("Não há vendas para esse cliente")
+            }
+
             return result
+
+        } catch (error) {
+            throw new Error(error.message)
+        }
+
+    }
+
+    async deleteSaleById(id: string, token: string) {
+
+        try {
+
+            if (!token) {
+                throw new UnauthorizedError("Usuário não autorizado")
+            }
+
+            tokenManager.getData(token)
+
+            await new SalesDatabase().deleteSaleById(id);
 
         } catch (error) {
             throw new Error(error.message)

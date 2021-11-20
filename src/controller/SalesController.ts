@@ -42,4 +42,21 @@ export class SalesController {
             res.status(400).send({ error: error.message })
         }
     }
+
+    async deleteSaleById(req: Request, res: Response) {
+
+        try {
+
+            const token: string = req.headers.authorization;
+
+            const id = req.params.id;
+
+            await new SalesBusiness().deleteSaleById(id, token);
+
+            res.status(200).send("Venda deletada");
+
+        } catch (error) {
+            res.status(400).send({ error: error.message })
+        }
+    }
 }

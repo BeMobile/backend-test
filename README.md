@@ -1,56 +1,115 @@
 # Be mobile - Teste de Back-end
-O teste de back-end da Be mobile consiste em estruturar uma API RESTful e um banco de dados ligado a esta API. Trate-se de um sistema que permite cadastrar usuários externamente e, ao realizarem login, poderão registrar clientes, produtos e vendas. O(a) candidato(a) poderá escolher desenvolver em Node.js (Adonis, Koa ou Express) ou PHP (Laravel).
+O teste de back-end da Be mobile consiste em estruturar uma API RESTful e um banco de dados ligado a esta API. Trate-se de um sistema que permite cadastrar usuários externamente e, ao realizarem login, poderão registrar clientes, produtos e vendas.
 
-## Banco de Dados
-O banco de dados deve ser estruturado à escolha do(a) candidato(a), mas minimamente deverá conter o seguinte:
-- usuários: email, senha;
-- clientes: nome, cpf;
-- endereço: todos os campos de endereço;
-- telefones: cliente, número;
-- produtos: colocar os dados necessários para um tipo de produto (livros), além de preço.
-- vendas: cliente, produto, quantidade, preço unitário, preço total, data e hora.
+## Tecnologias utilizadas
+- Nodejs;
+- MySQL;
+- express;
+- typescript;
+- uuid;
+- knex;
+- jsonwebtoken;
+- bcryptjs.
+
+
+## Requisitos
+- Tenha instalado em sua máquina as seguintes ferramentas: Git, Node.js.
+- Para comfigurar o banco de dados crie um arquivo .env na raiz do projeto e insira as variáveis de ambiente:
+```
+DB_USER = 
+DB_PASSWORD = 
+DB_HOST = 
+DB_PORT = 3306
+JWT_KEY = 
+DB_DATABASE_NAME = 
+ACCESS_TOKEN_EXPIRES_IN =
+```
+
+## Rodando a aplicação
+- Faça um clone do projeto;
+- Entre no projeto e no terminal execute os comandos abaixo
+### Instalar as dependências
+```
+npm i
+```
+
+### Criar as tabelas no banco
+```
+npm run migrations
+```
+
+### rodar a aplicação
+```
+npm run start
+```
+
 
 ## Rotas do Sistema
-- cadastro de usuário do sistema (signup)
-- login com JWT de usuário cadastrado (login)
+- cadastro de usuário do sistema
+    ```
+    /user/signup
+    ```
+
+- login com JWT de usuário cadastrado
+    ```
+    http://localhost:3003/user/login
+    ```
+
 - clientes:
-    - listar todos os clientes cadastrados (index)
-        - apenas dados principais devem vir aqui;
-        - ordenar pelo id.
-    - detalhar um(a) cliente e vendas a ele(a) (show)
-        - trazer as vendas mais recentes primeiro;
-        - possibilidade de filtrar as vendas por mês + ano.
-    - adicionar um(a) cliente (store)
-    - editar um(a) cliente (update)
-    - excluir um(a) cliente e vendas a ele(a) (delete)
+    - listar todos os clientes cadastrados
+       ```
+       http://localhost:3003/client/index
+       ```
+    - detalhar um(a) cliente e vendas a ele(a)
+        ```
+        http://localhost:3003/client/show/:id
+        ```
+    - adicionar um(a) cliente 
+        ```
+        http://localhost:3003/client/store
+        ```
+    - editar um(a) cliente
+        ```
+        http://localhost:3003/client/update/:id
+        ```
+    - excluir um(a) cliente e vendas a ele(a)
+        ```
+        http://localhost:3003/client/delete/id
+        ```
+
+
 - produtos:
-    - listar todos os produtos cadastrados (index)
-        - apenas dados principais devem vir aqui;
-        - ordenar alfabeticamente.
-    - detalhar um produto (show)
-    - criar um produto (store)
-    - editar um produto (update)
-    - exclusão lógica ("soft delete") de um produto (delete)
+    - listar todos os produtos cadastrados
+        ```
+        http://localhost:3003/product/index
+        ```
+    - detalhar um produto
+        ```
+        http://localhost:3003/product/show/:id
+        ```
+
+    - criar um produto
+        ```
+        http://localhost:3003/product/store
+        ```
+
+    - editar um produto
+        ```
+        http://localhost:3003/product/update/:id
+        ```
+
 - vendas:
-    - registrar venda de 1 produto a 1 cliente (store)
+    - registrar venda de 1 produto a 1 cliente
+        ```
+        http://localhost:3003/sales/store
+        ```
+
+
 
 Obs: as rotas em clientes, produtos e vendas só podem ser acessadas por usuário logado.
 
-## Requisitos
-- estruturar o sistema observando o MVC (mas sem as views);
-- deve usar mySQL no banco de dados;
-- as respostas devem ser em JSON;
-- pode usar recursos e bibliotecas que auxiliam na administração do banco de dados (Eloquent, Lucid, Knex, Bookshelf, etc.);
-- documentar as instruções necessárias em um README (requisitos, como rodar, detalhamento de rotas);
-- fazer um Pull Request para este repositório ao finalizar.
 
-Obs: caso o(a) candidato(a) não consiga completar o teste até o prazo combinado com o avaliador, deve garantir que tudo que foi efetivamente feito esteja em pleno funcionamento. Relatar no README quais foram as dificuldades encontradas.
 
-## Critérios de Avaliação
-- lógica de programação;
-- organização do projeto;
-- legibilidade do código;
-- validação necessária dos dados;
-- forma adequada de utilização dos recursos;
-- seguimento dos padrões especificados;
-- clareza na documentação.
+## Requisitos não implementado
+- soft delete;
+- possibilidade de filtrar as vendas por mês + ano.

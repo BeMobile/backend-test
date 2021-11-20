@@ -3,13 +3,15 @@ import { ClientController } from "../controller/ClientController";
 
 export const clientRouter = express.Router();
 
-const userController = new ClientController();
+const clientController = new ClientController();
 
-clientRouter.post("/store", userController.storeClient);
+clientRouter.post("/store", clientController.storeClient);
 
-clientRouter.get("/index", userController.getAllClient);
+clientRouter.get("/index", clientController.getAllClient);
 
-clientRouter.put("/update/:id", userController.updateClient);
+clientRouter.put("/update/:id", clientController.updateClient);
 
-clientRouter.get("/show/:id", userController.getShowClient);
+clientRouter.get("/show/:id", clientController.getShowClient);
+
+clientRouter.delete("/delete/:id", clientController.deleteClientById);
 

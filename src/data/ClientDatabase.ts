@@ -80,4 +80,16 @@ export class ClientDatabase extends BaseDatabase {
         }
     }
 
+    async deleteClientById(id: string): Promise<void> {
+        try {
+                await this.getConnection()
+                .where("id", id)
+                .into(this.TABLE_NAME.CLIENTES)
+                .del()
+
+        } catch (error) {
+            throw new Error(error.sqlMessage || error.message);
+        }
+    }
+
 }

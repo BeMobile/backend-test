@@ -27,7 +27,7 @@ export class Client{
     }
 
     getTelefone(){
-        this.telefone;
+        return this.telefone;
     }
 
     getEmail(){
@@ -65,10 +65,10 @@ export class Client{
     static toClientModel(data?: any){
         return (data && new Client(
             data.id,
+            data.nome,
             data.cpf,
             data.telefone,
             data.email,
-            data.data,
             data.logradouro,
             data.numero,
             data.complemento,

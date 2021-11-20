@@ -96,5 +96,21 @@ export class ClientController {
         }
     }
 
+    async deleteClientById(req: Request, res: Response) {
+
+        try {
+
+            const token: string = req.headers.authorization;
+
+            const id = req.params.id;
+
+            await new ClientBusiness().deleteClientById(id, token);
+
+            res.status(200).send("Cliente deletado");
+
+        } catch (error) {
+            res.status(400).send({ error: error.message })
+        }
+    }
 
 }

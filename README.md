@@ -1,56 +1,37 @@
-# Be mobile - Teste de Back-end
-O teste de back-end da Be mobile consiste em estruturar uma API RESTful e um banco de dados ligado a esta API. Trate-se de um sistema que permite cadastrar usuários externamente e, ao realizarem login, poderão registrar clientes, produtos e vendas. O(a) candidato(a) poderá escolher desenvolver em Node.js (Adonis, Koa ou Express) ou PHP (Laravel).
+## BeMobile - Teste Back-End
+
 
 ## Banco de Dados
-O banco de dados deve ser estruturado à escolha do(a) candidato(a), mas minimamente deverá conter o seguinte:
-- usuários: email, senha;
-- clientes: nome, cpf;
-- endereço: todos os campos de endereço;
-- telefones: cliente, número;
-- produtos: colocar os dados necessários para um tipo de produto (livros), além de preço.
-- vendas: cliente, produto, quantidade, preço unitário, preço total, data e hora.
+- Banco de dados em MySQL
+- Observar dados de conexão no arquivo .env
+
+## Populando banco para testes
+- php artisan migrate:refresh --seed
 
 ## Rotas do Sistema
-- cadastro de usuário do sistema (signup)
-- login com JWT de usuário cadastrado (login)
+- http://127.0.0.1:8000/register - cadastro de usuário do sistema (signup)
+- http://127.0.0.1:8000/login - login
 - clientes:
-    - listar todos os clientes cadastrados (index)
-        - apenas dados principais devem vir aqui;
-        - ordenar pelo id.
-    - detalhar um(a) cliente e vendas a ele(a) (show)
-        - trazer as vendas mais recentes primeiro;
-        - possibilidade de filtrar as vendas por mês + ano.
-    - adicionar um(a) cliente (store)
-    - editar um(a) cliente (update)
-    - excluir um(a) cliente e vendas a ele(a) (delete)
+    - http://127.0.0.1:8000/admin/clients - listar todos os clientes cadastrados (index)
+    - http://127.0.0.1:8000/admin/clients/{id} - detalhar um(a) cliente e vendas a ele(a) (show)
+    - http://127.0.0.1:8000/admin/clients/create - adicionar um(a) cliente (store)
+    - http://127.0.0.1:8000/admin/clients/{id}/edit - editar um(a) cliente (update)
+    - http://127.0.0.1:8000/admin/clients/destroy/{id} - excluir um(a) cliente e vendas a ele(a) (delete)
 - produtos:
-    - listar todos os produtos cadastrados (index)
-        - apenas dados principais devem vir aqui;
-        - ordenar alfabeticamente.
-    - detalhar um produto (show)
-    - criar um produto (store)
-    - editar um produto (update)
-    - exclusão lógica ("soft delete") de um produto (delete)
+    - http://127.0.0.1:8000/admin/products - listar todos os produtos cadastrados (index)
+    - http://127.0.0.1:8000/admin/products/{{id}} - detalhar um produto (show)
+    - http://127.0.0.1:8000/admin/products/create - criar um produto (store)
+    - http://127.0.0.1:8000/admin/products/{id}/edit - editar um produto (update)
+    - http://127.0.0.1:8000/admin/products/destroy/{id} - exclusão lógica ("soft delete") de um produto (delete)
 - vendas:
-    - registrar venda de 1 produto a 1 cliente (store)
+    - http://127.0.0.1:8000/admin/sales - listar todas as vendas, associando cliente e produto.
 
-Obs: as rotas em clientes, produtos e vendas só podem ser acessadas por usuário logado.
+## OBS:
+- Para acessar qualquer rota, precisa estar logado.
 
-## Requisitos
-- estruturar o sistema observando o MVC (mas sem as views);
-- deve usar mySQL no banco de dados;
-- as respostas devem ser em JSON;
-- pode usar recursos e bibliotecas que auxiliam na administração do banco de dados (Eloquent, Lucid, Knex, Bookshelf, etc.);
-- documentar as instruções necessárias em um README (requisitos, como rodar, detalhamento de rotas);
-- fazer um Pull Request para este repositório ao finalizar.
+## Considerações
+- Na autenticação foi usado o laravel UI e não o JWT (não consegui concluir, para não ficar sem autenticação optei pelo UI)
+- Foi feito um pequeno trabalho de front para auxiliar na visualização das consultas
+- Para mensagens de success foi usado o Flash, caso precise instalar de novo: composer req laravelcasts/flash
 
-Obs: caso o(a) candidato(a) não consiga completar o teste até o prazo combinado com o avaliador, deve garantir que tudo que foi efetivamente feito esteja em pleno funcionamento. Relatar no README quais foram as dificuldades encontradas.
 
-## Critérios de Avaliação
-- lógica de programação;
-- organização do projeto;
-- legibilidade do código;
-- validação necessária dos dados;
-- forma adequada de utilização dos recursos;
-- seguimento dos padrões especificados;
-- clareza na documentação.

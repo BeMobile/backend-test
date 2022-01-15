@@ -1,6 +1,6 @@
 import {v4 as uuidV4} from 'uuid'
 
-class Singup {
+class User {
   id?: string;
   email: string;
   password: string;
@@ -13,4 +13,4 @@ class Singup {
   }
 }
 
-export { Singup }
+export { User }

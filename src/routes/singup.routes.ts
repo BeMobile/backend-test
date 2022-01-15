@@ -1,22 +1,23 @@
-import  { Router } from "express";
-import { Singup } from "../model/Singup";
+import { Router } from "express";
+import { CreateUserService } from "../services/CreateUserService";
+import { UserRepository } from "../repositories/UserRepository";
 
 const routes = Router();
-
-const users: Singup[] = [];
+const userRepository = new UserRepository();
 
 routes.post('/singup', (req, res) => {
   const { email, password } = req.body;
 
-  const create = new Singup();
+  const createUserService = new CreateUserService(userRepository)
 
-  Object.assign(create, { 
-    email, 
-    password,
-    created_at: new Date()
-  });
-  users.push(create)
+  createUserService.execute({ email, password})
 
-  return res.status(201).json({create});
+  return res.status(201).send();
 });
+
+routes.get('/singup', (req, res) => {
+  const allUsers = userRepository.list()
+
+  return res.json({allUsers});
+})
 export { routes }

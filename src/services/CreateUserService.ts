@@ -1,4 +1,4 @@
-import { UserRepository } from "../repositories/UserRepository";
+import { IUsersRepository } from "../modules/_users/repositories/IUsersRepository";
 
 interface IRequest {
   email: string;
@@ -7,7 +7,7 @@ interface IRequest {
 
 class CreateUserService {
 
-  constructor(private userRepository: UserRepository) {
+  constructor(private userRepository: IUsersRepository) {
 
   }
   execute({ email, password }: IRequest): void {

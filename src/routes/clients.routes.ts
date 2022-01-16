@@ -1,5 +1,5 @@
 import { Router } from "express";
-import { ClientsRepository } from "../repositories/ClientsRepository";
+import { ClientsRepository } from "../modules/_clients/repositories/ClientsRepository";
 import { CreateClientService } from "../services/CreateClientService";
 
 const clientsRoutes = Router();

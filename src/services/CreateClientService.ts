@@ -1,4 +1,4 @@
-import { ClientsRepository } from "../repositories/ClientsRepository"
+import { ClientsRepository } from "../modules/_clients/repositories/ClientsRepository"
 
 interface IRequest {
   nome: string;

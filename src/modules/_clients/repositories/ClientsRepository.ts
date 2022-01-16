@@ -1,18 +1,7 @@
 import { Clients } from "../model/Clients";
+import { IClientsRepository, ICreateClientDTO } from "./IClientsRepository";
 
-interface ICreateClientDTO {
-  nome: string;
-  cpf: string;
-  andress: {
-    street: string;
-    number: number;
-    district: string;
-    city: string;
-    cep: string;
-  }
-}
-
-class ClientsRepository {
+class ClientsRepository implements IClientsRepository {
   private clients: Clients[];
 
   constructor() {

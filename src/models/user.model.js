@@ -1,4 +1,4 @@
-const { DataTypes } = require("sequelize");
+const { DataTypes, TimeoutError } = require("sequelize");
 
 const db = require("../config/db.config");
 
@@ -17,6 +17,7 @@ const User = db.define("users", {
     type: DataTypes.STRING,
     allowNull: false,
     unique: true,
+    isEmail: true,
   },
   passwordHash: {
     type: DataTypes.STRING,

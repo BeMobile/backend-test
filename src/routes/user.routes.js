@@ -3,6 +3,7 @@ const bcrypt = require("bcryptjs");
 
 const salt_rounds = 10;
 
+const productModel = require("../models/product.model");
 const userModel = require("../models/user.model");
 const generateToken = require("../config/jwt.config");
 const attachCurrentUser = require("../middlewares/attackCurrentUser");
@@ -10,13 +11,14 @@ const isAuthenticated = require("../middlewares/isAuthenticated");
 
 // ======================
 //     rota de signup
+//
+//- cadastro de usuário do sistema (signup)
 // ======================
 router.post("/signup", async (req, res) => {
   try {
     const { password, email } = req.body;
 
     const user = await userModel.findOne({ where: { email: email } });
-    console.log("password aqui", password);
 
     // verifica se email já foi cadastrado
     if (user) {
@@ -67,6 +69,8 @@ router.post("/signup", async (req, res) => {
 
 // ======================
 //     rota de login
+//
+//- login com JWT de usuário cadastrado (login)
 // ======================
 router.post("/login", async (req, res, next) => {
   try {
@@ -84,7 +88,6 @@ router.post("/login", async (req, res, next) => {
         .json({ msg: "This email is not yet registered in our website;" });
     }
 
-    // console.log(password, user.passwordHash);
     // Verificar se a senha do usuário pesquisado bate com a senha recebida pelo formulário
     if (await bcrypt.compareSync(password, user.passwordHash)) {
       // Gerando o JWT com os dados do usuário que acabou de logar
@@ -113,18 +116,20 @@ router.post("/login", async (req, res, next) => {
 //     rota de busca, info usuario logado
 // ============================================
 router.get(
-  "/user/index",
+  "/info/user",
   isAuthenticated,
   attachCurrentUser,
   async (req, res) => {
-    console.log("index", req.currentUser);
     try {
       // Buscar o usuário logado que está disponível através do middleware attachCurrentUser
       const loggedInUser = req.currentUser;
       const id = loggedInUser.id;
       if (loggedInUser) {
         // Responder o cliente com os dados do usuário. O status 200 significa OK
-        const user = await userModel.findOne({ where: { id: id } });
+        const user = await userModel.findOne({
+          where: { id: id },
+          include: productModel,
+        });
         console.log(user);
         return res.status(200).json(user);
       } else {
@@ -138,17 +143,21 @@ router.get(
 );
 
 // ================================================
-//     rota de busca, todos clientes cadastrados
+//     rota de busca, todos usuarios cadastrados
 // ================================================
-router.get("/index", isAuthenticated, attachCurrentUser, async (req, res) => {
-  console.log("index");
-  try {
-    const users = await userModel.findAll();
-    return res.status(200).json(users);
-  } catch {
-    console.error(err);
-    return res.status(500).json({ msg: JSON.stringify(err) });
+router.get(
+  "/all/users",
+  isAuthenticated,
+  attachCurrentUser,
+  async (req, res) => {
+    try {
+      const users = await userModel.findAll({ include: productModel });
+      return res.status(200).json(users);
+    } catch {
+      console.error(err);
+      return res.status(500).json({ msg: JSON.stringify(err) });
+    }
   }
-});
+);
 
 module.exports = router;

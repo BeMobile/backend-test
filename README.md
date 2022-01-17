@@ -1,56 +1,128 @@
-# Be mobile - Teste de Back-end
-O teste de back-end da Be mobile consiste em estruturar uma API RESTful e um banco de dados ligado a esta API. Trate-se de um sistema que permite cadastrar usuários externamente e, ao realizarem login, poderão registrar clientes, produtos e vendas. O(a) candidato(a) poderá escolher desenvolver em Node.js (Adonis, Koa ou Express) ou PHP (Laravel).
+# BEMOBILE INTERVIWER
 
-## Banco de Dados
-O banco de dados deve ser estruturado à escolha do(a) candidato(a), mas minimamente deverá conter o seguinte:
-- usuários: email, senha;
-- clientes: nome, cpf;
-- endereço: todos os campos de endereço;
-- telefones: cliente, número;
-- produtos: colocar os dados necessários para um tipo de produto (livros), além de preço.
-- vendas: cliente, produto, quantidade, preço unitário, preço total, data e hora.
+ <hr />
+ <p>
+   Uma aplicação de cadastro de Produto
+ </p>
+  <hr />
+ <h1> <hr />
+    TECHS
+ </h1>
+ <ul>
+   <li>Adonisjs 5</li>
+   <li>Mysql</li>
+   <li>JSON</li>
+   <li>Lucid</li>
+   <li>Node.js >=v14 
+ </ul>
+ <hr />
+ <h1>
+   DESIGN PATTERN
+ </h1>
+ <ul>
+   <li>MVC</li>
+ </ul>
 
-## Rotas do Sistema
-- cadastro de usuário do sistema (signup)
-- login com JWT de usuário cadastrado (login)
-- clientes:
-    - listar todos os clientes cadastrados (index)
-        - apenas dados principais devem vir aqui;
-        - ordenar pelo id.
-    - detalhar um(a) cliente e vendas a ele(a) (show)
-        - trazer as vendas mais recentes primeiro;
-        - possibilidade de filtrar as vendas por mês + ano.
-    - adicionar um(a) cliente (store)
-    - editar um(a) cliente (update)
-    - excluir um(a) cliente e vendas a ele(a) (delete)
-- produtos:
-    - listar todos os produtos cadastrados (index)
-        - apenas dados principais devem vir aqui;
-        - ordenar alfabeticamente.
-    - detalhar um produto (show)
-    - criar um produto (store)
-    - editar um produto (update)
-    - exclusão lógica ("soft delete") de um produto (delete)
-- vendas:
-    - registrar venda de 1 produto a 1 cliente (store)
+ <hr />
+ <h1>
+    INSTALAÇÃO
+ </h1>
+ <hr />
 
-Obs: as rotas em clientes, produtos e vendas só podem ser acessadas por usuário logado.
+ <ul>
+   <li>Criar uma Base de dado sql : 
+      <ul>
+       <li>Uma tabela com nome <strong>bemobile</strong></li>   
+       <li>Outras configurações estam no arquivo <strong>.ENV.exemple</strong> </li>  
+      <ul>
+   </li>
+   <li>executar: yarn ou npm install</li>
+   <li>executar migration: node ace migration:run</li>
+   <li>executar a aplicação: node ace serve --watch</li>
 
-## Requisitos
-- estruturar o sistema observando o MVC (mas sem as views);
-- deve usar mySQL no banco de dados;
-- as respostas devem ser em JSON;
-- pode usar recursos e bibliotecas que auxiliam na administração do banco de dados (Eloquent, Lucid, Knex, Bookshelf, etc.);
-- documentar as instruções necessárias em um README (requisitos, como rodar, detalhamento de rotas);
-- fazer um Pull Request para este repositório ao finalizar.
+ </ul>
 
-Obs: caso o(a) candidato(a) não consiga completar o teste até o prazo combinado com o avaliador, deve garantir que tudo que foi efetivamente feito esteja em pleno funcionamento. Relatar no README quais foram as dificuldades encontradas.
+  <hr />
+ <h1>
+    Rotas da aplicação
+ </h1>
+ <ul>
+   <li>
+     USUARIO: http://localhost/user --> POST
+   </li>
+   <li>
+      USUARIO: http://localhost/user --> GET
+    </li>
+      <li>
+      USUARIO: http://localhost/login --> POST
+    </li>
+     <li>
+      CLIENTE: http://localhost/cliente --> POST
+    </li>
+     <li>
+      CLIENTE: http://localhost/cliente --> GET
+    </li>
+     <li>
+      CLIENTE: http://localhost/cliente/2 --> PUT
+    </li>
+     <li>
+      CLIENTE: http://localhost/cliente/2 --> DELETE
+    </li>
+    <li>
+       CLIENTE: http://localhost:3333/cliente/vendas/1 --> POST
+    </li>
+    <li>
+       PRODRUTO: http://localhost:3333/produto --> POST
+    </li>
+      <li>
+       PRODRUTO: http://localhost:3333/produto/1 --> PUT
+    </li>
+      <li>
+       PRODRUTO: http://localhost:3333/produto/1 DELETE
+    </li>
+      <li>
+       PRODRUTO: http://localhost:3333/produto --> GET
+    </li>
+    <li>
+       PRODRUTO: http://localhost:3333/produto/2 --> GET
+    </li>
+     <li>
+       VENDAS: http://localhost:3333/venda/2/2 --> POST
+    </li>
+    <pre>
+        OBS: 
+             -primeiro parámetro: id do cliente
+             -segundo parámetro: id do produto
+    </pre>
+     <li>
+       VENDAS: http://localhost:3333/venda --> GET
+    </li>
+    <li>
+       TELEFONE: http://localhost:3333/telefone --> POST
+    </li>
+     <li>
+       TELEFONE: http://localhost:3333/telefone --> GET
+    </li>
+    <li>
+       ENDEREÇO: http://localhost:3333/endereco --> POST
+    </li>
+     <li>
+       ENDEREÇO: http://localhost:3333/endereco --> GET
+    </li>
 
-## Critérios de Avaliação
-- lógica de programação;
-- organização do projeto;
-- legibilidade do código;
-- validação necessária dos dados;
-- forma adequada de utilização dos recursos;
-- seguimento dos padrões especificados;
-- clareza na documentação.
+ </ul>
+
+   <hr />
+ <h1>Dificuldades: </h1>
+      <ul>
+         <li>Erro ao configurar sql:
+             <pre>
+                ER_NOT_SUPPORTED_AUTH_MODE:
+                   Client does not support authentication protocol requested by server; consider upgrading MySQL client
+             </pre>
+         </li>
+      </ul>
+   LINK DA SOLUÇÃO DO PROBLEMA: https://github.com/adonisjs/core/discussions/2941 
+
+
+ <hr />

@@ -1,26 +1,26 @@
-const Sequelize = require('sequelize')
-const Database = require('./Database').getConnection()
+module.exports = (connection, Sequelize) =>
+{
+    const Cliente = connection.define(
+    'cliente',
+        {
+            id:
+            {
+                type: Sequelize.INTEGER,
+                allowNull: false,
+                primaryKey: true
+            },
 
-const Cliente = Database.define(
-'cliente',
-	{
-		id:
-		{
-			type: Sequelize.INTEGER,
-			allowNull: false,
-			primaryKey: true
-		},
+            nome:
+            {
+                type: Sequelize.STRING
+            },
 
-		nome:
-		{
-			type: Sequelize.STRING
-		},
+            cpf:
+            {
+                type: Sequelize.STRING
+            }
+        }
+    )
 
-		cpf:
-		{
-			type: Sequelize.STRING
-		}
-	}
-)
-
-module.exports = Cliente
+    return Cliente
+}

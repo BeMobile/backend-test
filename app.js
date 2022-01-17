@@ -29,4 +29,4 @@ module.exports = app
 // A ORM precisa sincronizar a database em toda inicializacao
 const database = require('./src/Models/Database')
 
-database.getConnection().sync()
+database.connection.sync()

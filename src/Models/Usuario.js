@@ -1,26 +1,26 @@
-const Sequelize = require('sequelize')
-const Database = require('./Database').getConnection()
-
-const Usuario = Database.define(
-'usuario',
-    {
-        id:
+module.exports = (connection, Sequelize) =>
+{
+    const Usuario = connection.define(
+    'usuario',
         {
-            type: Sequelize.INTEGER,
-            allowNull: false,
-            primaryKey: true
-        },
+            id:
+            {
+                type: Sequelize.INTEGER,
+                allowNull: false,
+                primaryKey: true
+            },
 
-        email:
-        {
-            type: Sequelize.STRING
-        },
+            email:
+            {
+                type: Sequelize.STRING
+            },
 
-        cpf:
-        {
-            type: Sequelize.STRING
+            senha:
+            {
+                type: Sequelize.STRING
+            }
         }
-    }
-)
+    )
 
-module.exports = Usuario
+    return Usuario
+}

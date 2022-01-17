@@ -4,8 +4,17 @@ import { ICreateSingupDTO, IUsersRepository } from "./IUsersRepository";
 class UserRepository implements IUsersRepository {
   private users: User[];
 
-  constructor() {
+  private static INSTANCE: UserRepository
+
+  private constructor() {
     this.users = [];
+  }
+
+  public static getInstance(): UserRepository {
+    if(!UserRepository.INSTANCE) {
+      UserRepository.INSTANCE = new UserRepository();
+    }
+    return UserRepository.INSTANCE;
   }
 
   create({ email, password }: ICreateSingupDTO): void {

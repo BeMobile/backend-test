@@ -4,8 +4,17 @@ import { IClientsRepository, ICreateClientDTO } from "./IClientsRepository";
 class ClientsRepository implements IClientsRepository {
   private clients: Clients[];
 
-  constructor() {
+  private static INSTANCE: ClientsRepository
+
+  private constructor() {
     this.clients = [];
+  }
+
+  public static getInstance(): ClientsRepository {
+    if(!ClientsRepository.INSTANCE) {
+      ClientsRepository.INSTANCE = new ClientsRepository();
+    }
+    return ClientsRepository.INSTANCE;
   }
 
   create({ nome, cpf, andress: { street,number, district, city, cep } }: ICreateClientDTO): void {

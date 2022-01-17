@@ -1,24 +1,14 @@
 import { Router } from "express";
-import { ClientsRepository } from "../modules/_clients/repositories/ClientsRepository";
-import { CreateClientService } from "../services/CreateClientService";
+import { createClientController } from "../modules/_clients/useCases/createClient";
+import { listClientController } from "../modules/_clients/useCases/listClient";
 
 const clientsRoutes = Router();
 
-const clientRepository = new ClientsRepository();
-
 clientsRoutes.post('/clients', (req, res) => {
-  const { nome, cpf, andress: {street, number, district, city, cep} } = req.body;
-
-  const createClientService = new CreateClientService(clientRepository)
-
-  createClientService.execute({nome, cpf, andress: {street, number, district, city, cep}})
-  
-  return res.status(201).send();
+  return createClientController.handle(req, res);
 });
 
 clientsRoutes.get('/clients', (req, res) => {
-  const allClients = clientRepository.list()
-
-  return res.json({allClients});
+  return listClientController.handle(req, res)
 })
 export { clientsRoutes }

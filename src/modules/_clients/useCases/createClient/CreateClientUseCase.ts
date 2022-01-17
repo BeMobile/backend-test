@@ -1,4 +1,5 @@
-import { ClientsRepository } from "../modules/_clients/repositories/ClientsRepository"
+import { ClientsRepository } from "../../repositories/ClientsRepository";
+
 
 interface IRequest {
   nome: string;
@@ -12,7 +13,7 @@ interface IRequest {
   }
 }
 
-class CreateClientService {
+class CreateClientUseCase {
 
   constructor(private clientRepository: ClientsRepository) {
 
@@ -40,4 +41,4 @@ class CreateClientService {
   }
 }
 
-export { CreateClientService }
+export { CreateClientUseCase }

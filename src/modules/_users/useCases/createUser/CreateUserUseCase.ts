@@ -1,11 +1,11 @@
-import { IUsersRepository } from "../modules/_users/repositories/IUsersRepository";
+import { IUsersRepository } from "../../repositories/IUsersRepository";
 
 interface IRequest {
   email: string;
   password: string;
 }
 
-class CreateUserService {
+class CreateUserUseCase {
 
   constructor(private userRepository: IUsersRepository) {
 
@@ -21,4 +21,4 @@ class CreateUserService {
   }
 }
 
-export { CreateUserService }
+export { CreateUserUseCase }

@@ -27,7 +27,7 @@ API construída com Node.JS, MySQL, AdonisJs.
 3. Execute o código para rodar o projeto: `node ace serve --watch`
 
 ## Insomnia
-[![Run in Insomnia}](https://insomnia.rest/images/run.svg)]()
+[![Run in Insomnia}](https://insomnia.rest/images/run.svg)](https://raw.githubusercontent.com/JuanWeimar/backend-test/main/Insomnia_2022-01-17.json)
 
 # API endpoints
 

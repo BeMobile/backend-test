@@ -1,11 +1,32 @@
 version: "3.7"
 
 services:
+  database_backend_test:
+    image: "postgres"
+    container_name: database_backend_test
+    restart: always
+    ports:
+      - 5432:5432
+    environment:
+      - POSTGRES_USER=bemobile
+      - POSTGRES_PASSWORD=bemobile
+      - POSTGRES_DB=database_backend_test
+    volumes:
+      - pgdata:/data/postgres
   app:
     build: .
     container_name: api-backend-test
+    restart: always
     ports:
       - 3333:3333
     volumes:
       - .:/usr/app
+    links:
+      - database_backend_test
+    depends_on:
+      - database_backend_test
+
+volumes:
+  pgdata:
+    driver: local
 

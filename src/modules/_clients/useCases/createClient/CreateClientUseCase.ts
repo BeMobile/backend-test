@@ -1,43 +1,42 @@
-import { ClientsRepository } from "../../repositories/ClientsRepository";
-
+import { inject, injectable } from "tsyringe";
+import { IClientsRepository } from "../../repositories/IClientsRepository";
 
 interface IRequest {
   nome: string;
   cpf: string;
-  andress: {
-    street: string;
-    number: number;
-    district: string;
-    city: string;
-    cep: string;
-  }
+  telefone: string;
+  rua: string;
+  numero: number;
+  bairro: string;
+  cidade: string;
+  cep: string;
 }
-
+@injectable()
 class CreateClientUseCase {
-
-  constructor(private clientRepository: ClientsRepository) {
+  constructor(
+  @inject("ClientsRepository")  
+  private clientRepository: IClientsRepository) {
 
   }
-  execute({nome, cpf, andress: {street, number, district, city, cep}}: IRequest) {
+  async execute({nome, cpf, telefone, rua, numero, bairro, cidade, cep }: IRequest):Promise<void>  {
 
-    const clientAllreadyExists = this.clientRepository.findByCpf(cpf);
+    const clientAllreadyExists = await this.clientRepository.findByCpf(cpf);
 
     if(clientAllreadyExists) {
       throw new Error("Client with this CPF allready exists!")
     }
-    this.clientRepository.create(
+    await this.clientRepository.create(
       { 
         nome, 
         cpf, 
-        andress: 
-        {
-          street, 
-          number, 
-          district, 
-          city, 
-          cep
+        telefone,
+        rua, 
+        numero, 
+        bairro, 
+        cidade, 
+        cep
         } 
-      });
+    );
   }
 }
 

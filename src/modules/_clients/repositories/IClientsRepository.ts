@@ -1,21 +1,19 @@
-import { Clients } from "../model/Clients";
+import { Clients } from "../entities/Clients";
 
 interface ICreateClientDTO {
   nome: string;
   cpf: string;
-  andress: {
-    street: string;
-    number: number;
-    district: string;
-    city: string;
-    cep: string;
-  }
+  telefone: string;
+  rua: string;
+  numero: number;
+  bairro: string;
+  cidade: string;
+  cep: string;
 }
 interface IClientsRepository {
-  findByCpf(cpf: string): Clients;
-  list(nome: string, cpf: string): Clients[];
-  create({ nome, cpf, andress: { street, number, district, city, cep }
-  }: ICreateClientDTO): void;
+  findByCpf(cpf: string): Promise<Clients>;
+  list(nome: string, cpf: string): Promise<Clients[]>;
+  create({ nome, cpf, telefone, rua, numero, bairro, cidade, cep}: ICreateClientDTO): Promise<void>;
 }
 
 export { ICreateClientDTO, IClientsRepository }

@@ -1,0 +1,13 @@
+{
+  "type":"postgres",
+  "port": 5432,
+  "host":"localhost",
+  "username":"bemobile",
+  "password":"bemobile",
+  "database": "database_backend_test",
+  "migrations": ["./src/database/migrations/*.ts"],
+  "entities": ["./src/modules/_clients/entities/*.ts", "./src/modules/_users/entities/*.ts"],
+  "cli": {
+    "migrationsDir": "./src/database/migrations"
+  }
+}

@@ -1,11 +1,14 @@
-import { Clients } from "../../model/Clients";
-import { ClientsRepository } from "../../repositories/ClientsRepository";
+import { inject, injectable } from "tsyringe";
+import { Clients } from "../../entities/Clients";
+import { IClientsRepository } from "../../repositories/IClientsRepository";
 
+@injectable()
 class ListClientUseCase {
-  constructor(private clientRepository: ClientsRepository) {}
-
-  execute(): Clients[] {
-    const clients = this.clientRepository.list()
+  constructor(
+  @inject("ClientsRepository")
+  private clientRepository: IClientsRepository) {}
+  async execute(): Promise<Clients[]> {
+    const clients = await this.clientRepository.list("nome", "cpf")
 
     return clients;
   }

@@ -1,14 +1,10 @@
 import { Router } from "express";
-import { createClientController } from "../modules/_clients/useCases/createClient";
-import { listClientController } from "../modules/_clients/useCases/listClient";
+import { CreateClientController } from "../modules/_clients/useCases/createClient/CreateClientController";
 
-const clientsRoutes = Router();
+const clientsRoutes = Router()
 
-clientsRoutes.post('/clients', (req, res) => {
-  return createClientController.handle(req, res);
-});
+const createClientController = new CreateClientController();
 
-clientsRoutes.get('/clients', (req, res) => {
-  return listClientController.handle(req, res)
-})
+clientsRoutes.post('/clients', createClientController.handle )
+
 export { clientsRoutes }

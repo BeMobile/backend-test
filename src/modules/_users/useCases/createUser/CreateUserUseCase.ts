@@ -1,23 +1,36 @@
+import { hash } from "bcryptjs";
+import { inject, injectable } from "tsyringe";
 import { IUsersRepository } from "../../repositories/IUsersRepository";
+
 
 interface IRequest {
   email: string;
   password: string;
 }
 
+@injectable()
 class CreateUserUseCase {
+  constructor(
+    @inject("UserRepository")
+    private userRepository: IUsersRepository) {
+}
+  async execute({ 
+    email, 
+    password 
+  }: IRequest): Promise<void> {
 
-  constructor(private userRepository: IUsersRepository) {
+    const userAlreadyExists = await this.userRepository.findByEmail(email)
 
-  }
-  execute({ email, password }: IRequest): void {
-    const emailAllReadyExists = this.userRepository.findByEmail(email);
-
-    if (emailAllReadyExists) {
-      throw new Error("Email Already Exists!")
+    if(userAlreadyExists) {
+      throw new Error("Esse email já está em uso!")
     }
+    
+    const passwordHash = await hash(password, 8)
 
-    this.userRepository.create({ email, password });
+    await this.userRepository.create({ 
+      email, 
+      password: passwordHash
+    });
   }
 }
 

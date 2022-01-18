@@ -1,14 +1,13 @@
 import { Router } from "express";
-import { createUserController } from '../modules/_users/useCases/createUser'
-import { listUserController } from "../modules/_users/useCases/listUser";
+import { ListUserController } from "../modules/_users/useCases/listUser/ListUserController";
+import { CreateUserController } from "../modules/_users/useCases/createUser/CreateUserController";
 
-const routes = Router();
+const userRoutes = Router();
 
-routes.post('/singup', (req, res) => {
-  return createUserController.handle(req, res) 
-});
+const createUserController = new CreateUserController();
+const listUserController = new ListUserController();
 
-routes.get('/singup', (req, res) => {
-  return listUserController.handle(req, res)
-})
-export { routes }
+userRoutes.post('/singup',createUserController.handle);
+
+userRoutes.get('/singup', listUserController.handle)
+export { userRoutes }

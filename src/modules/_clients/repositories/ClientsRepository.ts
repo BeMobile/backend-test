@@ -1,45 +1,37 @@
-import { Clients } from "../model/Clients";
+import { getRepository, Repository } from "typeorm";
+import { Clients } from "../entities/Clients";
 import { IClientsRepository, ICreateClientDTO } from "./IClientsRepository";
 
 class ClientsRepository implements IClientsRepository {
-  private clients: Clients[];
 
-  private static INSTANCE: ClientsRepository
+  private repository: Repository<Clients>;
 
-  private constructor() {
-    this.clients = [];
+  constructor() {
+    this.repository = getRepository(Clients)
   }
 
-  public static getInstance(): ClientsRepository {
-    if(!ClientsRepository.INSTANCE) {
-      ClientsRepository.INSTANCE = new ClientsRepository();
-    }
-    return ClientsRepository.INSTANCE;
-  }
-
-  create({ nome, cpf, andress: { street,number, district, city, cep } }: ICreateClientDTO): void {
-    const createClient = new Clients();
-    Object.assign(createClient, {
-      nome,
+  async create({ nome, cpf, telefone, rua, numero, bairro, cidade, cep }: ICreateClientDTO): Promise<void> {
+    const client = this.repository.create({ 
+      nome, 
       cpf,
-      andress: { 
-        street, 
-        number, 
-        district, 
-        city, 
-        cep}
-        ,
-      created_at: new Date()
+      telefone, 
+      rua, 
+      numero, 
+      bairro, 
+      cidade, 
+      cep
     });
-    this.clients.push(createClient)
+    await this.repository.save(client);
   }
 
-  list(): Clients[] {
-    return this.clients
+  async list(): Promise<Clients[]> {
+    const client = await this.repository.find()
+
+    return client
   }
 
-  findByCpf(cpf: string): Clients{
-    const findCpf = this.clients.find((fcpf) => fcpf.cpf === cpf)
+  async findByCpf(cpf: string): Promise<Clients>{
+    const findCpf = await this.repository.findOne({ cpf })
     return findCpf
   }
 }

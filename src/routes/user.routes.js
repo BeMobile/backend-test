@@ -3,8 +3,8 @@ const bcrypt = require("bcryptjs");
 
 const salt_rounds = 10;
 
-const productModel = require("../models/product.model");
-const userModel = require("../models/user.model");
+const ProductModel = require("../models/product.model");
+const UserModel = require("../models/user.model");
 const generateToken = require("../config/jwt.config");
 const attachCurrentUser = require("../middlewares/attackCurrentUser");
 const isAuthenticated = require("../middlewares/isAuthenticated");
@@ -18,7 +18,7 @@ router.post("/signup", async (req, res) => {
   try {
     const { password, email } = req.body;
 
-    const user = await userModel.findOne({ where: { email: email } });
+    const user = await UserModel.findOne({ where: { email: email } });
 
     // verifica se email já foi cadastrado
     if (user) {
@@ -48,7 +48,7 @@ router.post("/signup", async (req, res) => {
     console.log(req.body);
 
     // criar usuario
-    const result = await userModel.create({
+    const result = await UserModel.create({
       ...req.body,
       passwordHash: hashedPassword,
     });
@@ -78,7 +78,7 @@ router.post("/login", async (req, res, next) => {
     const { email, password } = req.body;
 
     // Pesquisar esse usuário no banco pelo email
-    const user = await userModel.findOne({ where: { email: email } });
+    const user = await UserModel.findOne({ where: { email: email } });
     // console.log("user aqui", user);
 
     // Se o usuário não foi encontrado, significa que ele não é cadastrado
@@ -126,9 +126,22 @@ router.get(
       const id = loggedInUser.id;
       if (loggedInUser) {
         // Responder o cliente com os dados do usuário. O status 200 significa OK
-        const user = await userModel.findOne({
+        const user = await UserModel.findOne({
           where: { id: id },
-          include: productModel,
+          attributes: ["id", "name", "email"],
+          include: [
+            {
+              model: ProductModel,
+              attributes: [
+                "id",
+                "title",
+                "price",
+                "description",
+                "author",
+                "createdAt",
+              ],
+            },
+          ],
         });
         console.log(user);
         return res.status(200).json(user);
@@ -136,24 +149,6 @@ router.get(
         return res.status(404).json({ msg: "User not found." });
       }
     } catch (err) {
-      console.error(err);
-      return res.status(500).json({ msg: JSON.stringify(err) });
-    }
-  }
-);
-
-// ================================================
-//     rota de busca, todos usuarios cadastrados
-// ================================================
-router.get(
-  "/all/users",
-  isAuthenticated,
-  attachCurrentUser,
-  async (req, res) => {
-    try {
-      const users = await userModel.findAll({ include: productModel });
-      return res.status(200).json(users);
-    } catch {
       console.error(err);
       return res.status(500).json({ msg: JSON.stringify(err) });
     }

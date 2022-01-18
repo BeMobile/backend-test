@@ -1,5 +1,6 @@
 const { DataTypes } = require("sequelize");
 
+const UserModel = require("../models/user.model");
 const db = require("../config/db.config");
 
 const Client = db.define("client", {
@@ -18,8 +19,11 @@ const Client = db.define("client", {
   },
   cpf: {
     type: DataTypes.STRING,
+    unique: true,
   },
-  description: DataTypes.STRING,
+  birthday: {
+    type: DataTypes.DATEONLY,
+  },
 });
 
 Client.sync(); // This creates the table if it doesn't exist (and does nothing if it already exists)

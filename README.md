@@ -1,56 +1,64 @@
-# Be mobile - Teste de Back-end
-O teste de back-end da Be mobile consiste em estruturar uma API RESTful e um banco de dados ligado a esta API. Trate-se de um sistema que permite cadastrar usuários externamente e, ao realizarem login, poderão registrar clientes, produtos e vendas. O(a) candidato(a) poderá escolher desenvolver em Node.js (Adonis, Koa ou Express) ou PHP (Laravel).
+# Teste de estágio de Back-end - BeMobile
 
-## Banco de Dados
-O banco de dados deve ser estruturado à escolha do(a) candidato(a), mas minimamente deverá conter o seguinte:
-- usuários: email, senha;
-- clientes: nome, cpf;
-- endereço: todos os campos de endereço;
-- telefones: cliente, número;
-- produtos: colocar os dados necessários para um tipo de produto (livros), além de preço.
-- vendas: cliente, produto, quantidade, preço unitário, preço total, data e hora.
 
-## Rotas do Sistema
-- cadastro de usuário do sistema (signup)
-- login com JWT de usuário cadastrado (login)
-- clientes:
-    - listar todos os clientes cadastrados (index)
-        - apenas dados principais devem vir aqui;
-        - ordenar pelo id.
-    - detalhar um(a) cliente e vendas a ele(a) (show)
-        - trazer as vendas mais recentes primeiro;
-        - possibilidade de filtrar as vendas por mês + ano.
-    - adicionar um(a) cliente (store)
-    - editar um(a) cliente (update)
-    - excluir um(a) cliente e vendas a ele(a) (delete)
-- produtos:
-    - listar todos os produtos cadastrados (index)
-        - apenas dados principais devem vir aqui;
-        - ordenar alfabeticamente.
-    - detalhar um produto (show)
-    - criar um produto (store)
-    - editar um produto (update)
-    - exclusão lógica ("soft delete") de um produto (delete)
-- vendas:
-    - registrar venda de 1 produto a 1 cliente (store)
+## API
 
-Obs: as rotas em clientes, produtos e vendas só podem ser acessadas por usuário logado.
+Solução do desafio proposto pela BeMobile, para a vaga de estágio em Back-end.
+API construída com Node.JS, MySQL, AdonisJs.
 
-## Requisitos
-- estruturar o sistema observando o MVC (mas sem as views);
-- deve usar mySQL no banco de dados;
-- as respostas devem ser em JSON;
-- pode usar recursos e bibliotecas que auxiliam na administração do banco de dados (Eloquent, Lucid, Knex, Bookshelf, etc.);
-- documentar as instruções necessárias em um README (requisitos, como rodar, detalhamento de rotas);
-- fazer um Pull Request para este repositório ao finalizar.
 
-Obs: caso o(a) candidato(a) não consiga completar o teste até o prazo combinado com o avaliador, deve garantir que tudo que foi efetivamente feito esteja em pleno funcionamento. Relatar no README quais foram as dificuldades encontradas.
+# Antes de começar
+## Instalação
 
-## Critérios de Avaliação
-- lógica de programação;
-- organização do projeto;
-- legibilidade do código;
-- validação necessária dos dados;
-- forma adequada de utilização dos recursos;
-- seguimento dos padrões especificados;
-- clareza na documentação.
+1. Instale o Node, na versão LTS;
+2. Instale o banco de dados MySQL;
+3. Instale as dependências usando o yarn ou npm:  `npm install` ou ` yarn`;
+
+
+## Antes de rodar:
+1. Será necessário criar um banco de dados, com os comandos abaixo:
+- CREATE USER root WITH PASSWORD 12345
+- CREATE DATABASE teste_bemobile
+- GRANT ALL PRIVILEGES ON DATABASE teste_bemobile to root
+
+### Próximos passos
+
+2. Execute o código de migrações: `node ace make:migration run`, que realizará as migrações e inserção de dados no banco.
+3. Execute o código para rodar o projeto: `node ace serve --watch`
+
+## Insomnia
+[![Run in Insomnia}](https://insomnia.rest/images/run.svg)]()
+
+# API endpoints
+
+## GET
+`/clientes`  
+`/clientes/:id`
+
+`/produtos`   
+`/produtos/:id` 
+
+## PUT
+`/clientes/:id`  
+`/produtos/:id`
+
+## DELETE
+`/clientes/:id`  
+`/produtos/:id`
+
+## POST
+
+`/clientes`   
+`/produtos`   
+`/endereco`   
+`/telefones`  
+`/vendas`   
+`/produtos`   
+
+### Observação
+Para acessar as endpoints acima, é necessário realizar o cadastro de usuário e seu respectivo login, na rota `/usuarios` e após na rota `/login` para gerar o token de acesso.
+
+### Dificuldades
+- Tive dificuldade com as chaves estrangeiras no mysql, mas resolvi utilizando a documentação do adonis, a seguir https://docs.adonisjs.com/guides/models/relationships
+
+

@@ -1,4 +1,6 @@
 import { inject, injectable } from "tsyringe";
+import { AppError } from "../../../../errors/AppError";
+import { IAddressRepository } from "../../repositories/IAddressRepository";
 import { IClientsRepository } from "../../repositories/IClientsRepository";
 
 interface IRequest {
@@ -6,7 +8,7 @@ interface IRequest {
   cpf: string;
   telefone: string;
   rua: string;
-  numero: number;
+  numero: string;
   bairro: string;
   cidade: string;
   cep: string;
@@ -15,15 +17,24 @@ interface IRequest {
 class CreateClientUseCase {
   constructor(
   @inject("ClientsRepository")  
-  private clientRepository: IClientsRepository) {
+  private clientRepository: IClientsRepository
+  ) {
 
   }
-  async execute({nome, cpf, telefone, rua, numero, bairro, cidade, cep }: IRequest):Promise<void>  {
-
+  async execute({
+    nome, 
+    cpf, 
+    telefone, 
+    rua, 
+    numero, 
+    bairro, 
+    cidade, 
+    cep }: IRequest):Promise<void>  
+    {
     const clientAllreadyExists = await this.clientRepository.findByCpf(cpf);
 
     if(clientAllreadyExists) {
-      throw new Error("Client with this CPF allready exists!")
+      throw new AppError("O CPF informado já está em uso!")
     }
     await this.clientRepository.create(
       { 

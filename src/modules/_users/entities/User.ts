@@ -1,5 +1,6 @@
 import {v4 as uuidV4} from 'uuid'
 import { Column, CreateDateColumn, Entity, PrimaryColumn } from 'typeorm'
+import { AppError } from '../../../errors/AppError';
 
 @Entity("user")
 class User {
@@ -25,5 +26,5 @@ class User {
 export { User }
 
 function DataColumn() {
-  throw new Error('Function not implemented.');
+  throw new AppError('Function not implemented.');
 }

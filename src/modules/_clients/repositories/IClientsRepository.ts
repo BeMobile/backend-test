@@ -5,15 +5,16 @@ interface ICreateClientDTO {
   cpf: string;
   telefone: string;
   rua: string;
-  numero: number;
+  numero: string;
   bairro: string;
   cidade: string;
   cep: string;
 }
+
 interface IClientsRepository {
   findByCpf(cpf: string): Promise<Clients>;
-  list(nome: string, cpf: string): Promise<Clients[]>;
   create({ nome, cpf, telefone, rua, numero, bairro, cidade, cep}: ICreateClientDTO): Promise<void>;
+  list(): Promise<Clients[]>;
 }
 
 export { ICreateClientDTO, IClientsRepository }

@@ -7,11 +7,11 @@ class ListClientUseCase {
   constructor(
   @inject("ClientsRepository")
   private clientRepository: IClientsRepository) {}
-  async execute(): Promise<Clients[]> {
-    const clients = await this.clientRepository.list("nome", "cpf")
 
-    return clients;
+  async execute(): Promise<Clients[]> {
+    const clients = await this.clientRepository.list()
+
+    return clients
   }
 }
-
 export { ListClientUseCase }

@@ -20,7 +20,7 @@ class Clients {
   rua: string;
 
   @Column()
-  numero: number;
+  numero: string;
 
   @Column()
   bairro: string;

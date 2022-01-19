@@ -25,9 +25,8 @@ class ClientsRepository implements IClientsRepository {
   }
 
   async list(): Promise<Clients[]> {
-    const client = await this.repository.find()
-
-    return client
+    const clientInfo = await this.repository.find({select:["nome", "cpf", "telefone"], order: {id: "ASC" }});
+    return clientInfo;
   }
 
   async findByCpf(cpf: string): Promise<Clients>{

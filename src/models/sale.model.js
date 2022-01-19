@@ -18,12 +18,22 @@ const Sale = db.define("sale", {
     allowNull: false,
   },
   unitPrice: {
-    type: DataTypes.DECIMAL,
+    type: DataTypes.DECIMAL(10, 2),
     allowNull: false,
+    validate: {
+      notEmpty: {
+        msg: "The field cannot be empty!",
+      },
+    },
   },
   totalPrice: {
-    type: DataTypes.DECIMAL,
+    type: DataTypes.DECIMAL(10, 2),
     allowNull: false,
+    validate: {
+      notEmpty: {
+        msg: "The field cannot be empty!",
+      },
+    },
   },
   dateOfSale: {
     type: DataTypes.DATE,
@@ -31,29 +41,19 @@ const Sale = db.define("sale", {
   },
 });
 
-//client
+// client
 // 1:1
-Sale.belongsTo(ClientModel, {
-  constraint: true,
-  foreignKey: "idClient",
-});
+Sale.belongsTo(ClientModel);
 
 // 1:M
-ClientModel.hasMany(Sale, {
-  foreignKey: "idClient",
-});
+ClientModel.hasMany(Sale);
 
-//product
+// product
 // 1:1
-Sale.belongsTo(ProductModel, {
-  constraint: true,
-  foreignKey: "idProduct",
-});
+Sale.belongsTo(ProductModel);
 
 // 1:M
-ProductModel.hasMany(Sale, {
-  foreignKey: "idProduct",
-});
+ProductModel.hasMany(Sale);
 
 Sale.sync(); // This creates the table if it doesn't exist (and does nothing if it already exists)
 

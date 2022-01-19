@@ -16,10 +16,12 @@ const User = db.define("users", {
   email: {
     type: DataTypes.STRING,
     allowNull: false,
-    unique: true,
+    unique: {
+      msg: "Duplicate entry for key email",
+    },
     isEmail: true,
   },
-  passwordHash: {
+  password: {
     type: DataTypes.STRING,
     allowNull: false,
   },

@@ -19,33 +19,52 @@ const Product = db.define(
           msg: "The field cannot be empty!",
         },
         len: {
-          args: [4, 20],
+          args: [2, 20],
           msg: "This field must be between 4 and 20 characters!",
         },
       },
     },
     price: {
-      type: DataTypes.DECIMAL,
+      type: DataTypes.DECIMAL(10, 2),
+      allowNull: false,
+      validate: {
+        notEmpty: {
+          msg: "The field cannot be empty!",
+        },
+      },
     },
-    description: DataTypes.STRING,
-    author: DataTypes.STRING,
+    description: {
+      type: DataTypes.STRING,
+      allowNull: false,
+      validate: {
+        notEmpty: {
+          msg: "The field cannot be empty!",
+        },
+        len: {
+          args: [2, 200],
+          msg: "This field must be between 4 and 200 characters!",
+        },
+      },
+    },
+    author: {
+      type: DataTypes.STRING,
+      allowNull: false,
+      validate: {
+        notEmpty: {
+          msg: "The field cannot be empty!",
+        },
+        len: {
+          args: [2, 20],
+          msg: "This field must be between 4 and 20 characters!",
+        },
+      },
+    },
   },
   {
     paranoid: true,
     deleteAt: "softDelete",
   }
 );
-
-// 1:1
-Product.belongsTo(UserModel, {
-  constraint: true,
-  foreignKey: "idUserOwner",
-});
-
-// 1:M
-UserModel.hasMany(Product, {
-  foreignKey: "idUserOwner",
-});
 
 Product.sync(); // This creates the table if it doesn't exist (and does nothing if it already exists)
 

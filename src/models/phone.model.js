@@ -15,11 +15,7 @@ const Phone = db.define("phone", {
   },
 });
 
-// client
-// 1:1
 Phone.belongsTo(ClientModel);
-
-// 1:M
 ClientModel.hasMany(Phone);
 
 Phone.sync(); // This creates the table if it doesn't exist (and does nothing if it already exists)

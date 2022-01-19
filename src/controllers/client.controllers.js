@@ -3,12 +3,14 @@ const PhoneModel = require("../models/phone.model");
 const ProductModel = require("../models/product.model");
 const SaleModel = require("../models/sale.model");
 const ClientModel = require("../models/client.model");
+const AddressModel = require("../models/address.model");
 
 const isCpfFormatInvalid = require("../utils/cpf.utils");
 
 exports.create = async (req, res) => {
   try {
-    const { cpf, phone } = req.body;
+    const { cpf, phone, street, number, complement, zipCode, city, state } =
+      req.body;
 
     if (isCpfFormatInvalid(cpf) === true) {
       return res.status(400).json({
@@ -29,6 +31,16 @@ exports.create = async (req, res) => {
     //
     const resultphone = await PhoneModel.create({
       phone: phone,
+      clientId: result.id,
+    });
+
+    const resultAddres = await AddressModel.create({
+      street: street,
+      number: number,
+      complement: complement,
+      zipCode: zipCode,
+      city: city,
+      state: state,
       clientId: result.id,
     });
 
@@ -64,10 +76,25 @@ exports.findById = async (req, res) => {
   try {
     const user = await ClientModel.findOne({
       where: { id: req.params.id },
-      attributes: ["id", "name", "birthday"],
+      attributes: ["id", "name", "birthday", "cpf"],
       order: [[SaleModel, "dateOfSale", "DESC"]],
       include: [
-        PhoneModel,
+        {
+          model: AddressModel,
+          attributes: [
+            "id",
+            "street",
+            "number",
+            "complement",
+            "zipCode",
+            "city",
+            "state",
+          ],
+        },
+        {
+          model: PhoneModel,
+          attributes: ["id", "phone"],
+        },
         {
           model: SaleModel,
           attributes: ["id", "qtt", "totalPrice", "dateOfSale"],

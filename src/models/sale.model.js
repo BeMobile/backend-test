@@ -41,18 +41,10 @@ const Sale = db.define("sale", {
   },
 });
 
-// client
-// 1:1
 Sale.belongsTo(ClientModel);
-
-// 1:M
 ClientModel.hasMany(Sale);
 
-// product
-// 1:1
 Sale.belongsTo(ProductModel);
-
-// 1:M
 ProductModel.hasMany(Sale);
 
 Sale.sync(); // This creates the table if it doesn't exist (and does nothing if it already exists)

@@ -731,7 +731,7 @@ Deve conter as seguintes variaveis de ambiente:
     </p>
     </details></br>
 
-... em sua aplicação:
+... em sua aplicação (Frontend):
 
 ```js
 import axios from "axios";
@@ -792,3 +792,8 @@ function AuthContextComponent(props) {
 
 export { AuthContextComponent, authContext
 ```
+
+... para testar os endpoits pelo insomnia, deve-se adicionar o token retornado no login em todas as rotas,
+exceto "/login", "/signup"
+
+![alt text](https://raw.githubusercontent.com/Malm/insomnia-plugin-save-access-token/master/screen-1.png)

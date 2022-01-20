@@ -20,6 +20,17 @@ Deve conter as seguintes variaveis de ambiente:
 | `TOKEN_SIGN_SECRET=` | Assinatura jwt necessaria para gerar Token. obs: Uma senha aleatória em alfa númerica                |
 | `APP_URL=`           | Endereço URL em que a aplicação será inicializada. ex: http://localhost:3000 (Exclusivo para o cors) |
 
+# Respostas
+
+| Código | Descrição                                                          |
+| ------ | ------------------------------------------------------------------ |
+| `200`  | Requisição executada com sucesso (success).                        |
+| `201`  | Novo recurso foi criado com sucesso (success).                     |
+| `400`  | Erros de validação ou os campos informados não existem no sistema. |
+| `404`  | Registro pesquisado não encontrado (Not found).                    |
+| `401`  | Dados de acesso inválidos.                                         |
+| `500`  | Erro interno.                                                      |
+
 # Métodos
 
 ### Requisições para a API devem seguir os padrões:

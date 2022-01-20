@@ -4,7 +4,7 @@ const sequelize = new Sequelize("bemobile", "root", "1234" ,{
     //arquivo de conexão com o banco
     host: "localhost",
     dialect: "mysql",
-    port: 3307
+    port: 3307  //troquei a porta da padrão 
 } ); 
 
 sequelize.authenticate() //checagem da conexão 

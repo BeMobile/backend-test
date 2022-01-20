@@ -11,11 +11,12 @@ const Cliente = require('./models/Cliente');
 app.use(express.json());
 //eAdmin - olha se o usuario está logado com o token
 
-app.post('/', eAdmin, async (req, res) => { // cadastro de clientes
+app.post('/cadastrocliente', eAdmin, async (req, res) => { // cadastro de clientes
 
  var dadosClientes = req.body;
 
-    await Cliente.create(dadosClientes)
+    await Cliente.create(dadosClientes)   
+    //caso der erro lembrar de olhar o nome no json e comparar com o nome salvo no banco
         .then(() => {
             return res.json({
                 erro: false,
@@ -27,9 +28,6 @@ app.post('/', eAdmin, async (req, res) => { // cadastro de clientes
                 mensagem: "Erro: Cliente não cadastrado!"
             });
         });
-
-
-
 });
 
 
@@ -37,16 +35,13 @@ app.get('/index', eAdmin, async (req, res) => {  //lista clientes cadastrados
 
     const valor = await Cliente.findAll({
         attributes: ['id', 'nome', 'cpf'],
-        order: [['id']]
+        order: [['id']] // ordenando pelo id
     })
 
     return res.json({
         erro: false,
         mensagem: valor
     });
-
-
-
 });
 
 app.post('/singup', async (req, res) => { //cadastro de usuário do sistema
@@ -54,7 +49,7 @@ app.post('/singup', async (req, res) => { //cadastro de usuário do sistema
 
     dadosUser.senha = await bcrypt.hash(dadosUser.senha, 8);
 
-    await User.create(dados)
+    await User.create(dadosUser)
         .then(() => {
             return res.json({
                 erro: false,

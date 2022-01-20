@@ -8,7 +8,7 @@ module.exports = {
         if(!authHeader){
             return res.status(400).json({
                 erro: true,
-                mensagem: "Erro: Necessário realizar o login para acessar a página! Faltam o token A!"
+                mensagem: "Erro: Necessário realizar o login para acessar a página!"
             });
         }
 
@@ -18,7 +18,7 @@ module.exports = {
         if(!token){
             return res.status(400).json({
                 erro: true,
-                mensagem: "Erro: Necessário realizar o login para acessar a página! Faltam o token B!"
+                mensagem: "Erro: Necessário realizar o login para acessar a página!"
             });
         }
 
@@ -29,7 +29,7 @@ module.exports = {
         }catch(err){
             return res.status(400).json({
                 erro: true,
-                mensagem: "Erro: Necessário realizar o login para acessar a página! Token inválido C!"
+                mensagem: "Erro: Necessário realizar o login para acessar a página!"
             });
         }
 

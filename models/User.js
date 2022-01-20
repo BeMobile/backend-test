@@ -23,6 +23,6 @@ const User = db.define('users', {
 });
 
 //Criar a tabela
-User.sync();
+//User.sync();
 
 module.exports = User;

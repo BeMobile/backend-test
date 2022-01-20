@@ -1,56 +1,57 @@
-# Be mobile - Teste de Back-end
-O teste de back-end da Be mobile consiste em estruturar uma API RESTful e um banco de dados ligado a esta API. Trate-se de um sistema que permite cadastrar usuários externamente e, ao realizarem login, poderão registrar clientes, produtos e vendas. O(a) candidato(a) poderá escolher desenvolver em Node.js (Adonis, Koa ou Express) ou PHP (Laravel).
+# Be mobile - Teste de Back-end :computer:
 
-## Banco de Dados
-O banco de dados deve ser estruturado à escolha do(a) candidato(a), mas minimamente deverá conter o seguinte:
-- usuários: email, senha;
-- clientes: nome, cpf;
-- endereço: todos os campos de endereço;
-- telefones: cliente, número;
-- produtos: colocar os dados necessários para um tipo de produto (livros), além de preço.
-- vendas: cliente, produto, quantidade, preço unitário, preço total, data e hora.
+#### COMO RODAR O PROJETO BAIXADO :rocket:
 
-## Rotas do Sistema
-- cadastro de usuário do sistema (signup)
-- login com JWT de usuário cadastrado (login)
-- clientes:
-    - listar todos os clientes cadastrados (index)
-        - apenas dados principais devem vir aqui;
-        - ordenar pelo id.
-    - detalhar um(a) cliente e vendas a ele(a) (show)
-        - trazer as vendas mais recentes primeiro;
-        - possibilidade de filtrar as vendas por mês + ano.
-    - adicionar um(a) cliente (store)
-    - editar um(a) cliente (update)
-    - excluir um(a) cliente e vendas a ele(a) (delete)
-- produtos:
-    - listar todos os produtos cadastrados (index)
-        - apenas dados principais devem vir aqui;
-        - ordenar alfabeticamente.
-    - detalhar um produto (show)
-    - criar um produto (store)
-    - editar um produto (update)
-    - exclusão lógica ("soft delete") de um produto (delete)
-- vendas:
-    - registrar venda de 1 produto a 1 cliente (store)
+###### Instalar todas as dependências indicada pelo package.json
 
-Obs: as rotas em clientes, produtos e vendas só podem ser acessadas por usuário logado.
+* npm install
 
-## Requisitos
-- estruturar o sistema observando o MVC (mas sem as views);
-- deve usar mySQL no banco de dados;
-- as respostas devem ser em JSON;
-- pode usar recursos e bibliotecas que auxiliam na administração do banco de dados (Eloquent, Lucid, Knex, Bookshelf, etc.);
-- documentar as instruções necessárias em um README (requisitos, como rodar, detalhamento de rotas);
-- fazer um Pull Request para este repositório ao finalizar.
+* nodemon app.js
 
-Obs: caso o(a) candidato(a) não consiga completar o teste até o prazo combinado com o avaliador, deve garantir que tudo que foi efetivamente feito esteja em pleno funcionamento. Relatar no README quais foram as dificuldades encontradas.
+* npm init
 
-## Critérios de Avaliação
-- lógica de programação;
-- organização do projeto;
-- legibilidade do código;
-- validação necessária dos dados;
-- forma adequada de utilização dos recursos;
-- seguimento dos padrões especificados;
-- clareza na documentação.
+* npm install express
+
+* npm install -g nodemon
+
+* npm install --save-dev nodemon
+
+  
+
+Rodar o projeto usando o *nodemon app.js* :play_or_pause_button:
+
+* npm install --save bcryptjs
+* npm install --save jsonwebtoken
+* npm install --save sequelize
+* npm install --save mysql2
+* CREATE DATABASE bemobile CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci; 
+
+
+
+## Rotas do Sistema :world_map:
+
+:one:  http://localhost:8080/singup - Página  de cadastro do Usuário 
+
+:two:  http://localhost:8080/login - Página de Login 
+
+:three: http://localhost:8080/cadastrocliente - Página de Cadastro de Clientes 
+
+:four: http://localhost:8080/index - Página que lista todos os Clientes 
+
+
+
+O sistema é com rotas e com um controle de acesso as paginas bloqueando qualquer ação de eventuais usuários sem acesso. 
+
+ 
+
+## Dificuldades Encontradas 
+
+* Tive dificuldade na modelagem do banco de dados dificultando o avanço do projeto
+* Problema com com a conexão com o banco de dados
+* Depois de assistir inúmeras aulas e pesquisar em varias fontes vim descobrir como funcionava o login com JWT, ainda acho complicado porem com a pratica sou levado a perfeição
+* Uma das maiores dificuldade que tive foi por conta do Node,nunca tinha programado com ele e não sabia como funcionava, como trabalho de 7h as 17h foi um pouco desafiador porem tentei dar meu melhor. 
+
+
+
+
+

@@ -75,7 +75,7 @@ exports.create = async (req, res) => {
 
     return res.status(201).json({
       msg: "Client registered successfully!",
-      // client: resultClient,
+      client: resultClient,
     });
   } catch (err) {
     console.log(err);

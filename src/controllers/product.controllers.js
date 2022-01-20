@@ -13,7 +13,7 @@ exports.create = async (req, res) => {
     });
     return res.status(200).json({
       msg: "Product registered successfully!",
-      body: result,
+      product: result,
     });
   } catch (err) {
     console.log(err);

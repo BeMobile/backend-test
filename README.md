@@ -163,7 +163,7 @@ Deve conter as seguintes variaveis de ambiente:
 
 - Exemplo:
 
-    <details>
+  <details>
         <summary><b>Body</b></summary><p>
 
   ```json
@@ -181,9 +181,9 @@ Deve conter as seguintes variaveis de ambiente:
   }
   ```
 
-      </p>
+  </p>
 
-    </details></br>
+  </details></br>
 
     <details>
            <summary><b>Resposta [200]</b></summary><p>
@@ -267,19 +267,19 @@ Deve conter as seguintes variaveis de ambiente:
   ```json
   [
     {
-      "id": 4,
+      "id": 3,
       "price": "31.50",
       "title": "A volta ao mundo em 80 dias"
+    },
+    {
+      "id": 1,
+      "price": "37.77",
+      "title": "The Diary of a Young Girl"
     },
     {
       "id": 2,
       "price": "49.50",
       "title": "Viagem ao centro da Terra"
-    },
-    {
-      "id": 3,
-      "price": "37.77",
-      "title": "The Diary of a Young Girl"
     }
   ]
   ```
@@ -298,7 +298,7 @@ Deve conter as seguintes variaveis de ambiente:
 
   ```json
   {
-    "id": 3,
+    "id": 1,
     "title": "The Diary of a Young Girl",
     "price": "37.77",
     "author": "Anne Frank",
@@ -338,8 +338,8 @@ Deve conter as seguintes variaveis de ambiente:
   ```json
   {
     "msg": "Product registered successfully!",
-    "body": {
-      "id": 3,
+    "product": {
+      "id": 1,
       "title": "The Diary of a Young Girl",
       "price": 37.77,
       "description": "In 1942, with Nazis occupying Holland, a thirteen-year-old Jewish girl and her family fled their home in Amsterdam and went into hiding.",
@@ -520,7 +520,7 @@ Deve conter as seguintes variaveis de ambiente:
 
   ```json
   {
-    "body": {
+    "sale": {
       "dateOfSale": "2022-01-19T23:40:21.740Z",
       "id": 7,
       "qtt": 2,

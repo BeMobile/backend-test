@@ -35,7 +35,7 @@ exports.create = async (req, res) => {
     });
 
     return res.status(201).json({
-      body: result,
+      sale: result,
     });
   } catch (err) {
     console.log(err);

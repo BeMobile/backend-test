@@ -39,11 +39,6 @@ Rodar o projeto usando o *nodemon app.js* :play_or_pause_button:
 :four: http://localhost:8080/index - Página que lista todos os Clientes 
 
 
-
-O sistema é com rotas e com um controle de acesso as paginas bloqueando qualquer ação de eventuais usuários sem acesso. 
-
- 
-
 ## Dificuldades Encontradas 
 
 * Tive dificuldade na modelagem do banco de dados dificultando o avanço do projeto

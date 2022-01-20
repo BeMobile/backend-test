@@ -731,65 +731,64 @@ Deve conter as seguintes variaveis de ambiente:
     </p>
     </details></br>
 
-# Be mobile - Teste de Back-end
+... em sua aplicação:
 
-O teste de back-end da Be mobile consiste em estruturar uma API RESTful e um banco de dados ligado a esta API. Trate-se de um sistema que permite cadastrar usuários externamente e, ao realizarem login, poderão registrar clientes, produtos e vendas. O(a) candidato(a) poderá escolher desenvolver em Node.js (Adonis, Koa ou Express) ou PHP (Laravel).
+```js
+import axios from "axios";
 
-## Banco de Dados
+const api = axios.create({ baseURL: "http://localhost:3000/api" });
 
-O banco de dados deve ser estruturado à escolha do(a) candidato(a), mas minimamente deverá conter o seguinte:
+api.interceptors.request.use((config) => {
+  const storedUserJson = localStorage.getItem("loggedInUser");
 
-- usuários: email, senha;
-- clientes: nome, cpf;
-- endereço: todos os campos de endereço;
-- telefones: cliente, número;
-- produtos: colocar os dados necessários para um tipo de produto (livros), além de preço.
-- vendas: cliente, produto, quantidade, preço unitário, preço total, data e hora.
+  const storedUser = JSON.parse(storedUserJson || '""');
 
-## Rotas do Sistema
+  if (storedUser.token) {
+    config.headers = {
+      Authorization: `Bearer ${storedUser.token}`,
+    };
+  }
 
-- cadastro de usuário do sistema (signup)
-- login com JWT de usuário cadastrado (login)
-- clientes:
-  - listar todos os clientes cadastrados (index)
-    - apenas dados principais devem vir aqui;
-    - ordenar pelo id.
-  - detalhar um(a) cliente e vendas a ele(a) (show)
-    - trazer as vendas mais recentes primeiro;
-    - possibilidade de filtrar as vendas por mês + ano.
-  - adicionar um(a) cliente (store)
-  - editar um(a) cliente (update)
-  - excluir um(a) cliente e vendas a ele(a) (delete)
-- produtos:
-  - listar todos os produtos cadastrados (index)
-    - apenas dados principais devem vir aqui;
-    - ordenar alfabeticamente.
-  - detalhar um produto (show)
-  - criar um produto (store)
-  - editar um produto (update)
-  - exclusão lógica ("soft delete") de um produto (delete)
-- vendas:
-  - registrar venda de 1 produto a 1 cliente (store)
+  return config;
+});
 
-Obs: as rotas em clientes, produtos e vendas só podem ser acessadas por usuário logado.
+export default api;
+```
 
-## Requisitos
+```js
+import { useState, createContext, useEffect } from "react";
+import { useHistory } from "react-router-dom";
 
-- estruturar o sistema observando o MVC (mas sem as views);
-- deve usar mySQL no banco de dados;
-- as respostas devem ser em JSON;
-- pode usar recursos e bibliotecas que auxiliam na administração do banco de dados (Eloquent, Lucid, Knex, Bookshelf, etc.);
-- documentar as instruções necessárias em um README (requisitos, como rodar, detalhamento de rotas);
-- fazer um Pull Request para este repositório ao finalizar.
+const authContext = createContext({ user: {}, token: "" });
 
-Obs: caso o(a) candidato(a) não consiga completar o teste até o prazo combinado com o avaliador, deve garantir que tudo que foi efetivamente feito esteja em pleno funcionamento. Relatar no README quais foram as dificuldades encontradas.
+function AuthContextComponent(props) {
+  const [loggedInUser, setLoggedInUser] = useState({ user: {}, token: "" });
 
-## Critérios de Avaliação
+  const history = useHistory();
 
-- lógica de programação;
-- organização do projeto;
-- legibilidade do código;
-- validação necessária dos dados;
-- forma adequada de utilização dos recursos;
-- seguimento dos padrões especificados;
-- clareza na documentação.
+  useEffect(() => {
+
+    const storedUserJson = localStorage.getItem("loggedInUser");
+
+    const storedUser = JSON.parse(storedUserJson || '""');
+
+    if (storedUser.token) {
+      setLoggedInUser({ ...storedUser });
+    }
+  }, []);
+
+  function logout() {
+    localStorage.removeItem("loggedInUser");
+    setLoggedInUser({ user: {}, token: "" });
+    history.push("/login");
+  }
+
+  return (
+    <authContext.Provider value={{ loggedInUser, setLoggedInUser, logout }}>
+      {props.children}
+    </authContext.Provider>
+  );
+}
+
+export { AuthContextComponent, authContext
+```

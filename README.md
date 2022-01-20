@@ -44,7 +44,11 @@ Rodar o projeto usando o *nodemon app.js* :play_or_pause_button:
 * Tive dificuldade na modelagem do banco de dados dificultando o avanço do projeto
 * Problema com com a conexão com o banco de dados
 * Depois de assistir inúmeras aulas e pesquisar em varias fontes vim descobrir como funcionava o login com JWT, ainda acho complicado mas com a pratica sou levado a perfeição
-* Uma das maiores dificuldade que tive foi por conta do Node,nunca tinha programado com ele e não sabia como funcionava, como trabalho de 7h as 17h foi um pouco desafiador porem tentei dar meu melhor. 
+* Uma das maiores dificuldade que tive foi por conta do Node, foi minha primeira experiência não sabia como funcionava ai tive que assistir inúmeras aulas ensinando a usar o básico, como trabalho de 7h as 17h foi um pouco desafiador porém tentei dar meu melhor. 
+
+
+
+
 
 
 

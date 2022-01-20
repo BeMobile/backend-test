@@ -94,34 +94,35 @@ Deve conter as seguintes variaveis de ambiente:
   }
   ```
 
-    </p>
+  </p>
+
   </details></br>
 
-     <details>
-         <summary><b>Resposta [200]</b></summary><p>
+  <details>
+      <summary><b>Resposta [200]</b></summary><p>
 
   ```json
   {
-    "client":{
-      "id": 3,
-      "name: "joao silva",
-      "birthday": "2001-12-03",
-      "cpf": "111.222.333-45",
-      "address: {
-          "id": 2,
-          "street": "nova brasilia",
-          "number": 5000,
-          "complement": "ap 400",
-          "zipCode": "03900-040",
-          "city": "SP",
-          "state": "Sao paulo"
-      }
+    "client": {
+      "id": 1,
+      "name": "Nilton Fernandes",
+      "birthday": "2000-12-01",
+      "cpf": "585.615.645-59",
+      "address": {
+        "id": 2,
+        "street": "AV: Paulista",
+        "number": 5000,
+        "complement": "ap 33",
+        "zipCode": "03335-040",
+        "city": "SP",
+        "state": "Sao paulo"
+      },
       "phones": [
         {
           "phone": "(11) 99999-9999"
         }
       ],
-     "sales": [
+      "sales": [
         {
           "id": 7,
           "totalPrice": "61.00",
@@ -129,7 +130,7 @@ Deve conter as seguintes variaveis de ambiente:
         },
         {
           "id": 6,
-          "totalPrice": "73.00",
+          "totalPrice": "75.54",
           "dateOfSale": "2022-01-19T03:14:10.000Z"
         }
       ]
@@ -138,23 +139,23 @@ Deve conter as seguintes variaveis de ambiente:
       {
         "id": 6,
         "qtt": 2,
-        "totalPrice": "61.00",
+        "totalPrice": "75.54",
         "dateOfSale": "2022-01-19T03:14:10.000Z",
         "product": {
-          "id": 2,
-          "title": "A volta ao mundo em 80 dias.",
-          "price": "30.50",
-          "description": "Edição comentada e ilustrada Capa dura – Edição de luxo.",
-          "author": "Jules verne"
+          "id": 3,
+          "title": "The Diary of a Young Girl",
+          "price": "37.77",
+          "author": "Anne Frank",
+          "description": "In 1942, with Nazis occupying Holland, a thirteen-year-old Jewish girl and her family fled their home in Amsterdam and went into hiding. "
         }
       }
     ]
   }
-
   ```
 
-     </p>
-     </details></br>
+    </p>
+
+    </details></br>
 
 | Método              | Descrição                         |
 | ------------------- | --------------------------------- |

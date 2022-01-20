@@ -1,26 +1,19 @@
 module.exports = (connection, Sequelize) =>
 {
-    const Cliente = connection.define(
-    'cliente',
-        {
-            id:
-            {
-                type: Sequelize.INTEGER,
-                allowNull: false,
-                primaryKey: true
-            },
+	const Cliente = connection.define(
+	'cliente',
+		{
+			nome:
+			{
+				type: Sequelize.STRING
+			},
 
-            nome:
-            {
-                type: Sequelize.STRING
-            },
+			cpf:
+			{
+				type: Sequelize.STRING
+			}
+		}
+	)
 
-            cpf:
-            {
-                type: Sequelize.STRING
-            }
-        }
-    )
-
-    return Cliente
+	return Cliente
 }

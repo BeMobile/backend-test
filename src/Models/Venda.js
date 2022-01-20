@@ -1,16 +1,5 @@
 module.exports = (connection, Sequelize) =>
 {
-	const Venda = connection.define(
-	'venda',
-		{
-			id:
-			{
-                type: Sequelize.INTEGER,
-                allowNull: false,
-                primaryKey: true
-			}
-		}
-	)
-
+	const Venda = connection.define('venda', {})
 	return Venda
 }

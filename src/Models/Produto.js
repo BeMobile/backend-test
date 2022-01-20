@@ -22,6 +22,11 @@ module.exports = (connection, Sequelize) =>
 			{
 				type: Sequelize.STRING
 			},
+
+			published:
+			{
+				type: Sequelize.INTEGER
+			}
 		}
 	)
 

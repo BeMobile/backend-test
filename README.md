@@ -731,68 +731,6 @@ Deve conter as seguintes variaveis de ambiente:
     </p>
     </details></br>
 
-... em sua aplicação (Frontend):
-
-```js
-import axios from "axios";
-
-const api = axios.create({ baseURL: "http://localhost:3000/api" });
-
-api.interceptors.request.use((config) => {
-  const storedUserJson = localStorage.getItem("loggedInUser");
-
-  const storedUser = JSON.parse(storedUserJson || '""');
-
-  if (storedUser.token) {
-    config.headers = {
-      Authorization: `Bearer ${storedUser.token}`,
-    };
-  }
-
-  return config;
-});
-
-export default api;
-```
-
-```js
-import { useState, createContext, useEffect } from "react";
-import { useHistory } from "react-router-dom";
-
-const authContext = createContext({ user: {}, token: "" });
-
-function AuthContextComponent(props) {
-  const [loggedInUser, setLoggedInUser] = useState({ user: {}, token: "" });
-
-  const history = useHistory();
-
-  useEffect(() => {
-
-    const storedUserJson = localStorage.getItem("loggedInUser");
-
-    const storedUser = JSON.parse(storedUserJson || '""');
-
-    if (storedUser.token) {
-      setLoggedInUser({ ...storedUser });
-    }
-  }, []);
-
-  function logout() {
-    localStorage.removeItem("loggedInUser");
-    setLoggedInUser({ user: {}, token: "" });
-    history.push("/login");
-  }
-
-  return (
-    <authContext.Provider value={{ loggedInUser, setLoggedInUser, logout }}>
-      {props.children}
-    </authContext.Provider>
-  );
-}
-
-export { AuthContextComponent, authContext
-```
-
 ... para testar os endpoits pelo insomnia, deve-se adicionar o token retornado no login em todas as rotas,
 exceto "/login", "/signup"
 

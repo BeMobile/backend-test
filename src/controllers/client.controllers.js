@@ -184,7 +184,9 @@ exports.update = async (req, res) => {
     if (resultClient[1] !== 1) {
       return res.status(404).json({ msg: "Client not found" });
     }
-    return res.status(200).json(resultClient);
+    return res.status(200).json({
+      msg: "Update successfully !",
+    });
   } catch (err) {
     console.log(err);
     const msg = err.errors[0].message;

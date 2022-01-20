@@ -20,6 +20,12 @@ app.use("/api", productRouter);
 const saleRouter = require("./routes/sale.routes");
 app.use("/api", saleRouter);
 
+const addressRouter = require("./routes/address.routes");
+app.use("/api", addressRouter);
+
+const phoneRouter = require("./routes/phone.routes");
+app.use("/api", phoneRouter);
+
 app.listen(port, () => {
   console.log(`Server up running at port ${process.env.PORT}`);
 });

@@ -1,12 +1,12 @@
 # `Documentação`
 
-# Installation
+# Instalação
 
 1. Clone ou baixe este repositório.
 2. Execute o comando 'npm install'
 3. E depois o comando 'npm start'
 
-# Variaveis de ambiente (.env)
+# Variáveis de ambiente (.env)
 
 Deve conter as seguintes variaveis de ambiente:
 
@@ -15,7 +15,7 @@ Deve conter as seguintes variaveis de ambiente:
 | `PORT=`              | Porta em que a aplicação será inicializada. ex: 3000                                                 |
 | `HOST=`              | Local em que a aplicação será inicializada. ex: localhost                                            |
 | `DATABASE_NAME=`     | Nome do banco de dados mysql.                                                                        |
-| `USER_NAME=`         | Nome do usuario do banco de dados mysql.                                                             |
+| `USER_NAME=`         | Nome de usuario do banco de dados mysql.                                                             |
 | `PASSWORD=`          | Senha do banco de dados mysql.                                                                       |
 | `TOKEN_SIGN_SECRET=` | Assinatura jwt necessaria para gerar Token. obs: Uma senha aleatória em alfa númerica                |
 | `APP_URL=`           | Endereço URL em que a aplicação será inicializada. ex: http://localhost:3000 (Exclusivo para o cors) |
@@ -138,7 +138,7 @@ Deve conter as seguintes variaveis de ambiente:
     "salesFilter": [
       {
         "id": 6,
-        "qtt": 2,
+        "quantity": 2,
         "totalPrice": "75.54",
         "dateOfSale": "2022-01-19T03:14:10.000Z",
         "product": {
@@ -205,9 +205,9 @@ Deve conter as seguintes variaveis de ambiente:
     </p>
     </details></br>
 
-| Método                        | Descrição                                                        |
-| ----------------------------- | ---------------------------------------------------------------- |
-| `PUT /api/update/clients/:id` | Atualiza os dados de um registro de cliente selecionado pelo ID. |
+| Método                 | Descrição                                                        |
+| ---------------------- | ---------------------------------------------------------------- |
+| `PUT /api/clients/:id` | Atualiza os dados de um registro de cliente selecionado pelo ID. |
 
 - Exemplo:
   <details>
@@ -235,9 +235,9 @@ Deve conter as seguintes variaveis de ambiente:
     </p>
     </details></br>
 
-| Método                          | Descrição                                                     |
-| ------------------------------- | ------------------------------------------------------------- |
-| `DELETE api/delete/clients/:id` | Remove do sistema um registro de cliente selecionado pelo ID. |
+| Método                   | Descrição                                                     |
+| ------------------------ | ------------------------------------------------------------- |
+| `DELETE api/clients/:id` | Remove do sistema um registro de cliente selecionado pelo ID. |
 
 - Exemplo:
 
@@ -384,9 +384,9 @@ Deve conter as seguintes variaveis de ambiente:
     </p>
     </details></br>
 
-| Método                          | Descrição                                                                                                     |
-| ------------------------------- | ------------------------------------------------------------------------------------------------------------- |
-| `DELETE api/delete/clients/:id` | Marca um registro de produto selecionado pelo ID como excluido, mas não apaga do Banco de Dados.(Soft delete) |
+| Método                    | Descrição                                                                                                     |
+| ------------------------- | ------------------------------------------------------------------------------------------------------------- |
+| `DELETE api/products/:id` | Marca um registro de produto selecionado pelo ID como excluido, mas não apaga do Banco de Dados.(Soft delete) |
 
 - Exemplo:
 
@@ -523,7 +523,7 @@ Deve conter as seguintes variaveis de ambiente:
     "sale": {
       "dateOfSale": "2022-01-19T23:40:21.740Z",
       "id": 7,
-      "qtt": 2,
+      "quatity": 2,
       "clientId": "9",
       "productId": "2",
       "unitPrice": 30.5,
@@ -531,6 +531,206 @@ Deve conter as seguintes variaveis de ambiente:
       "updatedAt": "2022-01-19T23:40:21.742Z",
       "createdAt": "2022-01-19T23:40:21.742Z"
     }
+  }
+  ```
+
+    </p>
+    </details></br>
+
+# `Rotas de endereço`
+
+| Método             | Descrição                                                                                                   |
+| ------------------ | ----------------------------------------------------------------------------------------------------------- |
+| `GET /api/address` | Retorna lista de todos os endereços cadastrados, com apenas dados principais incluindo o cliente associado. |
+
+- Exemplo:
+
+    <details>
+                 <summary><b>Resposta [200]</b></summary><p>
+
+  ```json
+  [
+    {
+      "street": "nova brasilia brasil",
+      "number": 1876,
+      "complement": "ap 1045",
+      "zipCode": "03924-040",
+      "city": "SP",
+      "state": "Sao paulo",
+      "client": {
+        "id": 1,
+        "name": "laura"
+      }
+    },
+    {
+      "street": "nova brasilia",
+      "number": 187,
+      "complement": "ap 104",
+      "zipCode": "03924-040",
+      "city": "SP",
+      "state": "Sao paulo",
+      "client": {
+        "id": 2,
+        "name": "Joana"
+      }
+    },
+    {
+      "street": "bareira grande",
+      "number": 5000,
+      "complement": "casa 04",
+      "zipCode": "03624-040",
+      "city": "SP",
+      "state": "Sao paulo",
+      "client": {
+        "id": 3,
+        "name": "adriana escame"
+      }
+    },
+    {
+      "street": "in confidencia",
+      "number": 12,
+      "complement": "casa 1",
+      "zipCode": "03924-040",
+      "city": "SP",
+      "state": "Sao paulo",
+      "client": {
+        "id": 4,
+        "name": "Cludio Lemos"
+      }
+    },
+    {
+      "street": "faustino ",
+      "number": 45,
+      "complement": "casa 03",
+      "zipCode": "03924-040",
+      "city": "SP",
+      "state": "Sao paulo",
+      "client": {
+        "id": 5,
+        "name": "João Marques"
+      }
+    }
+  ]
+  ```
+
+    </p>
+    </details></br>
+
+| Método                       | Descrição                                                                    |
+| ---------------------------- | ---------------------------------------------------------------------------- |
+| `PUT /api/address/:idClient` | Atualiza os dados de um registro de endereço selecionado pelo ID do cliente. |
+
+- Exemplo:
+
+  <details>
+          <summary><b>Body</b></summary><p>
+
+  ```json
+  {
+    "street": "nova brasilia brasil",
+    "number": 1876,
+    "complement": "ap 1045",
+    "zipCode": "03924-040",
+    "city": "SP",
+    "state": "Sao paulo"
+  }
+  ```
+
+    </p>
+
+  </details></br>
+
+    <details>
+                 <summary><b>Resposta [200]</b></summary><p>
+
+  ```json
+  {
+    "msg": "Update successfully !"
+  }
+  ```
+
+    </p>
+    </details></br>
+
+# `Rotas de telefone`
+
+| Método            | Descrição                                                                                                   |
+| ----------------- | ----------------------------------------------------------------------------------------------------------- |
+| `GET /api/phones` | Retorna lista de todos os endereços cadastrados, com apenas dados principais incluindo o cliente associado. |
+
+- Exemplo:
+
+    <details>
+                 <summary><b>Resposta [200]</b></summary><p>
+
+  ```json
+  [
+    {
+      "phone": "(11) 91111-1111",
+      "client": {
+        "id": 1,
+        "name": "laura"
+      }
+    },
+    {
+      "phone": "(11) 92222-2222",
+      "client": {
+        "id": 2,
+        "name": "Joana"
+      }
+    },
+    {
+      "phone": "(11) 93333-3333",
+      "client": {
+        "id": 3,
+        "name": "adriana escame"
+      }
+    },
+    {
+      "phone": "(11) 94444-4444",
+      "client": {
+        "id": 4,
+        "name": "Cludio Lemos"
+      }
+    },
+    {
+      "phone": "(11) 95555-5555",
+      "client": {
+        "id": 5,
+        "name": "João Marques"
+      }
+    }
+  ]
+  ```
+
+    </p>
+    </details></br>
+
+| Método                      | Descrição                                                                    |
+| --------------------------- | ---------------------------------------------------------------------------- |
+| `PUT /api/phones/:idClient` | Atualiza os dados de um registro de telefone selecionado pelo ID do cliente. |
+
+- Exemplo:
+
+  <details>
+          <summary><b>Body</b></summary><p>
+
+  ```json
+  {
+    "phone": "(11) 91919-1111"
+  }
+  ```
+
+    </p>
+
+  </details></br>
+
+    <details>
+                 <summary><b>Resposta [200]</b></summary><p>
+
+  ```json
+  {
+    "msg": "Update successfully !"
   }
   ```
 

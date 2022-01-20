@@ -5,7 +5,7 @@ const ProductModel = require("../models/product.model");
 
 exports.create = async (req, res) => {
   try {
-    const { qtt, clientId, productId } = req.body;
+    const { quantity, clientId, productId } = req.body;
 
     const product = await ProductModel.findOne({
       where: { id: productId },
@@ -24,7 +24,7 @@ exports.create = async (req, res) => {
     }
 
     const price = parseFloat(product.price);
-    const totalPrice = price * qtt;
+    const totalPrice = price * quantity;
 
     const result = await SaleModel.create({
       ...req.body,

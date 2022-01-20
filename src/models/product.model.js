@@ -19,8 +19,8 @@ const Product = db.define(
           msg: "The field cannot be empty!",
         },
         len: {
-          args: [2, 20],
-          msg: "This field must be between 4 and 20 characters!",
+          args: [2, 50],
+          msg: "This field must be between 4 and 50 characters!",
         },
       },
     },

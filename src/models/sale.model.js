@@ -17,6 +17,9 @@ const Sale = db.define("sale", {
     type: DataTypes.INTEGER,
     allowNull: false,
   },
+  productName: {
+    type: DataTypes.STRING,
+  },
   unitPrice: {
     type: DataTypes.DECIMAL(10, 2),
     allowNull: false,
@@ -43,9 +46,6 @@ const Sale = db.define("sale", {
 
 Sale.belongsTo(ClientModel);
 ClientModel.hasMany(Sale);
-
-Sale.belongsTo(ProductModel);
-ProductModel.hasMany(Sale);
 
 Sale.sync(); // This creates the table if it doesn't exist (and does nothing if it already exists)
 

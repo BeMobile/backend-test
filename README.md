@@ -138,16 +138,10 @@ Deve conter as seguintes variaveis de ambiente:
     "salesFilter": [
       {
         "id": 6,
+        "productName": "The Diary of a Young Girl",
         "quantity": 2,
         "totalPrice": "75.54",
-        "dateOfSale": "2022-01-19T03:14:10.000Z",
-        "product": {
-          "id": 3,
-          "title": "The Diary of a Young Girl",
-          "price": "37.77",
-          "author": "Anne Frank",
-          "description": "In 1942, with Nazis occupying Holland, a thirteen-year-old Jewish girl and her family fled their home in Amsterdam and went into hiding. "
-        }
+        "dateOfSale": "2022-01-19T03:14:10.000Z"
       }
     ]
   }

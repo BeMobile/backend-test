@@ -149,14 +149,8 @@ exports.findById = async (req, res) => {
           ),
         ],
       },
-      attributes: ["id", "quantity", "totalPrice", "dateOfSale"],
+      attributes: ["id", "productName", "quantity", "totalPrice", "dateOfSale"],
       order: [["dateOfSale", "DESC"]],
-      include: [
-        {
-          model: ProductModel,
-          attributes: ["id", "title", "price", "description", "author"],
-        },
-      ],
     });
 
     if (client) {

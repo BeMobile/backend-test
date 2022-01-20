@@ -31,7 +31,7 @@ exports.create = async (req, res) => {
       unitPrice: price,
       totalPrice: totalPrice,
       idClient: client.id,
-      idProduct: product.id,
+      productName: product.title,
     });
 
     return res.status(201).json({

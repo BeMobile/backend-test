@@ -30,7 +30,7 @@ exports.create = async (req, res) => {
       password: hashedPassword,
     });
 
-    return res.status(200).json({
+    return res.status(201).json({
       msg: "User registered successfully!",
     });
   } catch (err) {
@@ -58,7 +58,7 @@ exports.createLogin = async (req, res) => {
       // Gerando o JWT com os dados do usuário que acabou de logar
       const token = generateToken(user);
 
-      return res.status(200).json({
+      return res.status(201).json({
         user: {
           name: user.name,
           email: user.email,

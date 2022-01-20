@@ -26,9 +26,9 @@ Deve conter as seguintes variaveis de ambiente:
 | ------ | ------------------------------------------------------------------ |
 | `200`  | Requisição executada com sucesso (success).                        |
 | `201`  | Novo recurso foi criado com sucesso (success).                     |
+| `401`  | Dados de acesso inválidos.                                         |
 | `400`  | Erros de validação ou os campos informados não existem no sistema. |
 | `404`  | Registro pesquisado não encontrado (Not found).                    |
-| `401`  | Dados de acesso inválidos.                                         |
 | `500`  | Erro interno.                                                      |
 
 # Métodos
@@ -191,7 +191,7 @@ Deve conter as seguintes variaveis de ambiente:
   </details></br>
 
     <details>
-           <summary><b>Resposta [200]</b></summary><p>
+           <summary><b>Resposta [201]</b></summary><p>
 
   ```json
   {
@@ -338,7 +338,7 @@ Deve conter as seguintes variaveis de ambiente:
   </details></br>
 
     <details>
-           <summary><b>Resposta [200]</b></summary><p>
+           <summary><b>Resposta [201]</b></summary><p>
 
   ```json
   {
@@ -450,7 +450,7 @@ Deve conter as seguintes variaveis de ambiente:
    </details></br>
 
    <details>
-            <summary><b>Resposta [200]</b></summary><p>
+            <summary><b>Resposta [201]</b></summary><p>
 
   ```json
   {
@@ -482,7 +482,7 @@ Deve conter as seguintes variaveis de ambiente:
   </details></br>
 
     <details>
-           <summary><b>Resposta [200]</b></summary><p>
+           <summary><b>Resposta [201]</b></summary><p>
 
   ```json
   {
@@ -521,7 +521,7 @@ Deve conter as seguintes variaveis de ambiente:
   </details></br>
 
     <details>
-                 <summary><b>Resposta [200]</b></summary><p>
+                 <summary><b>Resposta [201]</b></summary><p>
 
   ```json
   {

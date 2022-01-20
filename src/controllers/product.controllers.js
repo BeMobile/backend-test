@@ -11,7 +11,7 @@ exports.create = async (req, res) => {
       ...req.body,
       idUserOwner: id, // relacionamento entre produto e usuario logado
     });
-    return res.status(200).json({
+    return res.status(201).json({
       msg: "Product registered successfully!",
       product: result,
     });

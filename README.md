@@ -54,3 +54,71 @@ Obs: caso o(a) candidato(a) não consiga completar o teste até o prazo combinad
 - forma adequada de utilização dos recursos;
 - seguimento dos padrões especificados;
 - clareza na documentação.
+
+# Api BackEnd em Node.js.
+ 
+
+✨ Tecnologias utilizadas
+
+* MySql 8.0.13
+* Node.js
+* Visual Studio code
+
+# Tenha o node instalado em sua máquina
+
+# Clone este repositório em uma pasta de sua preferência
+```bash
+$ git clone https://github.com/BeMobile/backend-test.git
+
+```
+
+# Acesse a pasta e instale as dependencias
+```bash
+$ npm i
+
+```
+
+# Para acesso ao banco e geração de tokens
+
+Renomeie o arquivo .env-exemple para .env e edite as configurações necessárias para acesso ao banco de geração de tokens.
+
+
+# 🎲 Rodando Back End (servidor)
+# Acesse a pasta raiz
+```bash
+
+$ npm run server
+
+```
+# ✨ Para teste das rotas poderá utilizar o Postman 
+
+
+https://www.postman.com
+
+
+```bash
+
+ Metodo Post: http://localhost:3000/signup
+ Metodo Get: http://localhost:3000/login
+ Metodo Post: http://localhost:3000/logout
+
+ ```
+# Para as rotas clientes, produtos e vendas é nessário login no sistema e geração de token válido por 5 minutos.
+
+```bash
+
+ Metodo Post: http://localhost:3000/clientes/store
+ Metodo Get: http://localhost:3000/clientes/show/:id
+ Metodo Get: http://localhost:3000/clientes/index
+ Metodo Put: http://localhost:3000/clientes/update/:id
+ Metodo Delete: http://localhost:3000/clientes/delete/:id
+ 
+ Metodo Post: http://localhost:3000/produtos/store
+ Metodo Get: http://localhost:3000/produtos/show/:id
+ Metodo Get: http://localhost:3000/produtos/index
+ Metodo Put: http://localhost:3000/produtos/update/:id
+ Metodo Delete: http://localhost:3000/produtos/delete/:id
+ 
+ Metodo Post: http://localhost:3000/vendas/store
+
+ ```

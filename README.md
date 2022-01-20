@@ -1,56 +1,147 @@
-# Be mobile - Teste de Back-end
-O teste de back-end da Be mobile consiste em estruturar uma API RESTful e um banco de dados ligado a esta API. Trate-se de um sistema que permite cadastrar usuários externamente e, ao realizarem login, poderão registrar clientes, produtos e vendas. O(a) candidato(a) poderá escolher desenvolver em Node.js (Adonis, Koa ou Express) ou PHP (Laravel).
+# Bemobile - Teste Backend
 
-## Banco de Dados
-O banco de dados deve ser estruturado à escolha do(a) candidato(a), mas minimamente deverá conter o seguinte:
-- usuários: email, senha;
-- clientes: nome, cpf;
-- endereço: todos os campos de endereço;
-- telefones: cliente, número;
-- produtos: colocar os dados necessários para um tipo de produto (livros), além de preço.
-- vendas: cliente, produto, quantidade, preço unitário, preço total, data e hora.
+## Requisitos para rodar e testar o projeto
 
-## Rotas do Sistema
-- cadastro de usuário do sistema (signup)
-- login com JWT de usuário cadastrado (login)
-- clientes:
-    - listar todos os clientes cadastrados (index)
-        - apenas dados principais devem vir aqui;
-        - ordenar pelo id.
-    - detalhar um(a) cliente e vendas a ele(a) (show)
-        - trazer as vendas mais recentes primeiro;
-        - possibilidade de filtrar as vendas por mês + ano.
-    - adicionar um(a) cliente (store)
-    - editar um(a) cliente (update)
-    - excluir um(a) cliente e vendas a ele(a) (delete)
-- produtos:
-    - listar todos os produtos cadastrados (index)
-        - apenas dados principais devem vir aqui;
-        - ordenar alfabeticamente.
-    - detalhar um produto (show)
-    - criar um produto (store)
-    - editar um produto (update)
-    - exclusão lógica ("soft delete") de um produto (delete)
-- vendas:
-    - registrar venda de 1 produto a 1 cliente (store)
+É necessário ter instalado:
 
-Obs: as rotas em clientes, produtos e vendas só podem ser acessadas por usuário logado.
+- [NodeJS](https://nodejs.org/en/)
+- [Docker](https://www.docker.com)
+- [Postman](https://www.postman.com)/[Insomnia](https://insomnia.rest/download)
 
-## Requisitos
-- estruturar o sistema observando o MVC (mas sem as views);
-- deve usar mySQL no banco de dados;
-- as respostas devem ser em JSON;
-- pode usar recursos e bibliotecas que auxiliam na administração do banco de dados (Eloquent, Lucid, Knex, Bookshelf, etc.);
-- documentar as instruções necessárias em um README (requisitos, como rodar, detalhamento de rotas);
-- fazer um Pull Request para este repositório ao finalizar.
+## Como rodar?
 
-Obs: caso o(a) candidato(a) não consiga completar o teste até o prazo combinado com o avaliador, deve garantir que tudo que foi efetivamente feito esteja em pleno funcionamento. Relatar no README quais foram as dificuldades encontradas.
+Para rodar o projeto é necessário clonar o repositório em seu computador:
 
-## Critérios de Avaliação
-- lógica de programação;
-- organização do projeto;
-- legibilidade do código;
-- validação necessária dos dados;
-- forma adequada de utilização dos recursos;
-- seguimento dos padrões especificados;
-- clareza na documentação.
+```
+  git clone urldorepositorio
+```
+
+Depois acessar a pasta através de:
+
+```
+  cd backend-test
+```
+
+Dentro da pasta do projeto precisamos instalar as depêndencias dele através do comando:
+
+```
+  // Caso prefira utilizar o yarn
+  yarn
+
+  // Caso prefira utilizar o npm
+  npm install
+```
+
+Com as dependências instaladas podemos rodar o projeto pelo terminal através do comando:
+
+```
+  // Caso prefira utilizar o yarn
+  yarn dev
+
+  // Caso prefira utilizar o npm
+  npm run dev
+```
+
+Com o servidor do projeto rodando vamos precisar agora criar um container no docker que irá conter o nosso banco de dados mysql.
+</br>
+Para isso com o docker instalado e rodando no computador basta abrirmos outro terminal do nosso projeto e digitar o comando:
+
+```
+  docker-compose up
+```
+
+Ele pode levar algum tempo para baixar a imagem e os outros arquivos necessários para criar o container e no final o container vai estar rodando com o nosso banco de dados. E assim vamos poder utilizar o Postman/insomnia ou algum outro semelhante para testar as rotas.
+
+## Rotas
+
+### User
+
+- POST: http://localhost:8000/signup => Essa rota é utilizada para criar um usuário/vendedor, para criar um usuário/vendedor é necessário passar as seguintes informações no corpo da requisição:
+
+  - name,
+  - phone,
+  - email,
+  - password,
+  - passwordConfirmation
+    </br>
+
+  Não será possível criar um usuário com uma senha que não seja válida ou com um email já cadastrado.
+
+- POST: http://localhost:8000/signin => Essa rota é utilizada para logar/autenticar um usuário no sistema, para isso é necessário passar no corpo da requisição as seguintes informações:
+
+  - email,
+  - password </br>
+
+  Não é possível logar/autenticar no sistema com um email ou senha incorreto.
+
+### Clients
+
+- POST: http://localhost:8000/clients/ => Essa rota é utilizada para criar um cliente no sistema, para acessar essa rota é necessário o usuário estar autenticado no sistema, para criarmos um cliente é necessário passar as seguintes informações no corpo da requisição:
+
+  - name,
+  - phone,
+  - cpf,
+  - email,
+  - address,
+  - city </br>
+
+  Não é possível criar um usuário com um email ou cpf já registrado.
+
+- GET: http://localhost:8000/clients/list => Essa rota é utilizada para listar os clientes registrados no sistema, para acessar essa rota é necessário o usuário estar autenticado no sistema, não é necessário passar nenhuma informação para esta rota, ela irá retornar todos os clientes cadastrados no sistema.
+
+- PUT: http://localhost:8000/clients/update/:id => Essa rota é utilizada para atualizar as informações de um determinado cliente, para acessar essa rota é necessário o usuário estar autenticado no sistema, é necessário passar o id do cliente na rota e no corpo da requisição desta rota é necessário passar as informações que deseja alterar do cliente:
+
+  - name,
+  - phone,
+  - email,
+  - address,
+  - city </br>
+
+  Não é possível alterar o CPF do cliente.
+
+- DELETE: http://localhost:8000/clients/delete/:id => Essa rota é utilizada para deletar um cliente que esteja registrado no sistema, para acessar essa rota é necessário o usuário estar autenticado no sistema, é necessário passar na rota o id do cliente que deseja deletar. Não é possível deletar um cliente que não existe.
+
+### Products
+
+- POST: http://localhost:8000/products/ => Essa rota é utilizada para criar um produto no sistema, para acessar essa rota é necessário o usuário estar autenticado no sistema, para criarmos um produto é necessário passar as seguintes informações no corpo da requisição:
+
+  - name,
+  - price,
+  - category
+  - description </br>
+
+  Não é possível criar um produto com um nome já registrado.
+
+- GET: http://localhost:8000/products/list => Essa rota é utilizada para listar os produtos registrados no sistema, para acessar essa rota é necessário o usuário estar autenticado no sistema, não é necessário passar nenhuma informação para esta rota, ela irá retornar todos os produtos cadastrados no sistema.
+
+- GET: http://localhost:8000/products/find/:id => Essa rota é utilizada para procurar por um produto registrado no sistema através do seu id, para acessar essa rota é necessário o usuário estar autenticado no sistema, não é necessário passar nenhuma informação para esta rota mas é necessário passar o id do produto na rota, ela irá retornar o produto com o id passado caso ele esteja registrado.
+
+- PUT: http://localhost:8000/products/update/:id => Essa rota é utilizada para atualizar as informações de um determinado produto, para acessar essa rota é necessário o usuário estar autenticado no sistema, é necessário passar o id do produto na rota e no corpo da requisição desta rota é necessário passar as informações que deseja alterar do produto:
+
+  - name,
+  - price
+  - category
+  - description </br>
+
+- DELETE: http://localhost:8000/products/delete/:id => Essa rota é utilizada para deletar um produto que esteja registrado no sistema, para acessar essa rota é necessário o usuário estar autenticado no sistema, é necessário passar na rota o id do produto que deseja deletar. Não é possível deletar um produto que não existe.
+
+### Sales
+
+- POST: http://localhost:8000/sales/ => Essa rota é utilizada para criar uma venda no sistema, para acessar essa rota é necessário o usuário estar autenticado no sistema, para criarmos uma venda é necessário passar as seguintes informações no corpo da requisição:
+
+  - quantity,
+  - client_id,
+  - product_id </br>
+
+  Não é possível criar uma venda com um produto ou cliente que não existe.
+
+- GET: http://localhost:8000/products/findSales/ => Essa rota é utilizada para procurar pelas vendas realizadas a um cliente em especifico, para acessar essa rota é necessário o usuário estar autenticado no sistema, para fazer a busca é necessário passar o id do cliente no corpo da requisição:
+
+  - client_id </br>
+
+  Não é possível encontrar as vendas realizadas para um cliente que não existe.
+
+## Observações
+
+- Tentei iniciamente rodar o banco mysql normalmente pelo meu pc mas tive algumas dificuldades/problemas com configuração e acabei optando por utilizar docker o que facilitou o uso.
+- Nunca tinha feito nada com MVC anterior, acredito que acabei fugindo um pouco da arquitetura do MVC utilizando repositórios e services.

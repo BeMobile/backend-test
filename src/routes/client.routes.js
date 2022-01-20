@@ -16,7 +16,7 @@ router.get(
   "/clients",
   isAuthenticated,
   attachCurrentUser,
-  clientControler.finAll
+  clientControler.findAll
 );
 
 router.get(
@@ -28,14 +28,14 @@ router.get(
 
 // verificar erro update
 router.put(
-  "/update/clients/:id",
+  "/clients/:id",
   isAuthenticated,
   attachCurrentUser,
   clientControler.update
 );
 
 router.delete(
-  "/delete/:id",
+  "/clients/:id",
   isAuthenticated,
   attachCurrentUser,
   clientControler.delete

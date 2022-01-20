@@ -30,7 +30,7 @@ exports.findAll = async (req, res) => {
   try {
     const product = await ProductModel.findAll({
       order: [["title", "ASC"]],
-      attributes: ["id", "price", "price"],
+      attributes: ["id", "price", "title"],
     });
     return res.status(200).json(product);
   } catch (err) {
@@ -73,7 +73,7 @@ exports.update = async (req, res) => {
     if (product[0] !== 1) {
       return res.status(404).json({ msg: "Product not found" });
     }
-    return res.status(200).json({ msg: "Update succesfully!" });
+    return res.status(200).json({ msg: "Product Update succesfully!" });
   } catch (err) {
     console.error(err);
     return res.status(500).json(err);
@@ -87,7 +87,7 @@ exports.delete = async (req, res) => {
         id: req.params.id,
       },
     });
-    return res.status(200).json("deleted");
+    return res.status(200).json({ msg: "Deleted succesfully" });
   } catch (err) {
     console.error(err);
     return res.status(500).json(err);

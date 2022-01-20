@@ -24,6 +24,7 @@ const Client = db.define("client", {
   },
   cpf: {
     type: DataTypes.STRING,
+    allowNull: false,
     unique: true,
     validate: {
       notEmpty: {
@@ -37,6 +38,18 @@ const Client = db.define("client", {
   },
   birthday: {
     type: DataTypes.DATEONLY,
+    allowNull: false,
+    validate: {
+      notNull: {
+        msg: "A birthday is reuquire!",
+      },
+      notEmpty: {
+        msg: "Please provide a birthday!",
+      },
+      isDate: {
+        msg: "Please use the proper date format: dd-mm-yyyy!",
+      },
+    },
   },
 });
 

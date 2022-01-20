@@ -10,7 +10,7 @@ router.post("/signup", userControllers.create);
 router.post("/login", userControllers.createLogin);
 
 router.get(
-  "/loggedinuser",
+  "/users/:id",
   isAuthenticated,
   attachCurrentUser,
   userControllers.get

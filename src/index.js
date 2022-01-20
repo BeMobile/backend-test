@@ -6,7 +6,7 @@ const app = express();
 const port = process.env.PORT;
 
 app.use(express.json());
-app.use(cors({ origin: process.env.REACT_APP_URL }));
+app.use(cors({ origin: process.env.APP_URL }));
 
 const userRouter = require("./routes/user.routes");
 app.use("/api", userRouter);

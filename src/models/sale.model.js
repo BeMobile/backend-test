@@ -13,7 +13,7 @@ const Sale = db.define("sale", {
     allowNull: false,
     primaryKey: true,
   },
-  qtt: {
+  quantity: {
     type: DataTypes.INTEGER,
     allowNull: false,
   },

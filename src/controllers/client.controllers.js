@@ -1,3 +1,4 @@
+const sequelize = require("sequelize");
 // import modelos
 const PhoneModel = require("../models/phone.model");
 const ProductModel = require("../models/product.model");
@@ -6,11 +7,35 @@ const ClientModel = require("../models/client.model");
 const AddressModel = require("../models/address.model");
 
 const isCpfFormatInvalid = require("../utils/cpf.utils");
+const isDateFormatInvalid = require("../utils/date.utils");
+const isPhoneFormatInvalid = require("../utils/phone.utils");
 
 exports.create = async (req, res) => {
   try {
-    const { cpf, phone, street, number, complement, zipCode, city, state } =
-      req.body;
+    const {
+      name,
+      cpf,
+      birthday,
+      phone,
+      street,
+      number,
+      complement,
+      zipCode,
+      city,
+      state,
+    } = req.body;
+
+    if (isPhoneFormatInvalid(phone) === true) {
+      return res.status(400).json({
+        msg: "Invalid phone format! ex: (11) 12345-1234 / (11) 1234-1234",
+      });
+    }
+
+    if (isDateFormatInvalid(birthday) === true) {
+      return res.status(400).json({
+        msg: "Invalid byrthday format! ex: dd-mm-yyyy",
+      });
+    }
 
     if (isCpfFormatInvalid(cpf) === true) {
       return res.status(400).json({
@@ -26,12 +51,16 @@ exports.create = async (req, res) => {
         .json({ msg: "This cpf is already registered on the list client!" });
     }
 
-    const result = await ClientModel.create(req.body);
+    const resultClient = await ClientModel.create({
+      name: name,
+      cpf: cpf,
+      birthday: birthday,
+    });
 
     //
     const resultphone = await PhoneModel.create({
       phone: phone,
-      clientId: result.id,
+      clientId: resultClient.id,
     });
 
     const resultAddres = await AddressModel.create({
@@ -41,12 +70,12 @@ exports.create = async (req, res) => {
       zipCode: zipCode,
       city: city,
       state: state,
-      clientId: result.id,
+      clientId: resultClient.id,
     });
 
-    return res.status(200).json({
+    return res.status(201).json({
       msg: "Client registered successfully!",
-      body: result,
+      // client: resultClient,
     });
   } catch (err) {
     console.log(err);
@@ -59,7 +88,7 @@ exports.create = async (req, res) => {
   }
 };
 
-exports.finAll = async (req, res) => {
+exports.findAll = async (req, res) => {
   try {
     const clients = await ClientModel.findAll({
       attributes: ["id", "name", "cpf"],
@@ -74,10 +103,13 @@ exports.finAll = async (req, res) => {
 
 exports.findById = async (req, res) => {
   try {
-    const user = await ClientModel.findOne({
-      where: { id: req.params.id },
-      attributes: ["id", "name", "birthday", "cpf"],
+    const { month, year } = req.body;
+    let client = await ClientModel.findOne({
+      where: {
+        id: req.params.id,
+      },
       order: [[SaleModel, "dateOfSale", "DESC"]],
+      attributes: ["id", "name", "birthday", "cpf"],
       include: [
         {
           model: AddressModel,
@@ -93,23 +125,44 @@ exports.findById = async (req, res) => {
         },
         {
           model: PhoneModel,
-          attributes: ["id", "phone"],
+          attributes: ["phone"],
         },
         {
           model: SaleModel,
-          attributes: ["id", "qtt", "totalPrice", "dateOfSale"],
-          include: [
-            {
-              model: ProductModel,
-              attributes: ["id", "title", "price"],
-            },
-          ],
+          attributes: ["id", "totalPrice", "dateOfSale"],
         },
       ],
     });
 
-    if (user) {
-      return res.status(200).json(user);
+    let saleResult = await SaleModel.findAll({
+      where: {
+        clientId: req.params.id,
+        [sequelize.Op.and]: [
+          sequelize.where(
+            sequelize.fn("month", sequelize.col("dateOfSale")),
+            month
+          ),
+
+          sequelize.where(
+            sequelize.fn("year", sequelize.col("dateOfSale")),
+            year
+          ),
+        ],
+      },
+      attributes: ["id", "qtt", "totalPrice", "dateOfSale"],
+      order: [["dateOfSale", "DESC"]],
+      include: [
+        {
+          model: ProductModel,
+          attributes: ["id", "title", "price", "description", "author"],
+        },
+      ],
+    });
+
+    if (client) {
+      const result = (client = { client, salesFilter: saleResult });
+
+      return res.status(200).json(result);
     } else {
       return res.status(400).json({ msg: "Client not found" });
     }
@@ -121,17 +174,32 @@ exports.findById = async (req, res) => {
 
 exports.update = async (req, res) => {
   try {
-    const client = await ClientModel.update(
+    const { cpf } = req.body;
+
+    if (isCpfFormatInvalid(cpf) === true) {
+      return res.status(400).json({
+        msg: "Invalid cpf format! ex: 000.000.000-00",
+      });
+    }
+
+    const resultClient = await ClientModel.update(
       { ...req.body },
       { returning: true, where: { id: req.params.id } }
     );
-    if (client[1] !== 1) {
+
+    if (resultClient[1] !== 1) {
       return res.status(404).json({ msg: "Client not found" });
     }
-    return res.status(200).json(client);
+    return res.status(200).json(resultClient);
   } catch (err) {
-    console.error(err);
-    return res.status(500).json(err);
+    console.log(err);
+    const msg = err.errors[0].message;
+    const path = err.errors[0].path;
+    return res.status(400).send({
+      err,
+      msg,
+      path,
+    });
   }
 };
 

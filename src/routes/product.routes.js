@@ -6,7 +6,7 @@ const isAuthenticated = require("../middlewares/isAuthenticated");
 const productControllers = require("../controllers/product.controllers");
 
 router.post(
-  "/product",
+  "/products",
   isAuthenticated,
   attachCurrentUser,
   productControllers.create
@@ -27,14 +27,14 @@ router.get(
 );
 
 router.put(
-  "/update/products/:id",
+  "/products/:id",
   isAuthenticated,
   attachCurrentUser,
   productControllers.update
 );
 
 router.delete(
-  "/delete/products/:id",
+  "/products/:id",
   isAuthenticated,
   attachCurrentUser,
   productControllers.delete

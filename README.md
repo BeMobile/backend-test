@@ -16,7 +16,7 @@ Este repositório tem por objetivo entregar o desafio de back-end proposto pela 
 1. Instale o projeto pelo `git clone`; 
 2. Configure as informações da Database e do JWT no arquivo .env.example;
 3. Renomeie o arquivo .env.example para `.env`;
-4. Rode o comando  `npm init -y`;
+4. Rode o comando  `npm i` e aguarde todas as dependencias serem baixadas;
 
 Para rodar a aplicação, utilize `npm start`.
 

@@ -9,7 +9,7 @@ module.exports = app =>
 	router.get('/', Auth, Cliente.findAll)
 
 	// Exibe um cliente especifico pelo ID
-	router.get('/show/:id', Auth, Cliente.findOne)
+	router.get('/:id', Auth, Cliente.findOne)
 
 	// Cria um cliente
 	router.post('/', Auth, Cliente.create)

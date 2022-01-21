@@ -5,7 +5,7 @@ const logger = require('morgan')
 const database = require('./src/Models/Database')
 
 // A ORM precisa sincronizar a database em toda inicializacao
-database.connection.sync({ force: true })
+database.connection.sync()
 
 // Express
 const app = express()

@@ -45,7 +45,7 @@ class ProductsRepository implements IProductsRepository {
   }
 
   async list(): Promise<Products[]> {
-    const productInfo = await this.repository.find({select:["id","nome_livro", "autor_livro"], order: {nome_livro: "ASC" }});
+    const productInfo = await this.repository.find({select:["id","nome_livro", "autor_livro", "paginas_livro", "preco"], order: {nome_livro: "ASC" }});
     return productInfo;
   }
 

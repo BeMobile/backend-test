@@ -16,7 +16,7 @@ Requisitos:
 Fazer GIT CLONE do url deste repositório:
 
 ```
-  - git clone urlrepositorio
+  - git clone https://github.com/Taiguinho/backend-test
 ```
 
 Abra o projeto no seu IDE e na aba Terminal digite:

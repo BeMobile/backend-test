@@ -11,7 +11,7 @@ class CreateClientController {
 
     await createClientUseCase.execute({ nome, cpf, telefone, rua, numero, bairro, cidade, cep })
 
-    return res.status(201).send();
+    return res.status(201).json({message: "Cliente criado com Sucesso!"}).send()
   }
 }
 

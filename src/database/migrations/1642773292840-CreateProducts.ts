@@ -1,54 +1,57 @@
 import {MigrationInterface, QueryRunner, Table} from "typeorm";
 
-export class Address1642596117753 implements MigrationInterface {
+export class CreateProducts1642773292840 implements MigrationInterface {
 
     public async up(queryRunner: QueryRunner): Promise<void> {
         await queryRunner.createTable(
             new Table({
-                name: "endereco",
+                name: "products",
                 columns: [
                     {
-                        name: "client_id",
+                        name: "id",
                         type: "uuid",
-                        isNullable: true,
+                        isPrimary: true
                     },
                     {
-                        name: "rua",
+                        name: "nome_livro",
                         type: "varchar"
                     },
                     {
-                        name: "numero",
+                        name: "autor_livro",
                         type: "varchar"
                     },
                     {
-                        name: "bairro",
+                        name: "ano_livro",
                         type: "varchar"
                     },
                     {
-                        name: "cidade",
+                        name: "genero_livro",
                         type: "varchar"
                     },
                     {
-                        name: "cep",
+                        name: "editora_livro",
                         type: "varchar"
                     },
-                ],
-                foreignKeys: [
                     {
-                        name: "FKClientAddress",
-                        referencedTableName: "clients",
-                        referencedColumnNames: ["id"],
-                        columnNames: ["client_id"],
-                        onDelete: "SET NULL",
-                        onUpdate: "SET NULL"
+                        name: "paginas_livro",
+                        type: "varchar"
                     },
-                ],
+                    {
+                        name: "preco",
+                        type: "numeric"
+                    },
+                    {
+                        name: "deleted",
+                        type: "boolean",
+                        default: false
+                    }
+                ]
             })
         )
     }
 
     public async down(queryRunner: QueryRunner): Promise<void> {
-        await queryRunner.dropTable("endereco")
+        await queryRunner.dropTable("products")
     }
 
 }

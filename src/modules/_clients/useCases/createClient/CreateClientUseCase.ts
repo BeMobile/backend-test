@@ -1,6 +1,5 @@
 import { inject, injectable } from "tsyringe";
 import { AppError } from "../../../../errors/AppError";
-import { IAddressRepository } from "../../repositories/IAddressRepository";
 import { IClientsRepository } from "../../repositories/IClientsRepository";
 
 interface IRequest {
@@ -16,11 +15,10 @@ interface IRequest {
 @injectable()
 class CreateClientUseCase {
   constructor(
-  @inject("ClientsRepository")  
-  private clientRepository: IClientsRepository
-  ) {
+    @inject("ClientsRepository")  
+    private clientRepository: IClientsRepository
+  ) {}
 
-  }
   async execute({
     nome, 
     cpf, 
@@ -36,8 +34,7 @@ class CreateClientUseCase {
     if(clientAllreadyExists) {
       throw new AppError("O CPF informado já está em uso!")
     }
-    await this.clientRepository.create(
-      { 
+    await this.clientRepository.create({ 
         nome, 
         cpf, 
         telefone,

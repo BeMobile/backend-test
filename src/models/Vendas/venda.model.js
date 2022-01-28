@@ -23,14 +23,14 @@ Venda.create = (venda, result) => {
                         var msg = err.sqlMessage;
                         var msg = msg.split(" ");
 
-                        result(null, {
+                        result({
                             erro: err.errno,
                             message: "Não existe esse item na tabela " + msg[19],
                             sqlMessage: err.sqlMessage
-                        });
+                        }, null);
                         return;
                     } else {
-                        result(null, err);
+                        result(err, null);
                         return;
                     }
 
@@ -38,7 +38,8 @@ Venda.create = (venda, result) => {
                 result(null, { insertId: res.insertId, message: "Venda cadastrada com sucesso!", ...venda, valor_total: total });
             });
         } catch (err) {
-            throw err;
+            result(err, null);
+            return;
         }
     })
 };

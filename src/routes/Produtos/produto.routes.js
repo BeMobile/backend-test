@@ -25,14 +25,14 @@ router.post("/store", [
         .isString().withMessage('Campo edicao é uma string!'),
     body('ano_edicao').optional()
         .notEmpty().withMessage('Campo ano_edicao é obrigatório!')
-        .isInt().withMessage('Campo ano_edicao é um número!')
-        .isLength({ max: 10 }).withMessage('Número de telefone inválido!'),
+        .isInt().withMessage('Campo ano_edicao é somente número!')
+        .isLength({ min: 10, max: 20 }).withMessage('Número de telefone inválido! Tamanho mínimo de 10 caracteres.'),
     body('preco')
         .notEmpty().withMessage('Campo preco é obrigatório!')
         .isNumeric().withMessage('Campo preco é numerico!'),
     body('ativo')
         .notEmpty().withMessage('Campo ativo é obrigatório!')
-        .isInt().withMessage('Campo ativo é um número!')
+        .isInt().withMessage('Campo ativo é somente número!')
 
 ], validar, produto.create);
 
@@ -61,14 +61,14 @@ router.put("/update/:id", [
         .isString().withMessage('Campo edicao é uma string!'),
     body('ano_edicao').optional()
         .notEmpty().withMessage('Campo ano_edicao é obrigatório!')
-        .isInt().withMessage('Campo ano_edicao é um número!')
-        .isLength({ max: 10 }).withMessage('Número de telefone inválido!'),
+        .isInt().withMessage('Campo ano_edicao é somente número!')
+        .isLength({ min: 10, max: 20 }).withMessage('Número de telefone inválido! Tamanho mínimo de 10 caracteres.'),
     body('preco').optional()
         .notEmpty().withMessage('Campo preco é obrigatório!')
         .isNumeric().withMessage('Campo preco é numerico!'),
     body('ativo').optional()
         .notEmpty().withMessage('Campo ativo é obrigatório!')
-        .isInt().withMessage('Campo ativo é um número!')
+        .isInt().withMessage('Campo ativo é somente número!')
 
 ], validar,  produto.update);
 

@@ -28,13 +28,13 @@ Produto.create = (produto, result) => {
                         var msg = err.sqlMessage;
                         var msg = msg.split(" ");
 
-                        result(null, {
+                        result({
                             erro: err.errno,
                             message: msg[5] + ": " + msg[2] + " já existe no sistema."
-                        });
+                        }, null);
                         return;
                     } else {
-                        result(null, err);
+                        result(err, null);
                         return;
                     }
 
@@ -42,7 +42,8 @@ Produto.create = (produto, result) => {
                 result(null, { insertId: res.insertId, message: "Produto cadastrado com sucesso!", ...produto });
             });
         } catch (err) {
-            throw err;
+            result(err, null);
+            return;
         }
     })
 };
@@ -54,19 +55,20 @@ Produto.index = (result) => {
                 + " CASE  WHEN ativo = 0 THEN 'Indisponivel' WHEN ativo = 1 THEN 'Disponivel'   END as situacao FROM produtos order by titulo";
             conn.query(query, function (err, res) {
                 if (err) {
-                    result(null, err);
+                    result(err, null);
                     return;
                 }
                 if (res.length > 0) {
                     result(null, { res });
                 } else {
-                    return result({ kind: "Não existem produtos cadastrados!!" }, null);
+                    return result({ message: "Não existem produtos cadastrados!!" }, null);
                 }
 
             });
 
         } catch (err) {
-            throw err;
+            result(err, null);
+            return;
         }
     })
 };
@@ -77,19 +79,20 @@ Produto.show = (id, result) => {
             const query = "SELECT cod_produto, titulo,sub_titulo, autor,editora,edicao, ano_edicao, preco,  CASE  WHEN ativo = 0 THEN 'Indisponivel' WHEN ativo = 1 THEN 'Disponivel'   END as situacao, CASE  WHEN ativo = 0 THEN DATE_FORMAT(deleted_at, '%d-%m-%Y %T') WHEN ativo = 1 THEN ''   END as data_deletado FROM produtos where id = ?";
             conn.query(query, id, function (err, res) {
                 if (err) {
-                    result(null, err);
+                    result(err, null);
                     return;
                 }
                 if (res.length > 0) {
                     result(null, { res });
                 } else {
-                    return result({ kind: "Produto não encontrado!!" }, null);
+                    return result({ message: "Produto não encontrado!!" }, null);
                 }
 
             });
 
         } catch (err) {
-            throw err;
+            result(err, null);
+            return;
         }
     })
 };
@@ -113,19 +116,19 @@ Produto.update = (id, produto, result) => {
                         var msg = err.sqlMessage;
                         var msg = msg.split(" ");
 
-                        result(null, {
+                        result({
                             erro: err.errno,
                             message: msg[5] + ": " + msg[2] + " já existe no sistema."
-                        });
+                        }, null);
                         return;
                     } else {
-                        result(null, err);
+                        result(err, null);
                         return;
                     }
 
                 }
                 if (res.affectedRows == 0) {
-                    result({ kind: "Produto não encontrado" }, null);
+                    result({ message: "Produto não encontrado" }, null);
                     return;
                 } else {
                     result(null, { id: id, message: "Produto alterado com sucesso!", ...produto });
@@ -134,7 +137,8 @@ Produto.update = (id, produto, result) => {
             });
 
         } catch (err) {
-            throw err;
+            result(err, null);
+            return;
         }
     })
 };
@@ -146,17 +150,18 @@ Produto.delete = (id, result) => {
             const query = "UPDATE produtos SET `ativo`= 0, `deleted_at`= NOW() WHERE id = ?";
             conn.query(query, id, function (err, res) {
                 if (err) {
-                    result(null, err);
+                    result(err, null);
                     return;
                 }
                 if (res.affectedRows == 0) {
-                    result({ kind: "Produto não encontrado" }, null);
+                    result({ message: "Produto não encontrado" }, null);
                     return;
                 }
                 result(null, res);
             });
         } catch (err) {
-            throw err;
+            result(err, null);
+            return;
         }
     })
 };

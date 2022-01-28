@@ -5,9 +5,7 @@ exports.create = (req, res) => {
 
 
 	if (!req._body) {
-		return res.status(400).send({
-			message: "O conteúdo não pode estar vazio!"
-		});
+		return res.status(400).send({ message: "O conteúdo não pode estar vazio!" });
 	}
 
 	const { id, id_cliente, id_produto, quantidade, preco_unit } = req.body;
@@ -25,11 +23,14 @@ exports.create = (req, res) => {
 	Venda.create(venda, (err, data) => {
 
 		if (err) {
-			res.status(500).send({
-				message: "Ocorreu algum erro ao cadastrar uma venda."
-			});
+			if (err.message !== '') {
+				res.status(404).send(err);
+			} else {
+				res.status(500).send({ message: "Ocorreu algum erro ao cadastrar uma venda." });
+			}
+
 		} else {
-			res.send(data);
+			res.status(200).send(data);
 		}
 
 	});

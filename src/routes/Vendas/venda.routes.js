@@ -13,7 +13,8 @@ router.post("/store", [
         .isInt().withMessage('O campo id_produto é um número!'),
     body('quantidade')
         .notEmpty().withMessage("O campo quantidade é obrigatório")
-        .isInt().withMessage('O campo quantidade é um número!'),
+        .isInt().withMessage('O campo quantidade é um número!')
+        .isLength({ max: 11 }).withMessage('Número de caracteres excedido! Maximo: 11.'),
     body('preco_unit')
         .notEmpty().withMessage("O campo preco_unit é obrigatório")
         .isNumeric().withMessage('O campo preco_unit é um número!')

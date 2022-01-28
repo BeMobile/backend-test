@@ -19,13 +19,13 @@ User.create = (user, result) => {
             conn.query(query, [user.nome, user.email, conj.hash, conj.salt], function (err, res) {
                 if (err) {
                     if (err.errno === 1062) {
-                        result(null, {
+                        result({
                             erro: err.errno,
                             message: "O email " + user.email + " já existe no sistema."
-                        });
+                        }, null);
                         return;
                     } else {
-                        result(null, err);
+                        result(err, null);
                         return;
                     }
 
@@ -33,7 +33,8 @@ User.create = (user, result) => {
                 result(null, { insertId: res.insertId, message: "Usuario cadastrado com sucesso!", nome: user.nome, email: user.email });
             });
         } catch (err) {
-            throw err;
+            result(err, null);
+            return;
         }
     })
 };
@@ -44,7 +45,7 @@ User.getLogin = (user, result) => {
             const query = "SELECT * FROM usuarios WHERE email = ?";
             conn.query(query, [user.email], function (err, res) {
                 if (err) {
-                    result(null, err);
+                    result(err, null);
                     return;
                 }
                 if (res.length) {
@@ -56,12 +57,12 @@ User.getLogin = (user, result) => {
                         const query = "SELECT * FROM usuarios WHERE email = ? and senha = ? ";
                         conn.query(query, [user.email, conj.hash], function (err, res) {
                             if (err) {
-                                result(null, err);
+                                result(err, null);
                             }
                             if (res.length) {
                                 const id = res[0].id;
                                 const token = jwt.sign({ id }, process.env.SECRET, {
-                                    expiresIn: 600 
+                                    expiresIn: 600
                                 });
                                 result(null, { message: "Usuario Logado! ", auth: true, token: token, nome: res[0].nome, email: res[0].email });
 
@@ -69,16 +70,17 @@ User.getLogin = (user, result) => {
                         });
 
                     } else {
-                        return result({ kind: "Email e Senha não conferem!!" }, null);
+                        return result({ message: "Email e Senha não conferem!!" }, null);
                     }
                 } else {
-                    return result({ kind: "Email não cadastrado!!" }, null);
+                    return result({ message: "Email não cadastrado!!" }, null);
                 }
 
             });
 
         } catch (err) {
-            throw err;
+            result(err, null);
+            return;
         }
     })
 };

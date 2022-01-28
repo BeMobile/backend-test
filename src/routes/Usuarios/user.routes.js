@@ -9,17 +9,19 @@ router.post("/signup", [
         .notEmpty().withMessage("O campo nome é obrigatório")
         .isAlpha().withMessage('O campo nome é uma string!'),
     body('email')
-        .isEmail().withMessage('Email Inválido!'),
+        .isEmail().withMessage('Email Inválido!')
+        .isLength({ max: 150 }).withMessage('Número de caracteres excedido! Maximo: 150.'),
     body('senha')
-        .isLength({ min: 6 }).withMessage('Número minino de caracteres é 6!')
+        .isLength({ min: 6, max: 150 }).withMessage('Número minino de caracteres é 6! Maximo: 150.')
         .matches(/\d/).withMessage('A senha precisa ter número!')
 ], validar, user.create);
 
 router.get("/login", [
     body('email')
-        .isEmail().withMessage('Email Inválido!'),
+        .isEmail().withMessage('Email Inválido!')
+        .isLength({ max: 150 }).withMessage('Número de caracteres excedido! Maximo: 150.'),
     body('senha')
-        .isLength({ min: 6 }).withMessage('Número minino de caracteres é 6!')
+        .isLength({ min: 6, max: 150 }).withMessage('Número minino de caracteres é 6! Maximo: 150.')
         .matches(/\d/).withMessage('A senha precisa ter número!')
 ], validar, user.login);
 

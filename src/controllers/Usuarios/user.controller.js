@@ -4,9 +4,7 @@ exports.create = (req, res) => {
 
 
 	if (!req._body) {
-		return res.status(400).send({
-			message: "O conteúdo não pode estar vazio!"
-		});
+		return res.status(400).send({ message: "O conteúdo não pode estar vazio!" });
 	}
 	const { id, nome, email, senha } = req.body;
 
@@ -21,11 +19,13 @@ exports.create = (req, res) => {
 
 	User.create(user, (err, data) => {
 		if (err) {
-			res.status(500).send({
-				message: "Ocorreu algum erro ao cadastrar usuario."
-			});
+			if (err.message !== '') {
+				res.status(404).send(err);
+			} else {
+				res.status(500).send({ message: "Ocorreu algum erro ao cadastrar usuario." });
+			}
 		} else {
-			res.send(data);
+			res.status(200).send(data);
 		}
 
 	});
@@ -35,24 +35,18 @@ exports.create = (req, res) => {
 
 exports.login = (req, res) => {
 	if (!req._body) {
-		return res.status(400).send({
-			message: "O conteúdo não pode estar vazio!"
-		});
+		return res.status(400).send({ message: "O conteúdo não pode estar vazio!" });
 	}
-	
+
 	User.getLogin(req.body, (err, data) => {
 		if (err) {
-			if (err.kind !== '') {
-				res.status(404).send({
-					message: err.kind + ` Email utilizado:  ${req.body.email}.`
-				});
+			if (err.message !== '') {
+				res.status(404).send(err);
 			} else {
-				res.status(500).send({
-					message: "Erro ao realizar login com email:  " + req.body.email
-				});
+				res.status(500).send({ message: "Erro ao realizar login com email:  " + req.body.email });
 			}
 		} else {
-			res.send(data);
+			res.status(200).send(data);
 		}
 	});
 

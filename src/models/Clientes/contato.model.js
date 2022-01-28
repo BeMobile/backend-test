@@ -20,32 +20,34 @@ Contato.create = (contatos, result) => {
                         const query1 = "DELETE FROM clientes WHERE id = ?";
                         conn.query(query1, contatos.id_cliente, function (err1, res1) {
                             if (err1) {
-                                result(null, err1);
+                                result(err1, null);
                                 return;
                             }
                         });
                     } catch (err1) {
-                        throw err1;
+                        result(err1, null);
+                        return;
                     }
 
                     if (err.errno === 1062) {
                         var msg = err.sqlMessage;
                         var msg = msg.split(" ");
-                        result(null, {
+                        result({
                             erro: err.errno,
                             message: msg[5] + ": " + msg[2] + " já existe no sistema.",
                             sqlMessage: err.sqlMessage
-                        });
+                        }, null);
                         return;
                     } else {
-                        result(null, err);
+                        result(err, null);
                         return;
                     }
                 }
                 result(null, { insertId: res.insertId, message: "Contato cadastrado com sucesso!", ...contatos });
             });
         } catch (err) {
-            throw err;
+            result(err, null);
+            return;
         }
     })
 };
@@ -69,26 +71,27 @@ Contato.update = (id, contatos, result) => {
                     if (err.errno === 1062) {
                         var msg = err.sqlMessage;
                         var msg = msg.split(" ");
-                        result(null, {
+                        result({
                             erro: err.errno,
                             message: msg[5] + ": " + msg[2] + " já existe no sistema.",
                             sqlMessage: err.sqlMessage
-                        });
+                        }, null);
                         return;
                     } else {
-                        result(null, err);
+                        result(err, null);
                         return;
                     }
                 }
                 if (res.affectedRows == 0) {
-                    result({ kind: "Contato não encontrado" }, null);
+                    result({ message: "Contato não encontrado" }, null);
                     return;
                 }
                 result(null, { id: id, message: "Contato alterado com sucesso!", ...contatos });
             });
 
         } catch (err) {
-            throw err;
+            result(err, null);
+            return;
         }
     })
 };

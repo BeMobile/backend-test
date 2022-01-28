@@ -22,21 +22,21 @@ Cliente.create = (cliente, result) => {
                         var msg = err.sqlMessage;
                         var msg = msg.split(" ");
 
-                        result(null, {
+                        result({
                             erro: err.errno,
                             message: msg[5] + ": " + msg[2] + " já existe no sistema.",
                             sqlMessage: err.sqlMessage
-                        });
+                        }, null);
                         return;
                     } else if (err.errno === 1292) {
-                        result(null, {
+                        result({
                             erro: err.errno,
                             message: "A data de nascimento precisa ser no formato Ano/Mes/Dia ",
                             sqlMessage: err.sqlMessage
-                        });
+                        }, null);
                         return;
                     } else {
-                        result(null, err);
+                        result(err, null);
                         return;
                     }
 
@@ -45,7 +45,8 @@ Cliente.create = (cliente, result) => {
                 result(null, { idInsert: res.insertId, message: "Cliente cadastrado com sucesso!", ...cliente });
             });
         } catch (err) {
-            throw err;
+            result(err, null);
+            return;
         }
     })
 };
@@ -56,19 +57,20 @@ Cliente.index = (result) => {
             const query = "SELECT nome, cpf, genero, DATE_FORMAT(data_nascimento, '%d-%m-%Y') as data_nascimento FROM clientes order by id";
             conn.query(query, function (err, res) {
                 if (err) {
-                    result(null, err);
+                    result(err, null);
                     return;
                 }
                 if (res.length > 0) {
                     result(null, { res });
                 } else {
-                    return result({ kind: "Não existem clientes cadastrados!!" }, null);
+                    return result({ message: "Não existem clientes cadastrados!!" }, null);
                 }
 
             });
 
         } catch (err) {
-            throw err;
+            result(err, null);
+            return;
         }
     })
 };
@@ -80,7 +82,7 @@ Cliente.show = (id, venda, result) => {
             const query = "SELECT nome,cpf,genero, DATE_FORMAT(data_nascimento, '%d-%m-%Y') as data_nascimento FROM clientes WHERE id= ? ";
             conn.query(query, id, function (err, res) {
                 if (err) {
-                    result(null, err);
+                    result(err, null);
                     return;
                 }
                 if (res.length > 0) {
@@ -104,7 +106,7 @@ Cliente.show = (id, venda, result) => {
                     conn.query(query, [id, data], function (err1, res1) {
 
                         if (err1) {
-                            result(null, err1);
+                            result(err1, null);
                             return;
                         }
                         if (res1.length > 0) {
@@ -112,20 +114,21 @@ Cliente.show = (id, venda, result) => {
                             result(null, { cliente: res, produtos: res1 });
 
                         } else {
-                            return result({ kind: "Cliente não possui compras!!" }, null);
+                            return result({ message: "Cliente não possui compras!!" }, null);
                         }
 
                     });
 
                 } else {
-                    return result({ kind: "Cliente não encontrado!!" }, null);
+                    return result({ message: "Cliente não encontrado!!" }, null);
                 }
 
             });
 
 
         } catch (err) {
-            throw err;
+            result(err, null);
+            return;
         }
     })
 };
@@ -148,34 +151,35 @@ Cliente.update = (id, cliente, result) => {
                         var msg = err.sqlMessage;
                         var msg = msg.split(" ");
 
-                        result(null, {
+                        result({
                             erro: err.errno,
                             message: msg[5] + ": " + msg[2] + " já existe no sistema.",
                             sqlMessage: err.sqlMessage
-                        });
+                        }, null);
                         return;
                     } else if (err.errno === 1292) {
-                        result(null, {
+                        result({
                             erro: err.errno,
                             message: "A data de nascimento precisa ser no formato Ano/Mes/Dia ",
                             sqlMessage: err.sqlMessage
-                        });
+                        }, null);
                         return;
                     } else {
-                        result(null, err);
+                        result(err, null);
                         return;
                     }
                 }
                 if (res.affectedRows == 0) {
-                    result({ kind: "Cliente não encontrado" }, null);
+                    result({ message: "Cliente não encontrado" }, null);
                     return;
                 }
-                
+
                 result(null, { id: id, message: "Cliente alterado com sucesso!!!", ...cliente });
             });
 
         } catch (err) {
-            throw err;
+            result(err, null);
+            return;
         }
     })
 };
@@ -188,17 +192,18 @@ Cliente.delete = (id, result) => {
             const query = "DELETE FROM clientes WHERE id = ?";
             conn.query(query, id, function (err, res) {
                 if (err) {
-                    result(null, err);
+                    result(err, null);
                     return;
                 }
                 if (res.affectedRows == 0) {
-                    result({ kind: "Cliente não encontrado" }, null);
+                    result({ message: "Cliente não encontrado" }, null);
                     return;
                 }
                 result(null, res);
             });
         } catch (err) {
-            throw err;
+            result(err, null);
+            return;
         }
     })
 };

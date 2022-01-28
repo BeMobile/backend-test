@@ -24,23 +24,25 @@ Endereco.create = (end, result) => {
                         const query1 = "DELETE FROM clientes WHERE id = ?";
                         conn.query(query1, end.id_cliente, function (err1, res1) {
                             if (err1) {
-                                result(null, err1);
+                                result(err1, null);
                                 return;
                             }
                         });
                     } catch (err1) {
-                        throw err1;
+                        result(err1, null);
+                        return;
                     }
 
 
-                    result(null, err);
+                    result(err, null);
                     return;
 
                 }
                 result(null, { insertId: res.insertId, message: "Endereco cadastrado com sucesso!", ...end });
             });
         } catch (err) {
-            throw err;
+            result(err, null);
+            return;
         }
     })
 };
@@ -63,13 +65,13 @@ Endereco.update = (id, end, result) => {
 
             conn.query(query, [...conteudo, id], function (err, res) {
                 if (err) {
-                   
-                        result(null, err);
-                        return;
-                    
+
+                    result(err, null);
+                    return;
+
                 }
                 if (res.affectedRows == 0) {
-                    result({ kind: "Endereco não encontrado" }, null);
+                    result({ message: "Endereco não encontrado" }, null);
                     return;
                 }
 
@@ -77,7 +79,8 @@ Endereco.update = (id, end, result) => {
             });
 
         } catch (err) {
-            throw err;
+            result(err, null);
+            return;
         }
     })
 };

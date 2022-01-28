@@ -5,9 +5,7 @@ exports.create = (req, res) => {
 
 
 	if (!req._body) {
-		return res.status(400).send({
-			message: "O conteúdo não pode estar vazio!"
-		});
+		return res.status(400).send({ message: "O conteúdo não pode estar vazio!" });
 	}
 	const { id, cod_produto, autor, titulo, subtitulo, editora,
 		preco, ativo, edicao, ano_edicao } = req.body;
@@ -31,11 +29,14 @@ exports.create = (req, res) => {
 
 	Produto.create(produto, (err, data) => {
 		if (err) {
-			res.status(500).send({
-				message: "Ocorreu algum erro ao cadastrar usuario."
-			});
+			if (err.message !== '') {
+				res.status(404).send(err);
+			} else {
+				res.status(500).send({ message: "Ocorreu algum erro ao cadastrar produto." });
+			}
+
 		} else {
-			res.send(data);
+			res.status(200).send(data);
 		}
 
 	});
@@ -46,17 +47,13 @@ exports.index = (req, res, next) => {
 
 	Produto.index((err, data) => {
 		if (err) {
-			if (err.kind !== '') {
-				res.status(404).send({
-					message: err.kind
-				});
+			if (err.message !== '') {
+				res.status(404).send(err);
 			} else {
-				res.status(500).send({
-					message: "Erro ao buscar produtos"
-				});
+				res.status(500).send({ message: "Erro ao buscar produtos" });
 			}
 		} else {
-			res.send(data);
+			res.status(200).send(data);
 		}
 	});
 
@@ -67,17 +64,13 @@ exports.show = (req, res) => {
 
 	Produto.show(req.params.id, (err, data) => {
 		if (err) {
-			if (err.kind !== '') {
-				res.status(404).send({
-					message: err.kind
-				});
+			if (err.message !== '') {
+				res.status(404).send(err);
 			} else {
-				res.status(500).send({
-					message: "Erro ao buscar produto com id:  " + req.params.id
-				});
+				res.status(500).send({ message: "Erro ao buscar produto com id:  " + req.params.id });
 			}
 		} else {
-			res.send(data);
+			res.status(200).send(data);
 		}
 	});
 
@@ -86,9 +79,7 @@ exports.show = (req, res) => {
 exports.update = (req, res) => {
 
 	if (!req._body) {
-		return res.status(400).send({
-			message: "O conteúdo não pode estar vazio!"
-		});
+		return res.status(400).send({ message: "O conteúdo não pode estar vazio!" });
 	}
 
 
@@ -96,17 +87,13 @@ exports.update = (req, res) => {
 		req.params.id, req.body, (err, data) => {
 			if (err) {
 
-				if (err.kind !== '') {
-					res.status(404).send({
-						message: err.kind
-					});
+				if (err.message !== '') {
+					res.status(404).send(err);
 				} else {
-					res.status(500).send({
-						message: "Erro ao realizar alteração no produto com id:  " + req.params.id
-					});
+					res.status(500).send({ message: "Erro ao realizar alteração no produto com id:  " + req.params.id });
 				}
 			} else {
-				res.send(data);
+				res.status(200).send(data);
 			}
 		});
 
@@ -115,17 +102,13 @@ exports.delete = (req, res) => {
 
 	Produto.delete(req.params.id, (err, data) => {
 		if (err) {
-			if (err.kind !== '') {
-				res.status(404).send({
-					message: err.kind
-				});
+			if (err.message !== '') {
+				res.status(404).send(err);
 			} else {
-				res.status(500).send({
-					message: "Não foi possível deletar produto com id:  " + req.params.id
-				});
+				res.status(500).send({ message: "Não foi possível deletar produto com id:  " + req.params.id });
 			}
 		} else {
-			res.send({ message: `O produto foi excluido com sucesso!` });
+			res.status(200).send({ message: `O produto foi excluido com sucesso!` });
 		}
 	});
 

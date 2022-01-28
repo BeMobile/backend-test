@@ -6,79 +6,58 @@ exports.create = (req, res) => {
 
 
 	if (!req._body) {
-		return res.status(400).send({
-			message: "O conteúdo não pode estar vazio!"
-		});
+		return res.status(400).send({ message: "O conteúdo não pode estar vazio!" });
 	}
-	if (req.body.nome === '' || req.body.cpf === '' ||
-		req.body.telefone === '' || req.body.cep === ''
-		|| req.body.numero === '' || req.body.email === '') {
-		return res.status(400).send({
-			message: "Os campos nome, cpf, telefone,email,  cep e numero não podem serem vazios."
-		});
-	}
-	if (req.body.nome === undefined || req.body.cpf === undefined ||
-		req.body.telefone === undefined || req.body.cep === undefined ||
-		req.body.numero === undefined || req.body.email === undefined) {
-
-		return res.status(400).send({
-			message: "Campos nome, cpf, telefone, email, cep e numero não podem ser indefinidos!!"
-		});
-	}
+	const { id, nome, cpf, genero, data_nascimento, telefone,
+		email, cep, estado, cidade, logradouro, numero, complemento, bairro } = req.body;
 
 	const cliente = new Cliente({
-		id: req.body.id,
-		nome: req.body.nome,
-		cpf: req.body.cpf,
-		genero: req.body.genero,
-		data_nascimento: req.body.data_nascimento
+		id: id,
+		nome: nome,
+		cpf: cpf,
+		genero: genero || null,
+		data_nascimento: data_nascimento || null
 
 	});
 
 	Cliente.create(cliente, (err, data) => {
 		if (err) {
-			res.status(500).send({
-				message: "Ocorreu algum erro ao cadastrar usuario."
-			});
+			res.status(500).send({ message: "Ocorreu algum erro ao cadastrar usuario." });
 		} else {
 
 			if (data.erro !== undefined) {
 				res.send(data);
 			} else {
 				const contato = new Contato({
-					id: req.body.id,
+					id: id,
 					id_cliente: data.idInsert,
-					telefone: req.body.telefone,
-					email: req.body.email
+					telefone: telefone,
+					email: email
 
 				});
 
 				Contato.create(contato, (err1, data1) => {
 					if (err1) {
-						res.status(500).send({
-							message: "Ocorreu algum erro ao cadastrar contato."
-						});
+						res.status(500).send({ message: "Ocorreu algum erro ao cadastrar contato." });
 					} else {
 						if (data1.erro !== undefined) {
 							res.send(data1);
 						} else {
 							const end = new Endereco({
-								id: req.body.id,
+								id: id,
 								id_cliente: data.idInsert,
-								cep: req.body.cep,
-								estado: req.body.estado,
-								cidade: req.body.cidade,
-								bairro: req.body.bairro,
-								logradouro: req.body.logradouro,
-								numero: req.body.numero,
-								complemento: req.body.complemento
+								cep: cep,
+								estado: estado,
+								cidade: cidade,
+								bairro: bairro || null,
+								logradouro: logradouro || null,
+								numero: numero || 0,
+								complemento: complemento || null
 
 							});
 							Endereco.create(end, (err2, data2) => {
 								if (err2) {
-									res.status(500).send({
-										message: "Ocorreu algum erro ao cadastrar endereco."
-									});
+									res.status(500).send({ message: "Ocorreu algum erro ao cadastrar endereco." });
 								} else {
 									if (data2.erro !== undefined) {
 										res.send(data2);
@@ -158,20 +137,7 @@ exports.update = (req, res) => {
 			message: "O conteúdo não pode estar vazio!"
 		});
 	}
-	if (req.body.nome === '' || req.body.cpf === '') {
-		return res.status(400).send({
-			message: "Os campos nome, cpf  não podem serem vazios."
-		});
-	}
-	if (req.body.nome === undefined || req.body.cpf === undefined) {
-
-		return res.status(400).send({
-			message: "Campos nome, cpf  não podem ser indefinidos!!"
-		});
-	}
-
-
-
+	
 	Cliente.update(
 		req.params.id, req.body, (err, data) => {
 			if (err) {

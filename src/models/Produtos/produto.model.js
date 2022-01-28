@@ -20,10 +20,9 @@ const Produto = function (produto) {
 Produto.create = (produto, result) => {
     sql.then(function (conn) {
         try {
-            const query = "INSERT INTO produtos (`cod_produto`, `titulo`, `sub_titulo`, `autor`, `editora`, `edicao`, `ano_edicao`, `estado`, `cidade`, `preco`,  `ativo`) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);";
+            const query = "INSERT INTO produtos (`cod_produto`, `titulo`, `sub_titulo`, `autor`, `editora`, `edicao`, `ano_edicao`,  `preco`,  `ativo`) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?);";
             conn.query(query, [produto.cod_produto, produto.titulo, produto.subtitulo, produto.autor,
-            produto.editora, produto.edicao, produto.ano_edicao, produto.estado,
-            produto.cidade, produto.preco, produto.ativo], function (err, res) {
+            produto.editora, produto.edicao, produto.ano_edicao, produto.preco, produto.ativo], function (err, res) {
                 if (err) {
                     if (err.errno === 1062) {
                         var msg = err.sqlMessage;
@@ -32,24 +31,6 @@ Produto.create = (produto, result) => {
                         result(null, {
                             erro: err.errno,
                             message: msg[5] + ": " + msg[2] + " já existe no sistema."
-                        });
-                        return;
-                    } else if (err.errno === 1366) {
-                        var msg = err.sqlMessage;
-                        var msg = msg.split(" ");
-
-                        result(null, {
-                            erro: err.errno,
-                            message: "O campo " + msg[6] + " só aceita valores do tipo " + msg[1]
-                        });
-                        return;
-                    } else if (err.errno === 1265) {
-                        var msg = err.sqlMessage;
-                        var msg = msg.split(" ");
-
-                        result(null, {
-                            erro: err.errno,
-                            message: "O campo " + msg[4] + " só aceita valores do tipo inteiro/float"
                         });
                         return;
                     } else {
@@ -93,7 +74,7 @@ Produto.index = (result) => {
 Produto.show = (id, result) => {
     sql.then(function (conn) {
         try {
-            const query = "SELECT cod_produto, titulo,sub_titulo, autor,editora,edicao, ano_edicao, estado, cidade, preco,  CASE  WHEN ativo = 0 THEN 'Indisponivel' WHEN ativo = 1 THEN 'Disponivel'   END as situacao, CASE  WHEN ativo = 0 THEN DATE_FORMAT(deleted_at, '%d-%m-%Y %T') WHEN ativo = 1 THEN ''   END as data_deletado FROM produtos where id = ?";
+            const query = "SELECT cod_produto, titulo,sub_titulo, autor,editora,edicao, ano_edicao, preco,  CASE  WHEN ativo = 0 THEN 'Indisponivel' WHEN ativo = 1 THEN 'Disponivel'   END as situacao, CASE  WHEN ativo = 0 THEN DATE_FORMAT(deleted_at, '%d-%m-%Y %T') WHEN ativo = 1 THEN ''   END as data_deletado FROM produtos where id = ?";
             conn.query(query, id, function (err, res) {
                 if (err) {
                     result(null, err);
@@ -135,24 +116,6 @@ Produto.update = (id, produto, result) => {
                         result(null, {
                             erro: err.errno,
                             message: msg[5] + ": " + msg[2] + " já existe no sistema."
-                        });
-                        return;
-                    } else if (err.errno === 1366) {
-                        var msg = err.sqlMessage;
-                        var msg = msg.split(" ");
-
-                        result(null, {
-                            erro: err.errno,
-                            message: "O campo " + msg[6] + " só aceita valores do tipo " + msg[1]
-                        });
-                        return;
-                    } else if (err.errno === 1265) {
-                        var msg = err.sqlMessage;
-                        var msg = msg.split(" ");
-
-                        result(null, {
-                            erro: err.errno,
-                            message: "O campo " + msg[4] + " só aceita valores do tipo inteiro/float"
                         });
                         return;
                     } else {

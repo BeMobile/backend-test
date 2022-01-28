@@ -9,25 +9,15 @@ exports.create = (req, res) => {
 			message: "O conteúdo não pode estar vazio!"
 		});
 	}
-	if (req.body.id_cliente === '' || req.body.id_produto === ''
-		|| req.body.quantidade === '' || req.body.preco_unit === '') {
-		return res.status(400).send({
-			message: "Os campos id_cliente, id_produto, quantidade, preco_unit não podem serem vazios."
-		});
-	}
-	if (req.body.id_cliente === undefined || req.body.id_produto === undefined
-		|| req.body.quantidade === undefined || req.body.preco_unit === undefined) {
-		return res.status(400).send({
-			message: "Os campos id_cliente, id_produto, quantidade, preco_unit não podem serem indefinidos!!"
-		});
-	}
+
+	const { id, id_cliente, id_produto, quantidade, preco_unit } = req.body;
 
 	var venda = new Venda({
-		id: req.body.id,
-		id_cliente: req.body.id_cliente,
-		id_produto: req.body.id_produto,
-		quantidade: req.body.quantidade,
-		preco_unit: req.body.preco_unit,
+		id: id,
+		id_cliente: id_cliente,
+		id_produto: id_produto,
+		quantidade: quantidade,
+		preco_unit: preco_unit,
 
 	});
 

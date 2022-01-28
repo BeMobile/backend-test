@@ -9,34 +9,22 @@ exports.create = (req, res) => {
 			message: "O conteúdo não pode estar vazio!"
 		});
 	}
-	if (req.body.cod_produto === '' || req.body.titulo === ''
-		|| req.body.autor === '' || req.body.editora === ''
-		|| req.body.preco === '' || req.body.ativo === '') {
-		return res.status(400).send({
-			message: "Os campos cod_produto, titulo, autor, editora, preco, ativo não podem serem vazios."
-		});
-	}
-	if (req.body.cod_produto === undefined || req.body.titulo === undefined
-		|| req.body.autor === undefined || req.body.editora === undefined
-		|| req.body.preco === undefined || req.body.ativo === undefined) {
-		return res.status(400).send({
-			message: "Os campos cod_produto, titulo, autor, editora, preco, ativo não podem serem  indefinidos!!"
-		});
-	}
+	const { id, cod_produto, autor, titulo, subtitulo, editora,
+		preco, ativo, edicao, ano_edicao } = req.body;
+
+
 
 	const produto = new Produto({
-		id: req.body.id,
-		cod_produto: req.body.cod_produto,
-		titulo: req.body.titulo,
-		subtitulo: req.body.subtitulo,
-		autor: req.body.autor,
-		editora: req.body.editora,
-		edicao: req.body.edicao,
-		ano_edicao: req.body.ano_edicao,
-		estado: req.body.estado,
-		cidade: req.body.cidade,
-		preco: req.body.preco,
-		ativo: req.body.ativo,
+		id: id,
+		cod_produto: cod_produto,
+		titulo: titulo,
+		subtitulo: subtitulo,
+		autor: autor,
+		editora: editora,
+		edicao: edicao,
+		ano_edicao: ano_edicao,
+		preco: preco,
+		ativo: ativo,
 
 	});
 
@@ -103,20 +91,6 @@ exports.update = (req, res) => {
 		});
 	}
 
-	if (req.body.cod_produto === '' || req.body.titulo === ''
-		|| req.body.autor === '' || req.body.editora === ''
-		|| req.body.preco === '' || req.body.ativo === '') {
-		return res.status(400).send({
-			message: "Os campos cod_produto, titulo, autor, editora, preco, ativo não podem serem vazios."
-		});
-	}
-	if (req.body.cod_produto === undefined || req.body.titulo === undefined
-		|| req.body.autor === undefined || req.body.editora === undefined
-		|| req.body.preco === undefined || req.body.ativo === undefined) {
-		return res.status(400).send({
-			message: "Os campos cod_produto, titulo, autor, editora, preco, ativo não podem serem  indefinidos!!"
-		});
-	}
 
 	Produto.update(
 		req.params.id, req.body, (err, data) => {

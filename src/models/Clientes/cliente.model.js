@@ -35,16 +35,6 @@ Cliente.create = (cliente, result) => {
                             sqlMessage: err.sqlMessage
                         });
                         return;
-                    } else if (err.errno === 1406) {
-                        var msg = err.sqlMessage;
-                        var msg = msg.split(" ");
-
-                        result(null, {
-                            erro: err.errno,
-                            message: "Conteudo muito longo para a coluna " + msg[5],
-                            sqlMessage: err.sqlMessage
-                        });
-                        return;
                     } else {
                         result(null, err);
                         return;
@@ -168,16 +158,6 @@ Cliente.update = (id, cliente, result) => {
                         result(null, {
                             erro: err.errno,
                             message: "A data de nascimento precisa ser no formato Ano/Mes/Dia ",
-                            sqlMessage: err.sqlMessage
-                        });
-                        return;
-                    } else if (err.errno === 1406) {
-                        var msg = err.sqlMessage;
-                        var msg = msg.split(" ");
-
-                        result(null, {
-                            erro: err.errno,
-                            message: "Conteudo muito longo para a coluna " + msg[5],
                             sqlMessage: err.sqlMessage
                         });
                         return;

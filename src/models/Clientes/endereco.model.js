@@ -32,40 +32,10 @@ Endereco.create = (end, result) => {
                         throw err1;
                     }
 
-                    if (err.errno === 1406) {
-                        var msg = err.sqlMessage;
-                        var msg = msg.split(" ");
 
-                        result(null, {
-                            erro: err.errno,
-                            message: "Conteudo muito longo para a coluna " + msg[5],
-                            sqlMessage: err.sqlMessage
-                        });
-                        return;
-                    } else if (err.errno === 1366) {
-                        var msg = err.sqlMessage;
-                        var msg = msg.split(" ");
+                    result(null, err);
+                    return;
 
-                        result(null, {
-                            erro: err.errno,
-                            message: "O campo " + msg[6] + " só aceita valores do tipo " + msg[1],
-                            sqlMessage: err.sqlMessage
-                        });
-                        return;
-                    } else if (err.errno === 1265) {
-                        var msg = err.sqlMessage;
-                        var msg = msg.split(" ");
-
-                        result(null, {
-                            erro: err.errno,
-                            message: "O campo " + msg[4] + " só aceita valores do tipo inteiro",
-                            sqlMessage: err.sqlMessage
-                        });
-                        return;
-                    } else {
-                        result(null, err);
-                        return;
-                    }
                 }
                 result(null, { insertId: res.insertId, message: "Endereco cadastrado com sucesso!", ...end });
             });
@@ -93,40 +63,10 @@ Endereco.update = (id, end, result) => {
 
             conn.query(query, [...conteudo, id], function (err, res) {
                 if (err) {
-                    if (err.errno === 1406) {
-                        var msg = err.sqlMessage;
-                        var msg = msg.split(" ");
-
-                        result(null, {
-                            erro: err.errno,
-                            message: "Conteudo muito longo para a coluna " + msg[5],
-                            sqlMessage: err.sqlMessage
-                        });
-                        return;
-                    } else if (err.errno === 1366) {
-                        var msg = err.sqlMessage;
-                        var msg = msg.split(" ");
-
-                        result(null, {
-                            erro: err.errno,
-                            message: "O campo " + msg[6] + " só aceita valores do tipo " + msg[1],
-                            sqlMessage: err.sqlMessage
-                        });
-                        return;
-                    } else if (err.errno === 1265) {
-                        var msg = err.sqlMessage;
-                        var msg = msg.split(" ");
-
-                        result(null, {
-                            erro: err.errno,
-                            message: "O campo " + msg[4] + " só aceita valores do tipo inteiro",
-                            sqlMessage: err.sqlMessage
-                        });
-                        return;
-                    } else {
+                   
                         result(null, err);
                         return;
-                    }
+                    
                 }
                 if (res.affectedRows == 0) {
                     result({ kind: "Endereco não encontrado" }, null);

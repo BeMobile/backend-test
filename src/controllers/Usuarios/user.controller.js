@@ -8,22 +8,13 @@ exports.create = (req, res) => {
 			message: "O conteúdo não pode estar vazio!"
 		});
 	}
-	if (req.body.nome === '' || req.body.email === '' || req.body.senha === '') {
-		return res.status(400).send({
-			message: "Os campos nome, email e senha não podem serem vazios."
-		});
-	}
-	if (req.body.nome === undefined || req.body.email === undefined || req.body.senha === undefined) {
-		return res.status(400).send({
-			message: "Os campos nome, email e senha não podem serem indefinidos!!"
-		});
-	}
+	const { id, nome, email, senha } = req.body;
 
 	const user = new User({
-		id: req.body.id,
-		nome: req.body.nome,
-		email: req.body.email,
-		senha: req.body.senha
+		id: id,
+		nome: nome,
+		email: email,
+		senha: senha
 
 	});
 
@@ -48,17 +39,7 @@ exports.login = (req, res) => {
 			message: "O conteúdo não pode estar vazio!"
 		});
 	}
-	if (req.body.email === '' || req.body.senha === '') {
-		return res.status(400).send({
-			message: "Os campos email e senha não podem serem vazios."
-		});
-	}
-	if ((req.body.email === undefined) || (req.body.senha === undefined)) {
-		return res.status(400).send({
-			message: "Campos email e senha não podem serem indefinidos!!"
-		});
-	}
-
+	
 	User.getLogin(req.body, (err, data) => {
 		if (err) {
 			if (err.kind !== '') {

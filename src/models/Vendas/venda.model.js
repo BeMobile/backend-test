@@ -19,27 +19,7 @@ Venda.create = (venda, result) => {
 
                 if (err) {
 
-                    if (err.errno === 1366) {
-                        var msg = err.sqlMessage;
-                        var msg = msg.split(" ");
-
-                        result(null, {
-                            erro: err.errno,
-                            message: "O campo " + msg[6] + " só aceita valores do tipo " + msg[1],
-                            sqlMessage: err.sqlMessage
-                        });
-                        return;
-                    } else if (err.errno === 1054) {
-                        var msg = err.sqlMessage;
-                        var msg = msg.split(" ");
-
-                        result(null, {
-                            erro: err.errno,
-                            message: "Os campos não podem serem texto.",
-                            sqlMessage: err.sqlMessage
-                        });
-                        return;
-                    } else if (err.errno === 1452) {
+                    if (err.errno === 1452) {
                         var msg = err.sqlMessage;
                         var msg = msg.split(" ");
 

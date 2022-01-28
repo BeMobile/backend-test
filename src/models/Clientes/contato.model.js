@@ -37,16 +37,6 @@ Contato.create = (contato, result) => {
                             sqlMessage: err.sqlMessage
                         });
                         return;
-                    } else if (err.errno === 1406) {
-                        var msg = err.sqlMessage;
-                        var msg = msg.split(" ");
-
-                        result(null, {
-                            erro: err.errno,
-                            message: "Conteudo muito longo para a coluna " + msg[5],
-                            sqlMessage: err.sqlMessage
-                        });
-                        return;
                     } else {
                         result(null, err);
                         return;
@@ -82,16 +72,6 @@ Contato.update = (id, contato, result) => {
                         result(null, {
                             erro: err.errno,
                             message: msg[5] + ": " + msg[2] + " já existe no sistema.",
-                            sqlMessage: err.sqlMessage
-                        });
-                        return;
-                    } else if (err.errno === 1406) {
-                        var msg = err.sqlMessage;
-                        var msg = msg.split(" ");
-
-                        result(null, {
-                            erro: err.errno,
-                            message: "Conteudo muito longo para a coluna " + msg[5],
                             sqlMessage: err.sqlMessage
                         });
                         return;

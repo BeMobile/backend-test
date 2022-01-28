@@ -1,5 +1,5 @@
 const sql = require("../db").getConnection();
-const cripty = require("../bdCrypt");
+const cripty = require("../../utils/bdCrypt");
 const jwt = require('jsonwebtoken');
 // constructor
 const User = function (user) {

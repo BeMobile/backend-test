@@ -17,7 +17,7 @@ const Endereco = function (end) {
 Endereco.create = (end, result) => {
     sql.then(function (conn) {
         try {
-            const query = "INSERT INTO endereco (`id_cliente`, `cep`,`estado`, `cidade`, `bairro`, `logradouro`,`numero`, `complemento`) VALUES (?, ?, ?, ?, ?, ?, ?, ?);";
+            const query = "INSERT INTO enderecos (`id_cliente`, `cep`,`estado`, `cidade`, `bairro`, `logradouro`,`numero`, `complemento`) VALUES (?, ?, ?, ?, ?, ?, ?, ?);";
             conn.query(query, [end.id_cliente, end.cep, end.estado, end.cidade, end.bairro, end.logradouro, end.numero, end.complemento], function (err, res) {
                 if (err) {
                     try {
@@ -59,7 +59,7 @@ Endereco.update = (id, end, result) => {
             });
             var campos = itens.toString();
 
-            const query = "UPDATE endereco SET " + campos + " WHERE id = ?";
+            const query = "UPDATE enderecos SET " + campos + " WHERE id = ?";
 
             conn.query(query, [...conteudo, id], function (err, res) {
                 if (err) {

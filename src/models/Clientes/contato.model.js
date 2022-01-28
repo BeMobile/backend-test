@@ -1,24 +1,24 @@
 const sql = require("../db").getConnection();
 
 // constructor
-const Contato = function (contato) {
-    this.id = contato.id;
-    this.id_cliente = contato.id_cliente;
-    this.telefone = contato.telefone;
-    this.email = contato.email;
+const Contato = function (contatos) {
+    this.id = contatos.id;
+    this.id_cliente = contatos.id_cliente;
+    this.telefone = contatos.telefone;
+    this.email = contatos.email;
 };
 
 
-Contato.create = (contato, result) => {
+Contato.create = (contatos, result) => {
     sql.then(function (conn) {
         try {
-            const query = "INSERT INTO contato (`id_cliente`, `telefone`,`email`) VALUES (?, ?, ?);";
-            conn.query(query, [contato.id_cliente, contato.telefone, contato.email], function (err, res) {
+            const query = "INSERT INTO contatos (`id_cliente`, `telefone`,`email`) VALUES (?, ?, ?);";
+            conn.query(query, [contatos.id_cliente, contatos.telefone, contatos.email], function (err, res) {
                 if (err) {
 
                     try {
                         const query1 = "DELETE FROM clientes WHERE id = ?";
-                        conn.query(query1, contato.id_cliente, function (err1, res1) {
+                        conn.query(query1, contatos.id_cliente, function (err1, res1) {
                             if (err1) {
                                 result(null, err1);
                                 return;
@@ -42,7 +42,7 @@ Contato.create = (contato, result) => {
                         return;
                     }
                 }
-                result(null, { insertId: res.insertId, message: "Contato cadastrado com sucesso!", ...contato });
+                result(null, { insertId: res.insertId, message: "Contato cadastrado com sucesso!", ...contatos });
             });
         } catch (err) {
             throw err;
@@ -51,7 +51,7 @@ Contato.create = (contato, result) => {
 };
 
 
-Contato.update = (id, contato, result) => {
+Contato.update = (id, contatos, result) => {
     sql.then(function (conn) {
         try {
             var itens = [];
@@ -62,7 +62,7 @@ Contato.update = (id, contato, result) => {
             });
             var campos = itens.toString();
 
-            const query = "UPDATE contato SET " + campos + " WHERE id = ?";
+            const query = "UPDATE contatos SET " + campos + " WHERE id = ?";
             conn.query(query, [...conteudo, id], function (err, res) {
                 if (err) {
 
@@ -84,7 +84,7 @@ Contato.update = (id, contato, result) => {
                     result({ kind: "Contato não encontrado" }, null);
                     return;
                 }
-                result(null, { id: id, message: "Contato alterado com sucesso!", ...contato });
+                result(null, { id: id, message: "Contato alterado com sucesso!", ...contatos });
             });
 
         } catch (err) {

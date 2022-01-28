@@ -24,7 +24,7 @@ CREATE TABLE IF NOT EXISTS `clientes` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `nome` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
   `cpf` varchar(14) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
-  `genero` varchar(1) DEFAULT NULL,
+  `genero` varchar(30) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL,
   `data_nascimento` date DEFAULT NULL,
   `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `updated_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
@@ -34,9 +34,9 @@ CREATE TABLE IF NOT EXISTS `clientes` (
 
 -- Exportação de dados foi desmarcado.
 
--- Copiando estrutura para tabela bemobilenode.contato
-DROP TABLE IF EXISTS `contato`;
-CREATE TABLE IF NOT EXISTS `contato` (
+-- Copiando estrutura para tabela bemobilenode.contatos
+DROP TABLE IF EXISTS `contatos`;
+CREATE TABLE IF NOT EXISTS `contatos` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `id_cliente` int(11) NOT NULL,
   `telefone` varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
@@ -52,9 +52,9 @@ CREATE TABLE IF NOT EXISTS `contato` (
 
 -- Exportação de dados foi desmarcado.
 
--- Copiando estrutura para tabela bemobilenode.endereco
-DROP TABLE IF EXISTS `endereco`;
-CREATE TABLE IF NOT EXISTS `endereco` (
+-- Copiando estrutura para tabela bemobilenode.enderecos
+DROP TABLE IF EXISTS `enderecos`;
+CREATE TABLE IF NOT EXISTS `enderecos` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `id_cliente` int(11) NOT NULL,
   `cep` int(11) NOT NULL DEFAULT '0',

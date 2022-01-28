@@ -61,7 +61,7 @@ User.getLogin = (user, result) => {
                             if (res.length) {
                                 const id = res[0].id;
                                 const token = jwt.sign({ id }, process.env.SECRET, {
-                                    expiresIn: 300 // expires in 5min
+                                    expiresIn: 600 
                                 });
                                 result(null, { message: "Usuario Logado! ", auth: true, token: token, nome: res[0].nome, email: res[0].email });
 

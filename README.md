@@ -1,56 +1,69 @@
-# Be mobile - Teste de Back-end
-O teste de back-end da Be mobile consiste em estruturar uma API RESTful e um banco de dados ligado a esta API. Trate-se de um sistema que permite cadastrar usuários externamente e, ao realizarem login, poderão registrar clientes, produtos e vendas. O(a) candidato(a) poderá escolher desenvolver em Node.js (Adonis, Koa ou Express) ou PHP (Laravel).
+# API Sales Management
 
-## Banco de Dados
-O banco de dados deve ser estruturado à escolha do(a) candidato(a), mas minimamente deverá conter o seguinte:
-- usuários: email, senha;
-- clientes: nome, cpf;
-- endereço: todos os campos de endereço;
-- telefones: cliente, número;
-- produtos: colocar os dados necessários para um tipo de produto (livros), além de preço.
-- vendas: cliente, produto, quantidade, preço unitário, preço total, data e hora.
+<p align="center">
+  <a href="http://nestjs.com/" target="blank"><img src="https://nestjs.com/img/logo-small.svg" width="200" alt="Nest Logo" /></a>
+</p>
 
-## Rotas do Sistema
-- cadastro de usuário do sistema (signup)
-- login com JWT de usuário cadastrado (login)
-- clientes:
-    - listar todos os clientes cadastrados (index)
-        - apenas dados principais devem vir aqui;
-        - ordenar pelo id.
-    - detalhar um(a) cliente e vendas a ele(a) (show)
-        - trazer as vendas mais recentes primeiro;
-        - possibilidade de filtrar as vendas por mês + ano.
-    - adicionar um(a) cliente (store)
-    - editar um(a) cliente (update)
-    - excluir um(a) cliente e vendas a ele(a) (delete)
-- produtos:
-    - listar todos os produtos cadastrados (index)
-        - apenas dados principais devem vir aqui;
-        - ordenar alfabeticamente.
-    - detalhar um produto (show)
-    - criar um produto (store)
-    - editar um produto (update)
-    - exclusão lógica ("soft delete") de um produto (delete)
-- vendas:
-    - registrar venda de 1 produto a 1 cliente (store)
+[circleci-image]: https://img.shields.io/circleci/build/github/nestjs/nest/master?token=abc123def456
+[circleci-url]: https://circleci.com/gh/nestjs/nest
 
-Obs: as rotas em clientes, produtos e vendas só podem ser acessadas por usuário logado.
+  <p align="center">A progressive <a href="http://nodejs.org" target="_blank">Node.js</a> framework for building efficient and scalable server-side applications.</p>
+    <p align="center">
+<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/v/@nestjs/core.svg" alt="NPM Version" /></a>
+<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/l/@nestjs/core.svg" alt="Package License" /></a>
+<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/dm/@nestjs/common.svg" alt="NPM Downloads" /></a>
+<a href="https://circleci.com/gh/nestjs/nest" target="_blank"><img src="https://img.shields.io/circleci/build/github/nestjs/nest/master" alt="CircleCI" /></a>
+<a href="https://coveralls.io/github/nestjs/nest?branch=master" target="_blank"><img src="https://coveralls.io/repos/github/nestjs/nest/badge.svg?branch=master#9" alt="Coverage" /></a>
+<a href="https://discord.gg/G7Qnnhy" target="_blank"><img src="https://img.shields.io/badge/discord-online-brightgreen.svg" alt="Discord"/></a>
+<a href="https://opencollective.com/nest#backer" target="_blank"><img src="https://opencollective.com/nest/backers/badge.svg" alt="Backers on Open Collective" /></a>
+<a href="https://opencollective.com/nest#sponsor" target="_blank"><img src="https://opencollective.com/nest/sponsors/badge.svg" alt="Sponsors on Open Collective" /></a>
+  <a href="https://paypal.me/kamilmysliwiec" target="_blank"><img src="https://img.shields.io/badge/Donate-PayPal-ff3f59.svg"/></a>
+    <a href="https://opencollective.com/nest#sponsor"  target="_blank"><img src="https://img.shields.io/badge/Support%20us-Open%20Collective-41B883.svg" alt="Support us"></a>
+  <a href="https://twitter.com/nestframework" target="_blank"><img src="https://img.shields.io/twitter/follow/nestframework.svg?style=social&label=Follow"></a>
+</p>
 
-## Requisitos
-- estruturar o sistema observando o MVC (mas sem as views);
-- deve usar mySQL no banco de dados;
-- as respostas devem ser em JSON;
-- pode usar recursos e bibliotecas que auxiliam na administração do banco de dados (Eloquent, Lucid, Knex, Bookshelf, etc.);
-- documentar as instruções necessárias em um README (requisitos, como rodar, detalhamento de rotas);
-- fazer um Pull Request para este repositório ao finalizar.
+## Se encontre
 
-Obs: caso o(a) candidato(a) não consiga completar o teste até o prazo combinado com o avaliador, deve garantir que tudo que foi efetivamente feito esteja em pleno funcionamento. Relatar no README quais foram as dificuldades encontradas.
+- [Como rodar a API](#como-rodar-a-api)
+- [Documentação](#documentação)
+- [Autoria](#autoria)
 
-## Critérios de Avaliação
-- lógica de programação;
-- organização do projeto;
-- legibilidade do código;
-- validação necessária dos dados;
-- forma adequada de utilização dos recursos;
-- seguimento dos padrões especificados;
-- clareza na documentação.
+## Como rodar a API
+
+- Lembre de criar o arquivo .env com os dados do seu banco, utilize o arquivo _.env.example_ para criar o seu.
+
+- Atenção especial a sincronização da entity, está definido como _true_, isso vai subir as entities de forma automática, porém vai zerar o banco quando rodar pela segunda vez, caso não atualize para _false_.
+
+- Para executar o projeto, siga os passos abaixo:
+
+```bash
+npm install
+```
+
+```bash
+# development
+npm run start
+
+# watch mode
+npm run start:dev
+
+```
+
+## Documentação
+
+![Swagger](https://img.shields.io/badge/-Swagger-%23Clojure?style=for-the-badge&logo=swagger&logoColor=white)
+
+Você pode acessar a documentação desta API através da URL: <http://localhost:3000/api>
+
+## Autoria
+
+Me chamo Janice Caldeira, sou Dev Back-End Jr., atualmente cursando Análise e Desenvolvimento de Sistemas.
+
+Se conecte comigo
+
+<a href="https://www.linkedin.com/in/janicecaldeira/">![Linkedin](https://img.shields.io/badge/LinkedIn-0077B5?style=for-the-badge&logo=linkedin&logoColor=white)</a>
+
+
+## License
+
+Nest is [MIT licensed](LICENSE).
